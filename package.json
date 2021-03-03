@@ -1,0 +1,32 @@
+{
+    "name": "maggot-form",
+    "version": "1.0.0",
+    "description": "",
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "babel src -d lib"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maggot-code/maggot-form.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/maggot-code/maggot-form/issues"
+    },
+    "homepage": "https://github.com/maggot-code/maggot-form#readme",
+    "devDependencies": {
+        "@babel/cli": "^7.13.0",
+        "@babel/core": "^7.13.8",
+        "@babel/preset-env": "^7.13.9",
+        "babel-plugin-component": "^1.1.1",
+        "vue": "^2.6.12",
+        "webpack": "^5.24.2",
+        "webpack-cli": "^4.5.0"
+    },
+    "dependencies": {
+        "element-ui": "^2.15.1"
+    }
+}
