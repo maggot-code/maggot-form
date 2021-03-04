@@ -2,14 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 16:50:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-03 17:43:55
- * @Description: file content
+ * @LastEditTime: 2021-03-04 10:16:55
+ * @Description: mg form component inlet
  */
 import '../plugins/element';
-import MgButton from '../packages/mg-button/index.js';
+import MgForm from '../packages/mg-form';
+import MgInput from '../packages/mg-input';
 
 const components = [
-    MgButton
+    MgForm,
+    MgInput
 ];
 
 const install = function (Vue, opts = {}) {
@@ -25,5 +27,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
     install,
-    MgButton
+    MgForm,
+    MgInput
 }
