@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 14:15:33
+ * @LastEditTime: 2021-03-04 18:23:26
  * @Description: mg-form.vue component
 -->
 <template>
@@ -38,6 +38,7 @@
                                 :value.sync="formData[cell.field]"
                                 :leaderTag="cell.leaderTag"
                                 :workerTag="cell.workerTag"
+                                :database="cell.dataSchema"
                                 :ui="cell.uiSchema"
                                 :rule="cell.ruleSchema"
                             ></component>
@@ -103,11 +104,12 @@ export default {
     watch: {
         schema: {
             handler(newVal) {
-                const { data, rules, struct } = this.handleSchema(newVal);
-
+                const { data, rules, struct, tag } = this.handleSchema(newVal);
                 this.formData = data;
                 this.formRules = rules;
                 this.formDefCellSchema = this.formCellSchema = struct;
+
+                this.$Tagmill.add(tag);
             },
             deep: true,
             immediate: true,
@@ -131,6 +133,7 @@ export default {
             const data = {};
             const rules = {};
             const struct = [];
+            const tag = [];
 
             cellSchema.forEach((cell) => {
                 const {
@@ -146,9 +149,17 @@ export default {
                 data[field] = value;
                 rules[field] = ruleSchema;
                 struct.push(cell);
+
+                if (Object.keys(leaderTag).length > 0) {
+                    tag.push({
+                        field: field,
+                        leader: leaderTag,
+                        lib: lib,
+                    });
+                }
             });
 
-            return { data, rules, struct };
+            return { data, rules, struct, tag };
         },
         /**
          * @description: 拆解结构体
@@ -190,10 +201,15 @@ export default {
         },
         setFormItem(field, uiSchema) {
             const { label } = uiSchema;
-            return {
-                label: label || "表单项",
+            const formItem = {
+                label: label,
                 prop: field,
             };
+
+            if (label.length <= 0) {
+                formItem["label-width"] = "0px";
+            }
+            return formItem;
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

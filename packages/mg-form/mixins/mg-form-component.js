@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 13:51:55
+ * @LastEditTime: 2021-03-04 17:51:03
  * @Description: mg form mixins component package
  */
 export default {
@@ -23,12 +23,16 @@ export default {
             default: () => ""
         },
         leaderTag: {
-            type: Array,
-            default: () => []
+            type: Object,
+            default: () => ({})
         },
         workerTag: {
             type: Array,
             default: () => []
+        },
+        database: {
+            type: Object,
+            default: () => ({})
         },
         ui: {
             type: Object,
