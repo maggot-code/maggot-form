@@ -2,26 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 16:24:01
+ * @LastEditTime: 2021-03-05 17:36:00
  * @Description: mg-input.vue component
 -->
 <template>
+    <!-- @input="handleInput" -->
     <el-input-number
         v-if="checkNumber"
         class="mg-input"
         v-model="inputValue"
         v-bind="options"
-        @change="handleInput"
     >
     </el-input-number>
 
-    <el-input
-        v-else
-        class="mg-input"
-        v-model="inputValue"
-        v-bind="options"
-        @input="handleInput"
-    >
+    <el-input v-else class="mg-input" v-model="inputValue" v-bind="options">
         <template v-if="checkText && hasPrepend" slot="prepend">{{
             hasPrepend
         }}</template>
@@ -98,11 +92,16 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        value: {
-            handler(newVal) {
-                this.inputValue = newVal;
-            },
-            deep: true,
+        value(newVal) {
+            this.$set(this, "inputValue", newVal);
+        },
+        inputValue(newVal) {
+            this.monitorValue({
+                mold: this.mold,
+                field: this.field,
+                value: newVal,
+                handle: "input",
+            });
         },
     },
     //方法集合

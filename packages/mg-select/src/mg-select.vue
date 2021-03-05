@@ -2,16 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 18:33:28
+ * @LastEditTime: 2021-03-05 17:35:42
  * @Description: mg-select.vue component
 -->
 <template>
-    <el-select
-        class="mg-select"
-        v-model="selectValue"
-        v-bind="options"
-        @change="handleChange"
-    >
+    <!-- @change="handleChange" -->
+    <el-select class="mg-select" v-model="selectValue" v-bind="options">
         <el-option
             v-for="item in selectList"
             :key="item.eid"
@@ -24,6 +20,7 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
+import { isArray } from "lodash";
 export default {
     name: "mg-select",
     mixins: [MgFormComponent],
@@ -41,30 +38,35 @@ export default {
             const { mold, field, ui, rule } = vm;
             return ui;
         },
-        selectList: (vm) => {
+        selectList(vm) {
             const { enums } = vm.database;
-
-            return enums.map((item) => {
-                const disabledType = typeof item.disabled;
-                const disabledFlg =
-                    disabledType !== "undefined" && disabledType === "boolean";
-                const disabled = disabledFlg ? item.disabled : false;
-
-                return { ...item, disabled: disabled };
-            });
+            return isArray(enums) ? enums.map(this.setEnums) : [];
         },
     },
     //监控data中的数据变化
     watch: {
-        value: {
-            handler(newVal) {
-                this.selectValue = newVal;
-            },
-            deep: true,
+        value(newVal) {
+            this.$set(this, "selectValue", newVal);
+        },
+        selectValue(newVal) {
+            this.monitorValue({
+                mold: this.mold,
+                field: this.field,
+                value: newVal,
+                handle: "change",
+            });
         },
     },
     //方法集合
     methods: {
+        setEnums(item) {
+            const disabledType = typeof item.disabled;
+            const disabledFlg =
+                disabledType !== "undefined" && disabledType === "boolean";
+            const disabled = disabledFlg ? item.disabled : false;
+
+            return { ...item, disabled: disabled };
+        },
         /**
          * @description: 处理 change 事件
          * @param {String | Number | Array} value 更新数值
@@ -79,9 +81,7 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {
-        console.log(this.$Tagmill);
-    },
+    created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
