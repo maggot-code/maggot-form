@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 18:23:26
+ * @LastEditTime: 2021-03-05 18:02:07
  * @Description: mg-form.vue component
 -->
 <template>
@@ -36,11 +36,13 @@
                                 :mold="cell.mold"
                                 :field="cell.field"
                                 :value.sync="formData[cell.field]"
+                                :defValue="formDefData[cell.field]"
                                 :leaderTag="cell.leaderTag"
                                 :workerTag="cell.workerTag"
                                 :database="cell.dataSchema"
                                 :ui="cell.uiSchema"
                                 :rule="cell.ruleSchema"
+                                @monitorValue="monitorValue"
                             ></component>
                         </el-form-item>
                     </el-col>
@@ -51,11 +53,13 @@
 </template>
 
 <script>
+import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents } from "../install";
 import { mergeSchema } from "../utils";
+import { cloneDeep } from "lodash";
 export default {
     name: "mg-form",
-    mixins: [],
+    mixins: [MgFormTagMap],
     components: { ...FormCellComponents },
     props: {
         formRef: {
@@ -80,10 +84,12 @@ export default {
                 labelPosition: "right",
                 gutter: 20,
             },
-            formCellSchema: {},
             formDefCellSchema: {},
+            formCellSchema: {},
+            formDefData: {},
             formData: {},
             formRules: {},
+            formTagMap: new Map(),
         };
     },
     //监听属性 类似于data概念
@@ -94,7 +100,7 @@ export default {
             ),
         // 表单属性选项
         options: (vm) => {
-            const { formSchema } = vm.$props.schema;
+            const { formSchema } = vm.schema;
             const vbind = mergeSchema(vm.formSchema, formSchema);
 
             return vbind;
@@ -104,12 +110,15 @@ export default {
     watch: {
         schema: {
             handler(newVal) {
-                const { data, rules, struct, tag } = this.handleSchema(newVal);
-                this.formData = data;
-                this.formRules = rules;
-                this.formDefCellSchema = this.formCellSchema = struct;
+                const { struct, data, rules, tag } = this.handleSchema(newVal);
 
-                this.$Tagmill.add(tag);
+                this.$set(this, "formDefCellSchema", cloneDeep(struct));
+                this.$set(this, "formCellSchema", cloneDeep(struct));
+                this.$set(this, "formDefData", cloneDeep(data));
+                this.$set(this, "formData", cloneDeep(data));
+                this.$set(this, "formRules", cloneDeep(rules));
+
+                this.setTagmap(tag, struct);
             },
             deep: true,
             immediate: true,
@@ -117,11 +126,15 @@ export default {
     },
     //方法集合
     methods: {
-        /**
-         * @description: 上抛表单组件的 refs
-         */
-        throwRefs() {
-            this.$emit("getRefs", this.formRef);
+        monitorValue(params) {
+            const { field, value } = params;
+            const tag = this.getTag(field);
+            if (!tag) {
+                return false;
+            }
+
+            const { leaderTag, lib } = tag;
+            this.leaderRun(field, leaderTag, lib, value);
         },
         /**
          * @description: 处理原始结构体数据
@@ -130,62 +143,29 @@ export default {
          */
         handleSchema(schema) {
             const { cellSchema } = schema;
+            const struct = {};
             const data = {};
             const rules = {};
-            const struct = [];
-            const tag = [];
+            const tag = {};
 
             cellSchema.forEach((cell) => {
                 const {
                     field,
                     value,
                     ruleSchema,
-                    dataSchema,
                     leaderTag,
                     workerTag,
-                    lib,
-                } = this.untieSchema(cell);
+                    dataSchema,
+                } = cell;
+                const { lib } = dataSchema;
 
+                struct[field] = cell;
                 data[field] = value;
                 rules[field] = ruleSchema;
-                struct.push(cell);
-
-                if (Object.keys(leaderTag).length > 0) {
-                    tag.push({
-                        field: field,
-                        leader: leaderTag,
-                        lib: lib,
-                    });
-                }
+                tag[field] = { leaderTag, workerTag, lib };
             });
 
-            return { data, rules, struct, tag };
-        },
-        /**
-         * @description: 拆解结构体
-         * @param {Object} cell 目标结构体
-         * @return {Object} 拆解结构体中需要使用的属性
-         */
-        untieSchema(cell) {
-            const {
-                field,
-                value,
-                ruleSchema,
-                dataSchema,
-                leaderTag,
-                workerTag,
-            } = cell;
-            const { lib } = dataSchema;
-
-            return {
-                field,
-                value,
-                ruleSchema,
-                dataSchema,
-                leaderTag,
-                workerTag,
-                lib,
-            };
+            return { struct, data, rules, tag };
         },
         /**
          * @description: 检查表单项组件是否被正确注册了
@@ -195,21 +175,39 @@ export default {
         checkIsComponents(componentName) {
             return this.componentLists.indexOf(componentName) >= 0;
         },
+        /**
+         * @description: 设置栅格布局的数值
+         * @param {Object} uiSchema ui结构对象
+         * @return {Number} 栅格布局数值
+         */
         setColSpan(uiSchema) {
             const { col } = uiSchema;
             return col || 24;
         },
+        /**
+         * @description: 设置表单-单元格属性
+         * @param {String} field 表单提交字段名称
+         * @param {Object} uiSchema ui结构对象
+         * @return {Object} 表单-单元格属性
+         */
         setFormItem(field, uiSchema) {
             const { label } = uiSchema;
-            const formItem = {
+            const formProps = {
                 label: label,
                 prop: field,
             };
 
             if (label.length <= 0) {
-                formItem["label-width"] = "0px";
+                formProps["label-width"] = "0px";
             }
-            return formItem;
+            return formProps;
+        },
+
+        /**
+         * @description: 上抛表单组件的 refs
+         */
+        throwRefs() {
+            this.$emit("getRefs", this.formRef);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

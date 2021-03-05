@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 14:06:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 15:42:49
+ * @LastEditTime: 2021-03-05 16:19:40
  * @Description: mg form utils
  */
 /**
@@ -14,6 +14,12 @@ export const mergeSchema = (...schema) => {
     return Object.assign({}, ...schema);
 }
 
+/**
+ * @description: 判定和填充input属性（isMinus,min）
+ * @param {Boolean} minus 是否可以为负
+ * @param {Number} min 最小值是多少
+ * @return {Number} 与minus和min判定后的决定值
+ */
 export const inputMinus = (minus, min) => {
     const minusType = typeof minus;
     const minType = typeof min;

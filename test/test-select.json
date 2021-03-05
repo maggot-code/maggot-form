@@ -1,0 +1,112 @@
+[
+    {
+        "componentName": "mg-input",
+        "mold": "text",
+        "field": "name",
+        "value": "",
+        "leaderTag": {},
+        "workerTag": [],
+        "dataSchema": {
+            "lib": {}
+        },
+        "uiSchema": {
+            "label": "姓名"
+        },
+        "ruleSchema": [
+            {
+                "required": true,
+                "message": "姓名为必填",
+                "trigger": "blur"
+            },
+            {
+                "pattern": "/^[A-Za-z0-9]+$/",
+                "message": "只能输入大小写字母和数组",
+                "trigger": "blur"
+            }
+        ]
+    },
+    {
+        "componentName": "mg-select",
+        "mold": "default",
+        "field": "sheng",
+        "value": "",
+        "leaderTag": {
+            "request.getCity": {
+                "controller": "dataSchema.enums"
+            }
+        },
+        "workerTag": [],
+        "dataSchema": {
+            "lib": {},
+            "enums": [
+                {
+                    "eid": "1000",
+                    "label": "河北省",
+                    "value": "1000"
+                },
+                {
+                    "eid": "1001",
+                    "label": "河南省",
+                    "value": "1001"
+                },
+                {
+                    "eid": "1002",
+                    "label": "东北省",
+                    "value": "1002"
+                }
+            ]
+        },
+        "uiSchema": {
+            "col": 7,
+            "label": "省市区选择",
+            "placeholder": "请选择省份"
+        },
+        "ruleSchema": []
+    },
+    {
+        "componentName": "mg-select",
+        "mold": "default",
+        "field": "city",
+        "value": "",
+        "leaderTag": {
+            "request.getArea": {
+                "controller": "dataSchema.enums"
+            }
+        },
+        "workerTag": [
+            "request.getCity"
+        ],
+        "dataSchema": {
+            "lib": {},
+            "enums": []
+        },
+        "uiSchema": {
+            "col": 4,
+            "label": "",
+            "placeholder": "请选择城市",
+            "no-data-text": "请先确定省份"
+        },
+        "ruleSchema": []
+    },
+    {
+        "componentName": "mg-select",
+        "mold": "default",
+        "field": "area",
+        "value": "",
+        "leaderTag": {},
+        "workerTag": [
+            "request.getArea"
+        ],
+        "dataSchema": {
+            "lib": {},
+            "enums": []
+        },
+        "uiSchema": {
+            "col": 4,
+            "label": "",
+            "placeholder": "请选择街道/区域",
+            "no-data-text": "请先确定城市"
+        },
+        "ruleSchema": []
+    }
+]
