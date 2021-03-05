@@ -2,10 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 09:28:57
+ * @LastEditTime: 2021-03-05 13:15:43
  * @Description: file content
  */
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 module.exports = {
     publicPath: './',
@@ -19,6 +20,6 @@ module.exports = {
     },
     configureWebpack: config => {
         config.devtool = 'source-map';
-        // config.plugins.push(new BundleAnalyzerPlugin())
+        config.plugins.push(new BundleAnalyzerPlugin(), new LodashModuleReplacementPlugin())
     }
 }

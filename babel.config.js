@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-02-28 13:25:16
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-03 16:55:38
+ * @LastEditTime: 2021-03-05 13:15:13
  * @Description: babel config
  */
 module.exports = {
@@ -14,6 +14,7 @@ module.exports = {
                 "libraryName": "element-ui",
                 "styleLibraryName": "theme-chalk"
             }
-        ]
+        ],
+        "lodash"
     ]
 }
