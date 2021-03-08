@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 14:06:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-05 16:19:40
+ * @LastEditTime: 2021-03-06 15:11:49
  * @Description: mg form utils
  */
 /**
@@ -34,4 +34,18 @@ export const inputMinus = (minus, min) => {
     } else {
         return min < 0 ? 0 : min;
     }
+}
+
+/**
+ * @description: 设置枚举项属性
+ * @param {Object} item 枚举项
+ * @return {Object} 调整过滤后的枚举项
+ */
+export const setEnums = (item) => {
+    const disabledType = typeof item.disabled;
+    const disabledFlg =
+        disabledType !== "undefined" && disabledType === "boolean";
+    const disabled = disabledFlg ? item.disabled : false;
+
+    return { ...item, disabled: disabled };
 }

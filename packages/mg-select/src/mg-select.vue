@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-05 17:35:42
+ * @LastEditTime: 2021-03-06 15:00:06
  * @Description: mg-select.vue component
 -->
 <template>
@@ -20,6 +20,7 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
+import { setEnums } from "../../mg-form/utils";
 import { isArray } from "lodash";
 export default {
     name: "mg-select",
@@ -38,9 +39,9 @@ export default {
             const { mold, field, ui, rule } = vm;
             return ui;
         },
-        selectList(vm) {
+        selectList: (vm) => {
             const { enums } = vm.database;
-            return isArray(enums) ? enums.map(this.setEnums) : [];
+            return isArray(enums) ? enums.map(setEnums) : [];
         },
     },
     //监控data中的数据变化
@@ -59,14 +60,6 @@ export default {
     },
     //方法集合
     methods: {
-        setEnums(item) {
-            const disabledType = typeof item.disabled;
-            const disabledFlg =
-                disabledType !== "undefined" && disabledType === "boolean";
-            const disabled = disabledFlg ? item.disabled : false;
-
-            return { ...item, disabled: disabled };
-        },
         /**
          * @description: 处理 change 事件
          * @param {String | Number | Array} value 更新数值

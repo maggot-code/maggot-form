@@ -1,31 +1,5 @@
 [
     {
-        "componentName": "mg-input",
-        "mold": "text",
-        "field": "name",
-        "value": "",
-        "leaderTag": {},
-        "workerTag": [],
-        "dataSchema": {
-            "lib": {}
-        },
-        "uiSchema": {
-            "label": "姓名"
-        },
-        "ruleSchema": [
-            {
-                "required": true,
-                "message": "姓名为必填",
-                "trigger": "blur"
-            },
-            {
-                "pattern": "/^[A-Za-z0-9]+$/",
-                "message": "只能输入大小写字母和数组",
-                "trigger": "blur"
-            }
-        ]
-    },
-    {
         "componentName": "mg-select",
         "mold": "default",
         "field": "sheng",

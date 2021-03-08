@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-05 17:36:00
+ * @LastEditTime: 2021-03-06 15:14:11
  * @Description: mg-input.vue component
 -->
 <template>
@@ -66,11 +66,8 @@ export default {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
             const moldRenderFunc = vm.handleMoldOptions[mold];
-            if (!moldRenderFunc) {
-                return ui;
-            }
 
-            return moldRenderFunc(ui);
+            return moldRenderFunc ? moldRenderFunc(ui) : ui;
         },
         hasPrepend: (vm) => {
             const { prepend } = vm.ui;
