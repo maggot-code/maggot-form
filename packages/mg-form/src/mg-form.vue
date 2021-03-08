@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-05 18:02:07
+ * @LastEditTime: 2021-03-08 15:20:09
  * @Description: mg-form.vue component
 -->
 <template>
@@ -56,7 +56,7 @@
 import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents } from "../install";
 import { mergeSchema } from "../utils";
-import { cloneDeep } from "lodash";
+import { cloneDeep, isNil } from "lodash";
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
@@ -150,6 +150,7 @@ export default {
 
             cellSchema.forEach((cell) => {
                 const {
+                    componentName,
                     field,
                     value,
                     ruleSchema,
@@ -161,11 +162,22 @@ export default {
 
                 struct[field] = cell;
                 data[field] = value;
-                rules[field] = ruleSchema;
+                rules[field] = this.removeUploadRule(componentName, ruleSchema);
                 tag[field] = { leaderTag, workerTag, lib };
             });
 
             return { struct, data, rules, tag };
+        },
+        removeUploadRule(componentName, ruleSchema) {
+            if (componentName !== "mg-upload") {
+                return ruleSchema;
+            }
+
+            return ruleSchema.filter((item) => {
+                const { required } = item;
+
+                return !isNil(required);
+            });
         },
         /**
          * @description: 检查表单项组件是否被正确注册了

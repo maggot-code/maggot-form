@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 15:14:11
+ * @LastEditTime: 2021-03-08 18:25:36
  * @Description: mg-input.vue component
 -->
 <template>
