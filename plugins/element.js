@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 17:36:46
+ * @LastEditTime: 2021-03-08 10:03:32
  * @Description: file content
  */
 import 'element-ui/lib/theme-chalk/index.css';
@@ -25,6 +25,7 @@ import {
     Option,
     OptionGroup,
     Select,
+    Upload,
     Form,
     FormItem,
     // Data 数据
@@ -50,6 +51,7 @@ Vue.use(InputNumber);
 Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(Select);
+Vue.use(Upload);
 Vue.use(Form);
 Vue.use(FormItem);
 // Data 数据

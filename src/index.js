@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 16:50:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 17:37:38
+ * @LastEditTime: 2021-03-08 10:06:11
  * @Description: mg form component inlet
  */
 import '../plugins/element';
@@ -11,13 +11,15 @@ import MgInput from '../packages/mg-input';
 import MgSelect from '../packages/mg-select';
 import MgRadio from '../packages/mg-radio';
 import MgCheckBox from '../packages/mg-check-box';
+import MgUpload from '../packages/mg-upload';
 
 const components = [
     MgForm,
     MgInput,
     MgSelect,
     MgRadio,
-    MgCheckBox
+    MgCheckBox,
+    MgUpload
 ];
 
 const install = function (Vue, opts = {}) {
@@ -37,5 +39,6 @@ export default {
     MgInput,
     MgSelect,
     MgRadio,
-    MgCheckBox
+    MgCheckBox,
+    MgUpload
 }
