@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 17:20:00
+ * @LastEditTime: 2021-03-06 17:36:46
  * @Description: file content
  */
 import 'element-ui/lib/theme-chalk/index.css';
@@ -14,6 +14,12 @@ import {
     Button,
     ButtonGroup,
     // Form 表单
+    Radio,
+    RadioGroup,
+    RadioButton,
+    Checkbox,
+    CheckboxButton,
+    CheckboxGroup,
     Input,
     InputNumber,
     Option,
@@ -33,6 +39,12 @@ Vue.use(Col);
 Vue.use(Button);
 Vue.use(ButtonGroup);
 // Form 表单
+Vue.use(Radio);
+Vue.use(RadioGroup);
+Vue.use(RadioButton);
+Vue.use(Checkbox);
+Vue.use(CheckboxButton);
+Vue.use(CheckboxGroup);
 Vue.use(Input);
 Vue.use(InputNumber);
 Vue.use(Option);
