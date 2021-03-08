@@ -1,0 +1,28 @@
+[
+    {
+        "componentName": "mg-upload",
+        "mold": "default",
+        "field": "doc",
+        "value": [],
+        "leaderTag": {},
+        "workerTag": [],
+        "dataSchema": {
+            "lib": {}
+        },
+        "uiSchema": {
+            "col": 24,
+            "label": "文档",
+            "action": "http://192.1.1.5:8080/XFHSW/File/UpFile",
+            "tips": "上传文档",
+            "multiple": true,
+            "limit": 1,
+            "size": 10,
+            "types": [
+                "php",
+                "pdf",
+                "sql"
+            ]
+        },
+        "ruleSchema": []
+    }
+]

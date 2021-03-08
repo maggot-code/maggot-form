@@ -62,7 +62,8 @@
         },
         "uiSchema": {
             "col": 12,
-            "label": "食物"
+            "label": "食物",
+            "indeterminate": false
         },
         "ruleSchema": []
     }
