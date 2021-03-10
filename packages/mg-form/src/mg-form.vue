@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 15:09:47
+ * @LastEditTime: 2021-03-10 16:00:37
  * @Description: mg-form.vue component
 -->
 <template>
@@ -97,7 +97,7 @@ export default {
         //这里存放数据
         return {
             // medium | small | mini
-            formSize: "medium",
+            // formSize: "medium",
             // [inline, disabled, labelWidth,labelPosition,gutter ]
             formSchema: {
                 inline: false,
@@ -126,6 +126,10 @@ export default {
             const vbind = mergeSchema(vm.formSchema, formSchema);
 
             return vbind;
+        },
+        formSize: (vm) => {
+            const { inline } = vm.options;
+            return inline ? "mini" : "medium";
         },
     },
     //监控data中的数据变化
