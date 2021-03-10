@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-05 15:53:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-05 17:14:40
+ * @LastEditTime: 2021-03-10 13:42:10
  * @Description: mg form mixins tag map package
  */
 import testList from '../../../test/select-change';
@@ -30,6 +30,7 @@ export default {
 
             return new Promise((resolve, reject) => {
                 resolve(data)
+                reject()
             })
         },
         leaderRun(field, leader, lib, value) {
@@ -39,6 +40,8 @@ export default {
 
                 this[handlerName]({ ...lib, value }).then(res => {
                     workerMan.forEach(worker => this.assignWorker(worker, controller, res));
+                }).catch(error => {
+                    console.log(error);
                 })
             })
         },
