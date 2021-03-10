@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-08 15:20:09
+ * @LastEditTime: 2021-03-10 15:09:47
  * @Description: mg-form.vue component
 -->
 <template>
@@ -17,7 +17,29 @@
         v-bind="options"
     >
         <!-- inline form -->
-        <template v-if="options.inline">inline</template>
+        <template v-if="options.inline">
+            <template v-for="cell in formCellSchema">
+                <el-form-item
+                    v-if="checkIsComponents(cell.componentName)"
+                    :key="cell.field"
+                    v-bind="setFormItem(cell.field, cell.uiSchema)"
+                >
+                    <component
+                        :is="cell.componentName"
+                        :mold="cell.mold"
+                        :field="cell.field"
+                        :value.sync="formData[cell.field]"
+                        :defValue="formDefData[cell.field]"
+                        :leaderTag="cell.leaderTag"
+                        :workerTag="cell.workerTag"
+                        :database="cell.dataSchema"
+                        :ui="cell.uiSchema"
+                        :rule="cell.ruleSchema"
+                        @monitorValue="monitorValue"
+                    ></component>
+                </el-form-item>
+            </template>
+        </template>
 
         <!-- not inline form -->
         <template v-else>
