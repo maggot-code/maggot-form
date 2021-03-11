@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 16:00:37
+ * @LastEditTime: 2021-03-11 23:39:15
  * @Description: mg-form.vue component
 -->
 <template>
     <el-form
         class="mg-form"
         label-suffix="："
-        :ref="formRef"
+        :ref="ruleForm"
         :model="formData"
         :rules="formRules"
         :size="formSize"
@@ -35,6 +35,7 @@
                         :database="cell.dataSchema"
                         :ui="cell.uiSchema"
                         :rule="cell.ruleSchema"
+                        :reset="componentReset"
                         @monitorValue="monitorValue"
                     ></component>
                 </el-form-item>
@@ -53,24 +54,62 @@
                         <el-form-item
                             v-bind="setFormItem(cell.field, cell.uiSchema)"
                         >
-                            <component
-                                :is="cell.componentName"
-                                :mold="cell.mold"
-                                :field="cell.field"
-                                :value.sync="formData[cell.field]"
-                                :defValue="formDefData[cell.field]"
-                                :leaderTag="cell.leaderTag"
-                                :workerTag="cell.workerTag"
-                                :database="cell.dataSchema"
-                                :ui="cell.uiSchema"
-                                :rule="cell.ruleSchema"
-                                @monitorValue="monitorValue"
-                            ></component>
+                            <el-tooltip
+                                :disabled="
+                                    useTips(cell.uiSchema, cell.componentName)
+                                "
+                                :content="handleTips(cell.uiSchema)"
+                                placement="top"
+                            >
+                                <component
+                                    :is="cell.componentName"
+                                    :mold="cell.mold"
+                                    :field="cell.field"
+                                    :value.sync="formData[cell.field]"
+                                    :defValue="formDefData[cell.field]"
+                                    :leaderTag="cell.leaderTag"
+                                    :workerTag="cell.workerTag"
+                                    :database="cell.dataSchema"
+                                    :ui="cell.uiSchema"
+                                    :rule="cell.ruleSchema"
+                                    :reset="componentReset"
+                                    @monitorValue="monitorValue"
+                                ></component>
+                            </el-tooltip>
                         </el-form-item>
                     </el-col>
                 </template>
             </el-row>
         </template>
+
+        <el-form-item label-width="0" :style="buttonGroupStyle">
+            <el-button
+                v-if="useSubmit"
+                type="success"
+                icon="el-icon-check"
+                plain
+                @click="submitForm"
+                >{{ submitLabel }}</el-button
+            >
+
+            <el-button
+                v-if="ifTempButton"
+                type="primary"
+                icon="el-icon-folder-checked"
+                plain
+                @click="tempForm"
+                >暂存</el-button
+            >
+
+            <el-button
+                v-if="useReset"
+                type="info"
+                icon="el-icon-refresh"
+                plain
+                @click="resetForm"
+                >重置</el-button
+            >
+        </el-form-item>
     </el-form>
 </template>
 
@@ -78,33 +117,44 @@
 import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents } from "../install";
 import { mergeSchema } from "../utils";
-import { cloneDeep, isNil } from "lodash";
+import { cloneDeep, isNil, isString } from "lodash";
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
     components: { ...FormCellComponents },
     props: {
-        formRef: {
-            type: [String, Number],
-            default: () => new Date().getTime(),
-        },
         schema: {
             type: Object,
             required: true,
+        },
+        useSubmit: {
+            type: Boolean,
+            default: () => true,
+        },
+        useTemp: {
+            type: Boolean,
+            default: () => true,
+        },
+        useReset: {
+            type: Boolean,
+            default: () => true,
         },
     },
     data() {
         //这里存放数据
         return {
+            ruleForm: new Date().getTime(),
+            componentReset: new Date().getTime(),
             // medium | small | mini
             // formSize: "medium",
             // [inline, disabled, labelWidth,labelPosition,gutter ]
             formSchema: {
                 inline: false,
                 disabled: false,
+                showMessage: true,
                 labelWidth: "120px",
                 labelPosition: "right",
-                gutter: 20,
+                gutter: 12,
             },
             formDefCellSchema: {},
             formCellSchema: {},
@@ -129,7 +179,24 @@ export default {
         },
         formSize: (vm) => {
             const { inline } = vm.options;
-            return inline ? "mini" : "medium";
+            return inline ? "mini" : "small";
+        },
+        buttonGroupStyle: (vm) => {
+            const { inline } = vm.options;
+            return inline
+                ? {}
+                : {
+                      display: "flex",
+                      "justify-content": "center",
+                  };
+        },
+        submitLabel: (vm) => {
+            const { inline } = vm.options;
+            return inline ? "查询" : "提交";
+        },
+        ifTempButton: (vm) => {
+            const { inline } = vm.options;
+            return !inline && vm.useTemp;
         },
     },
     //监控data中的数据变化
@@ -152,6 +219,23 @@ export default {
     },
     //方法集合
     methods: {
+        submitForm() {
+            this.$refs[this.ruleForm].validate((valid) => {
+                if (valid) {
+                    console.log(this.formData);
+                } else {
+                    console.log("error submit!!");
+                    return false;
+                }
+            });
+        },
+        tempForm() {
+            console.log(this.formData);
+        },
+        resetForm() {
+            this.componentReset = new Date().getTime();
+            this.$refs[this.ruleForm].resetFields();
+        },
         monitorValue(params) {
             const { field, value } = params;
             const tag = this.getTag(field);
@@ -184,15 +268,30 @@ export default {
                     workerTag,
                     dataSchema,
                 } = cell;
-                const { lib } = dataSchema;
+                const baseDataSchema = dataSchema || { lib: {} };
+                const { lib } = baseDataSchema;
 
                 struct[field] = cell;
                 data[field] = value;
-                rules[field] = this.removeUploadRule(componentName, ruleSchema);
+                rules[field] = this.setRuleItem(componentName, ruleSchema);
                 tag[field] = { leaderTag, workerTag, lib };
             });
 
             return { struct, data, rules, tag };
+        },
+        setRuleItem(componentName, ruleSchema) {
+            return ruleSchema.map((item) => {
+                const { required, trigger } = item;
+                const baseTrigger = isNil(trigger) ? "blur" : trigger;
+
+                if (componentName === "mg-upload") {
+                    return Object.assign({}, item, {
+                        required: !isNil(required),
+                    });
+                }
+
+                return Object.assign({}, item, { trigger: baseTrigger });
+            });
         },
         removeUploadRule(componentName, ruleSchema) {
             if (componentName !== "mg-upload") {
@@ -231,27 +330,29 @@ export default {
         setFormItem(field, uiSchema) {
             const { label } = uiSchema;
             const formProps = {
-                label: label,
+                label: label || "",
                 prop: field,
             };
 
-            if (label.length <= 0) {
+            if (formProps.label.length <= 0) {
                 formProps["label-width"] = "0px";
             }
             return formProps;
         },
+        handleTips(uiSchema) {
+            const { tips } = uiSchema;
 
-        /**
-         * @description: 上抛表单组件的 refs
-         */
-        throwRefs() {
-            this.$emit("getRefs", this.formRef);
+            return !isNil(tips) && isString(tips) ? tips : "";
+        },
+        useTips(uiSchema, componentName) {
+            const { tips } = uiSchema;
+            const isName = componentName === "mg-upload";
+
+            return isNil(tips) || isName;
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {
-        this.throwRefs();
-    },
+    created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
@@ -263,6 +364,9 @@ export default {
     activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
-@import "./mg-form.scss";
+<style lang='scss'>
+.mg-form {
+    width: 100%;
+    overflow: hidden;
+}
 </style>

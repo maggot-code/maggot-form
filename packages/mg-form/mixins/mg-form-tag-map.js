@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-05 15:53:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 16:54:23
+ * @LastEditTime: 2021-03-11 17:39:43
  * @Description: mg form mixins tag map package
  */
 import { forIn, set, cloneDeep } from 'lodash';
@@ -32,8 +32,8 @@ export default {
             forIn(leader, (target, name) => {
                 const { controller, workerMan } = target;
                 const handlerName = this.splitLeaderName(name);
-
-                this.job[handlerName]({ ...lib, value }).then(res => {
+                const handleFunc = this.job[handlerName];
+                handleFunc && handleFunc({ ...lib, value }).then(res => {
                     workerMan.forEach(worker => this.assignWorker(worker, controller, res));
                 }).catch(error => {
                     console.log(error);
@@ -53,7 +53,8 @@ export default {
         setTagmap(tag, struct) {
             for (const name in tag) {
                 const { leaderTag } = tag[name];
-                const leaderLen = Object.keys(leaderTag).length;
+                const baseLeaderTag = leaderTag || {};
+                const leaderLen = Object.keys(baseLeaderTag).length;
                 if (leaderLen <= 0) { continue }
 
                 this.handleTagItem(leaderTag, struct);
@@ -91,14 +92,16 @@ export default {
          */
         selectWorker(cell, tagName) {
             const { workerTag } = cell;
+            if (!workerTag) {
+                return false;
+            }
+
             return workerTag.length > 0 && workerTag.indexOf(tagName) >= 0;
         },
         // 检索工作方式
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {
-        console.log(this.job);
-    },
+    created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() { },
     beforeCreate() { }, //生命周期 - 创建之前

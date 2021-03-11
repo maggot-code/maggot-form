@@ -2,11 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-08 17:57:16
+ * @LastEditTime: 2021-03-11 23:04:00
  * @Description: mg-upload.vue component
 -->
 <template>
     <el-upload
+        :key="reset"
         class="mg-upload"
         :ref="uploadRefs"
         v-bind="options"
@@ -47,7 +48,9 @@ export default {
     name: "mg-upload",
     mixins: [MgFormComponent],
     components: {},
-    props: {},
+    props: {
+        reset: Number,
+    },
     data() {
         //这里存放数据
         return {

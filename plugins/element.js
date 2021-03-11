@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 17:04:54
+ * @LastEditTime: 2021-03-11 23:23:50
  * @Description: file content
  */
 import Vue from 'vue';
@@ -31,6 +31,7 @@ import {
     // Notice 通知
     // Navigation 导航
     // Others 其他
+    Tooltip
 } from 'element-ui';
 
 // Basic 基本
@@ -57,3 +58,4 @@ Vue.use(FormItem);
 // Notice 通知
 // Navigation 导航
 // Others 其他
+Vue.use(Tooltip);

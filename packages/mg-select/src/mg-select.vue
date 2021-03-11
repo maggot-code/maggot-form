@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 15:00:06
+ * @LastEditTime: 2021-03-11 23:58:23
  * @Description: mg-select.vue component
 -->
 <template>
@@ -10,9 +10,9 @@
     <el-select class="mg-select" v-model="selectValue" v-bind="options">
         <el-option
             v-for="item in selectList"
-            :key="item.eid"
-            :label="item.label"
-            :value="item.value"
+            :key="item[hasKey]"
+            :label="item[hasValue]"
+            :value="item[hasKey]"
             :disabled="item.disabled"
         ></el-option>
     </el-select>
@@ -37,11 +37,26 @@ export default {
     computed: {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
-            return ui;
+            const { label, placeholder } = ui;
+
+            const baseLabel = label || vbind.label;
+            const basePlaceholder = placeholder || `请输入${baseLabel}`;
+
+            return Object.assign({}, ui, {
+                placeholder: basePlaceholder,
+            });
         },
         selectList: (vm) => {
             const { enums } = vm.database;
             return isArray(enums) ? enums.map(setEnums) : [];
+        },
+        hasKey: (vm) => {
+            const { valueField } = vm.database;
+            return valueField;
+        },
+        hasValue: (vm) => {
+            const { textField } = vm.database;
+            return textField;
         },
     },
     //监控data中的数据变化

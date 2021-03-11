@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-08 18:25:36
+ * @LastEditTime: 2021-03-11 23:56:54
  * @Description: mg-input.vue component
 -->
 <template>
@@ -65,9 +65,17 @@ export default {
     computed: {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
-            const moldRenderFunc = vm.handleMoldOptions[mold];
+            const { label, placeholder } = ui;
 
-            return moldRenderFunc ? moldRenderFunc(ui) : ui;
+            const moldRenderFunc = vm.handleMoldOptions[mold];
+            const vbind = moldRenderFunc ? moldRenderFunc(ui || {}) : ui;
+
+            const baseLabel = label || vbind.label;
+            const basePlaceholder = placeholder || `请输入${baseLabel}`;
+
+            return Object.assign({}, vbind, {
+                placeholder: basePlaceholder,
+            });
         },
         hasPrepend: (vm) => {
             const { prepend } = vm.ui;

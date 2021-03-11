@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:31:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 14:10:14
+ * @LastEditTime: 2021-03-11 23:50:50
  * @Description: mg input text mold
  */
 import { mergeSchema } from "../../mg-form/utils";

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 17:09:13
+ * @LastEditTime: 2021-03-12 00:00:28
  * @Description: file content
 -->
 <template>
@@ -12,11 +12,12 @@
 </template>
 
 <script>
-import TestFormWorker from "../test/test-form-worker";
-import TestJsonschema from "../test/test-select";
+// import TestFormWorker from "../test/test-form-worker";
+// import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
 // import TestJsonschema from "../test/test-upload";
+import TestJsonschema from "../test/am_writings";
 export default {
     name: "App",
     mixins: [],
@@ -25,11 +26,14 @@ export default {
     data() {
         //这里存放数据
         return {
+            formRefs: "",
             testSchema: {
-                formSchema: {},
-                cellSchema: TestJsonschema,
+                formSchema: {
+                    labelWidth: "160px",
+                },
+                cellSchema: TestJsonschema.data,
             },
-            jobFunction: TestFormWorker,
+            jobFunction: {},
         };
     },
     //监听属性 类似于data概念
@@ -68,9 +72,11 @@ li {
     list-style: none;
 }
 #app {
-    width: 80%;
+    width: 100%;
     height: 100%;
     margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
     overflow: hidden;
 }
 </style>
