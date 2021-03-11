@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 00:00:28
+ * @LastEditTime: 2021-03-12 00:05:39
  * @Description: file content
 -->
 <template>
@@ -26,7 +26,6 @@ export default {
     data() {
         //这里存放数据
         return {
-            formRefs: "",
             testSchema: {
                 formSchema: {
                     labelWidth: "160px",
