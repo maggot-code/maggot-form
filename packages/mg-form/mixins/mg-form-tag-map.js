@@ -2,16 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-03-05 15:53:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 13:42:10
+ * @LastEditTime: 2021-03-11 16:54:23
  * @Description: mg form mixins tag map package
  */
-import testList from '../../../test/select-change';
 import { forIn, set, cloneDeep } from 'lodash';
 export default {
     name: "mg-form-tag-map",
     mixins: [],
     components: {},
-    props: {},
+    props: {
+        job: {
+            type: Object,
+            default: () => ({})
+        }
+    },
     data() {
         //这里存放数据
         return {
@@ -24,21 +28,12 @@ export default {
     watch: {},
     //方法集合
     methods: {
-        request(params) {
-            const { value } = params;
-            const data = testList[value];
-
-            return new Promise((resolve, reject) => {
-                resolve(data)
-                reject()
-            })
-        },
         leaderRun(field, leader, lib, value) {
             forIn(leader, (target, name) => {
                 const { controller, workerMan } = target;
                 const handlerName = this.splitLeaderName(name);
 
-                this[handlerName]({ ...lib, value }).then(res => {
+                this.job[handlerName]({ ...lib, value }).then(res => {
                     workerMan.forEach(worker => this.assignWorker(worker, controller, res));
                 }).catch(error => {
                     console.log(error);
@@ -98,9 +93,12 @@ export default {
             const { workerTag } = cell;
             return workerTag.length > 0 && workerTag.indexOf(tagName) >= 0;
         },
+        // 检索工作方式
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() { },
+    created() {
+        console.log(this.job);
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() { },
     beforeCreate() { }, //生命周期 - 创建之前

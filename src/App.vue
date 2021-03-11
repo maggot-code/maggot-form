@@ -2,20 +2,21 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-08 10:06:40
+ * @LastEditTime: 2021-03-10 17:09:13
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-form :schema="testSchema"></mg-form>
+        <mg-form :job="jobFunction" :schema="testSchema"></mg-form>
     </div>
 </template>
 
 <script>
-// import TestJsonschema from "../test/test-select";
+import TestFormWorker from "../test/test-form-worker";
+import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
-import TestJsonschema from "../test/test-upload";
+// import TestJsonschema from "../test/test-upload";
 export default {
     name: "App",
     mixins: [],
@@ -28,6 +29,7 @@ export default {
                 formSchema: {},
                 cellSchema: TestJsonschema,
             },
+            jobFunction: TestFormWorker,
         };
     },
     //监听属性 类似于data概念

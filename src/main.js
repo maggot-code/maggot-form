@@ -8,6 +8,7 @@
 import Vue from 'vue';
 import App from './App';
 import MGform from './index';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(MGform);
 Vue.config.productionTip = false;
