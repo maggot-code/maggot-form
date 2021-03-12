@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:39:15
+ * @LastEditTime: 2021-03-12 09:23:22
  * @Description: mg-form.vue component
 -->
 <template>
@@ -221,16 +221,21 @@ export default {
     methods: {
         submitForm() {
             this.$refs[this.ruleForm].validate((valid) => {
-                if (valid) {
-                    console.log(this.formData);
-                } else {
-                    console.log("error submit!!");
-                    return false;
-                }
+                const formData = {
+                    status: valid,
+                    data: valid ? this.fromData : {},
+                };
+
+                this.$emit("submitForm", formData);
+
+                return valid;
             });
         },
         tempForm() {
-            console.log(this.formData);
+            this.$emit("submitForm", {
+                status: true,
+                data: this.formData,
+            });
         },
         resetForm() {
             this.componentReset = new Date().getTime();

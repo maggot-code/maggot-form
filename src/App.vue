@@ -2,12 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 00:05:39
+ * @LastEditTime: 2021-03-12 09:23:57
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-form :job="jobFunction" :schema="testSchema"></mg-form>
+        <mg-form
+            :job="jobFunction"
+            :schema="testSchema"
+            @submitForm="submit"
+        ></mg-form>
     </div>
 </template>
 
@@ -40,7 +44,12 @@ export default {
     //监控data中的数据变化
     watch: {},
     //方法集合
-    methods: {},
+    methods: {
+        submit(formData) {
+            const { status, data } = formData;
+            console.log(status, data);
+        },
+    },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
