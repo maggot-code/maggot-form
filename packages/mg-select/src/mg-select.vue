@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:58:23
+ * @LastEditTime: 2021-03-12 14:00:16
  * @Description: mg-select.vue component
 -->
 <template>
@@ -39,7 +39,7 @@ export default {
             const { mold, field, ui, rule } = vm;
             const { label, placeholder } = ui;
 
-            const baseLabel = label || vbind.label;
+            const baseLabel = label || "内容";
             const basePlaceholder = placeholder || `请输入${baseLabel}`;
 
             return Object.assign({}, ui, {

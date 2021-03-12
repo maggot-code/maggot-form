@@ -1,0 +1,163 @@
+[
+    {
+        "field": "searchname",
+        "uiSchema": {
+            "placeholder": "著作名称查询"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "lib": {
+                "codeid": "UM"
+            },
+            "valueField": "departmentid",
+            "url": "/SystemManage/SM_Department/GetListForTree.do?parentid=0",
+            "textField": "nodename"
+        },
+        "field": "searchdepartmentid",
+        "uiSchema": {
+            "placeholder": "所属部门查询"
+        },
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "独立著作",
+                    "pptr": "YV"
+                },
+                {
+                    "code": "02",
+                    "description": "合著",
+                    "pptr": "YV"
+                },
+                {
+                    "code": "03",
+                    "description": "主编",
+                    "pptr": "YV"
+                },
+                {
+                    "code": "04",
+                    "description": "副主编",
+                    "pptr": "YV"
+                },
+                {
+                    "code": "05",
+                    "description": "参与编写",
+                    "pptr": "YV"
+                }
+            ],
+            "lib": {
+                "codeid": "YV"
+            },
+            "valueField": "code",
+            "url": "/SystemManage/SM_CodeItem/GetCode.do?codeid=YV",
+            "textField": "description"
+        },
+        "field": "searchwrite",
+        "uiSchema": {
+            "placeholder": "著・编著查询"
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "专著",
+                    "systemtype": "",
+                    "pptr": "YI"
+                },
+                {
+                    "code": "02",
+                    "description": "编著",
+                    "systemtype": "",
+                    "pptr": "YI"
+                },
+                {
+                    "code": "05",
+                    "description": "译著",
+                    "systemtype": "",
+                    "pptr": "YI"
+                },
+                {
+                    "code": "03",
+                    "description": "工具书",
+                    "systemtype": "",
+                    "pptr": "YI"
+                },
+                {
+                    "code": "04",
+                    "description": "科普读物",
+                    "systemtype": "",
+                    "pptr": "YI"
+                },
+                {
+                    "code": "08",
+                    "description": "文学作品",
+                    "systemtype": "",
+                    "pptr": "YI"
+                }
+            ],
+            "lib": {
+                "codeid": "YI"
+            },
+            "valueField": "code",
+            "url": "/SystemManage/SM_CodeItem/GetCode.do?codeid=YI",
+            "textField": "description"
+        },
+        "field": "searchresults",
+        "uiSchema": {
+            "placeholder": "著作类别查询"
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "field": "searchstartkeytime",
+        "uiSchem a": {
+            "placeholder": "出版日期:查询"
+        },
+        "mold": "date",
+        "componentName": "mg-date",
+        "value": ""
+    },
+    {
+        "field": "searchendkeytime",
+        "uiSchema": {
+            "placeholder": "-查询"
+        },
+        "mold": "date",
+        "componentName": "mg-date",
+        "value": ""
+    },
+    {
+        "field": "searchalluserssearch",
+        "uiSchema": {
+            "placeholder": "所有作者查询"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "searchcheckresultsearch",
+        "uiSchema": {
+            "placeholder": "审核状态查询"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    }
+]

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 09:23:22
+ * @LastEditTime: 2021-03-12 14:02:00
  * @Description: mg-form.vue component
 -->
 <template>
@@ -223,7 +223,7 @@ export default {
             this.$refs[this.ruleForm].validate((valid) => {
                 const formData = {
                     status: valid,
-                    data: valid ? this.fromData : {},
+                    data: valid ? this.formData : {},
                 };
 
                 this.$emit("submitForm", formData);
@@ -285,6 +285,10 @@ export default {
             return { struct, data, rules, tag };
         },
         setRuleItem(componentName, ruleSchema) {
+            if (isNil(ruleSchema)) {
+                return {};
+            }
+
             return ruleSchema.map((item) => {
                 const { required, trigger } = item;
                 const baseTrigger = isNil(trigger) ? "blur" : trigger;
