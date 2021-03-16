@@ -2,10 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:04:00
+ * @LastEditTime: 2021-03-16 18:01:01
  * @Description: mg-upload.vue component
 -->
 <template>
+    <!-- :on-progress="handleProgress" -->
     <el-upload
         :key="reset"
         class="mg-upload"
@@ -16,7 +17,6 @@
         :on-remove="handleRemove"
         :on-success="handleSuccess"
         :on-error="handleError"
-        :on-progress="handleProgress"
         :on-change="handleChange"
         :on-exceed="handleExceed"
         :before-upload="handleBeforeUpload"
@@ -41,9 +41,32 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
-import { isBoolean, isNumber, isNil, isString, isArray } from "lodash";
+import {
+    isBoolean,
+    isNumber,
+    isNil,
+    isString,
+    isArray,
+    concat,
+    remove,
+} from "lodash";
 
 const DefaultFileName = "files";
+const DefBlacklist = [
+    "exe",
+    "bat",
+    "php",
+    "xml",
+    "html",
+    "js",
+    "ts",
+    "css",
+    "scss",
+    "less",
+    "json",
+    "jsx",
+    "vue",
+];
 export default {
     name: "mg-upload",
     mixins: [MgFormComponent],
@@ -56,6 +79,7 @@ export default {
         return {
             uploadRefs: new Date().getTime(),
             fileValue: this.setFileList(this.value),
+            deleteFile: [],
             uploadRule: {},
         };
     },
@@ -110,6 +134,14 @@ export default {
 
             return types;
         },
+        backFileType: (vm) => {
+            const { blacklist } = vm.ui;
+            if (isNil(blacklist)) {
+                return DefBlacklist;
+            }
+
+            return concat(...DefBlacklist, ...blacklist);
+        },
     },
     //监控data中的数据变化
     watch: {
@@ -143,7 +175,12 @@ export default {
          * @param {Array[File]} fileList
          */
         handleRemove(file, fileList) {
-            this.$set(this, "fileValue", fileList);
+            const { status } = file;
+            if (status === "success") {
+                const { id } = file;
+                this.deleteFile.push(file);
+                remove(this.fileValue, (item) => item.id === id);
+            }
         },
         /**
          * @description: 文件上传成功时的操作
@@ -152,14 +189,11 @@ export default {
          * @param {Array[File]} fileList
          */
         handleSuccess(response, file, fileList) {
-            const { name, status, uid } = file;
-
-            this.fileValue.push({
-                name: name,
-                status: status,
-                uid: uid,
-                url: response[0],
-            });
+            setTimeout(() => {
+                if (file.status === "success") {
+                    this.fileValue.push(response[0]);
+                }
+            }, fileList.length * 200);
         },
         /**
          * @description: 文件上传失败时的操作
@@ -167,7 +201,10 @@ export default {
          * @param {File} file
          * @param {Array[File]} fileList
          */
-        handleError(err, file, fileList) {},
+        handleError(err, file, fileList) {
+            console.log(file);
+            console.log(err);
+        },
         /**
          * @description: 文件上传中的操作
          * @param {Object} event
@@ -198,6 +235,10 @@ export default {
          * @return {Boolean | Promise} 停止上传
          */
         handleBeforeUpload(file) {
+            /****************************************
+             * 重点：
+             * 缺少文件的类型验证，缺少文件的后缀验证
+             ***************************************/
             const { name, size } = file;
             const type = this.getFileType(name);
             let isType = true;
@@ -243,7 +284,14 @@ export default {
         },
         // 设置上传请求头部
         setHeaders(ui) {
-            return {};
+            const { token } = ui;
+            const headers = {};
+
+            if (token) {
+                headers.token = token;
+            }
+
+            return headers;
         },
         // 设置是否支持多选文件
         setMultiple(ui) {
@@ -295,11 +343,14 @@ export default {
         // 检查文件类型
         checkFileType(file, type, typeList) {
             const { name } = file;
-            const isType = typeList.indexOf(type) >= 0;
+            const backType = this.backFileType.indexOf(type) >= 0;
+            const whiteType = typeList.indexOf(type) >= 0;
+            const isType = !backType && whiteType;
 
             if (!isType) {
                 console.error(`${name} 文件类型与要求类型不符!`);
             }
+
             return isType;
         },
         // 检查文件大小

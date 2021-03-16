@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 14:02:00
+ * @LastEditTime: 2021-03-16 18:02:18
  * @Description: mg-form.vue component
 -->
 <template>
@@ -63,6 +63,7 @@
                             >
                                 <component
                                     :is="cell.componentName"
+                                    :ref="refsName(cell.field)"
                                     :mold="cell.mold"
                                     :field="cell.field"
                                     :value.sync="formData[cell.field]"
@@ -139,6 +140,10 @@ export default {
             type: Boolean,
             default: () => true,
         },
+        submitFormat: {
+            type: Boolean,
+            default: () => true,
+        },
     },
     data() {
         //这里存放数据
@@ -166,6 +171,16 @@ export default {
     },
     //监听属性 类似于data概念
     computed: {
+        // 获取所有mg-upload的字段名称
+        fileField: (vm) => {
+            const { cellSchema } = vm.schema;
+            return cellSchema.map((cell) => {
+                const { componentName, field } = cell;
+                if (componentName === "mg-upload") {
+                    return field;
+                }
+            });
+        },
         componentLists: () =>
             Object.keys(FormCellComponents).map(
                 (keys) => FormCellComponents[keys].name
@@ -221,25 +236,53 @@ export default {
     methods: {
         submitForm() {
             this.$refs[this.ruleForm].validate((valid) => {
-                const formData = {
-                    status: valid,
-                    data: valid ? this.formData : {},
-                };
+                const formData = this.fileSubmitHandleHook(
+                    cloneDeep(this.formData)
+                );
 
-                this.$emit("submitForm", formData);
+                this.$emit("submitForm", {
+                    status: valid,
+                    data: formData,
+                });
 
                 return valid;
             });
         },
         tempForm() {
+            const formData = this.fileSubmitHandleHook(
+                cloneDeep(this.formData)
+            );
+
             this.$emit("submitForm", {
-                status: true,
-                data: this.formData,
+                status: valid,
+                data: formData,
             });
         },
         resetForm() {
             this.componentReset = new Date().getTime();
             this.$refs[this.ruleForm].resetFields();
+        },
+        // 文件上传 提交参数处理
+        fileSubmitHandleHook(formData) {
+            this.fileField.forEach((field) => {
+                const refs = this.$refs[this.refsName(field)][0];
+                formData[`savefile${field}`] = this.fileSubmitFormat(
+                    formData[field]
+                );
+                formData[`delfile${field}`] = this.fileSubmitFormat(
+                    refs.deleteFile
+                );
+            });
+
+            return formData;
+        },
+        // 文件上传 提交参数格式处理
+        fileSubmitFormat(fileList) {
+            if (this.submitFormat) {
+                return fileList.map((file) => file.url).join("|");
+            }
+
+            return fileList;
         },
         monitorValue(params) {
             const { field, value } = params;
@@ -250,6 +293,10 @@ export default {
 
             const { leaderTag, lib } = tag;
             this.leaderRun(field, leaderTag, lib, value);
+        },
+        // 拼接 refs name
+        refsName(field) {
+            return `form-item-${field}`;
         },
         /**
          * @description: 处理原始结构体数据
@@ -276,8 +323,8 @@ export default {
                 const baseDataSchema = dataSchema || { lib: {} };
                 const { lib } = baseDataSchema;
 
-                struct[field] = cell;
                 data[field] = value;
+                struct[field] = cell;
                 rules[field] = this.setRuleItem(componentName, ruleSchema);
                 tag[field] = { leaderTag, workerTag, lib };
             });
@@ -328,7 +375,7 @@ export default {
          */
         setColSpan(uiSchema) {
             const { col } = uiSchema;
-            return col || 24;
+            return col - 0 || 24;
         },
         /**
          * @description: 设置表单-单元格属性

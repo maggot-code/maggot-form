@@ -10,18 +10,19 @@
             "lib": {}
         },
         "uiSchema": {
+            "token": "1278c7ec-7de7-4047-8834-042b98de13fb",
             "col": 24,
             "label": "文档",
-            "action": "http://192.1.1.5:8080/XFHSW/File/UpFile",
+            "action": "/kyhxs/Common/UpFile",
             "tips": "上传文档",
             "multiple": true,
-            "limit": 1,
             "size": 10,
             "types": [
-                "php",
                 "pdf",
-                "sql"
-            ]
+                "gif",
+                "txt"
+            ],
+            "blacklist": []
         },
         "ruleSchema": []
     }

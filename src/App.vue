@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 14:00:54
+ * @LastEditTime: 2021-03-16 17:46:26
  * @Description: file content
 -->
 <template>
@@ -20,9 +20,9 @@
 // import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
-// import TestJsonschema from "../test/test-upload";
+import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
-import TestJsonschema from "../test/test-table-seach";
+// import TestJsonschema from "../test/test-table-seach";
 export default {
     name: "App",
     mixins: [],
@@ -34,7 +34,6 @@ export default {
             testSchema: {
                 formSchema: {
                     labelWidth: "160px",
-                    inline: true,
                 },
                 cellSchema: TestJsonschema,
             },
