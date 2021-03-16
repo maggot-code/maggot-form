@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 19:35:53
+ * @LastEditTime: 2021-03-16 19:38:59
  * @Description: mg-form.vue component
 -->
 <template>
@@ -123,7 +123,7 @@
 import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents } from "../install";
 import { mergeSchema } from "../utils";
-import { cloneDeep, isNil, isString } from "lodash";
+import { cloneDeep, isNil, isString, isArray } from "lodash";
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
