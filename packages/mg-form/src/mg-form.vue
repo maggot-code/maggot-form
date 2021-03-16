@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:26:04
+ * @LastEditTime: 2021-03-16 18:48:58
  * @Description: mg-form.vue component
 -->
 <template>
@@ -26,6 +26,7 @@
                 >
                     <component
                         :is="cell.componentName"
+                        :ref="refsName(cell.field)"
                         :proName="proName"
                         :token="token"
                         :mold="cell.mold"
