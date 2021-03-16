@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:01:01
+ * @LastEditTime: 2021-03-16 18:37:42
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -278,17 +278,25 @@ export default {
             }
 
             return {
-                action: isString(action) ? action : "",
+                action: this.joinAction(isAction, action, this.proName),
                 isAction: isAction,
             };
         },
+        // 拼接action
+        joinAction(isAction, action, proName) {
+            const isProName = !isNil(proName) && isString(proName);
+            if (!isAction) {
+                return "";
+            }
+
+            return isProName ? `/${proName}${action}` : action;
+        },
         // 设置上传请求头部
         setHeaders(ui) {
-            const { token } = ui;
             const headers = {};
 
-            if (token) {
-                headers.token = token;
+            if (this.token) {
+                headers.token = this.token;
             }
 
             return headers;

@@ -10,10 +10,9 @@
             "lib": {}
         },
         "uiSchema": {
-            "token": "1278c7ec-7de7-4047-8834-042b98de13fb",
             "col": 24,
             "label": "文档",
-            "action": "/kyhxs/Common/UpFile",
+            "action": "/Common/UpFile",
             "tips": "上传文档",
             "multiple": true,
             "size": 10,

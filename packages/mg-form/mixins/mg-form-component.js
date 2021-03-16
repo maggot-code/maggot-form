@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:28:02
+ * @LastEditTime: 2021-03-16 18:26:57
  * @Description: mg form mixins component package
  */
 export default {
@@ -10,6 +10,8 @@ export default {
     mixins: [],
     components: {},
     props: {
+        proName: String,
+        token: [String, Number],
         mold: {
             type: String,
             default: () => "default"

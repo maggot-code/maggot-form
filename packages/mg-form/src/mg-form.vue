@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:02:18
+ * @LastEditTime: 2021-03-16 18:26:04
  * @Description: mg-form.vue component
 -->
 <template>
@@ -26,6 +26,8 @@
                 >
                     <component
                         :is="cell.componentName"
+                        :proName="proName"
+                        :token="token"
                         :mold="cell.mold"
                         :field="cell.field"
                         :value.sync="formData[cell.field]"
@@ -64,6 +66,8 @@
                                 <component
                                     :is="cell.componentName"
                                     :ref="refsName(cell.field)"
+                                    :proName="proName"
+                                    :token="token"
                                     :mold="cell.mold"
                                     :field="cell.field"
                                     :value.sync="formData[cell.field]"
@@ -127,6 +131,14 @@ export default {
         schema: {
             type: Object,
             required: true,
+        },
+        proName: {
+            type: String,
+            default: () => "",
+        },
+        token: {
+            type: [String, Boolean],
+            default: () => false,
         },
         useSubmit: {
             type: Boolean,

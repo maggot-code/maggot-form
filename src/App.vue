@@ -2,12 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 17:46:26
+ * @LastEditTime: 2021-03-16 18:38:51
  * @Description: file content
 -->
 <template>
     <div id="app">
         <mg-form
+            proName="kyhxs"
+            token="b3b1054a-eb72-499c-8d31-e82b96878c23"
             :job="jobFunction"
             :schema="testSchema"
             @submitForm="submit"
