@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 19:18:19
+ * @LastEditTime: 2021-03-16 19:22:19
  * @Description: mg-form.vue component
 -->
 <template>
@@ -187,12 +187,14 @@ export default {
         // 获取所有mg-upload的字段名称
         fileField: (vm) => {
             const { cellSchema } = vm.schema;
-            return cellSchema.filter((cell) => {
-                const { componentName, field } = cell;
-                if (componentName === "mg-upload") {
-                    return field;
-                }
-            });
+            return cellSchema
+                .filter((cell) => {
+                    const { componentName, field } = cell;
+                    if (componentName === "mg-upload") {
+                        return field;
+                    }
+                })
+                .map((item) => item.field);
         },
         componentLists: () =>
             Object.keys(FormCellComponents).map(
