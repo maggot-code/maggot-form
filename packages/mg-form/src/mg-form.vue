@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 19:22:19
+ * @LastEditTime: 2021-03-16 19:35:53
  * @Description: mg-form.vue component
 -->
 <template>
@@ -294,6 +294,10 @@ export default {
         },
         // 文件上传 提交参数格式处理
         fileSubmitFormat(fileList) {
+            if (!isArray(fileList)) {
+                return "";
+            }
+
             if (this.submitFormat) {
                 return fileList.map((file) => file.url).join("|");
             }
