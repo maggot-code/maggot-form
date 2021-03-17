@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 17:35:33
+ * @LastEditTime: 2021-03-17 18:26:25
  * @Description: mg-form.vue component
 -->
 <template>
@@ -156,6 +156,10 @@ export default {
         submitFormat: {
             type: Boolean,
             default: () => true,
+        },
+        loadSubmit: {
+            type: Boolean,
+            default: () => false,
         },
     },
     data() {
@@ -428,7 +432,9 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.loadSubmit && this.submitForm();
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
