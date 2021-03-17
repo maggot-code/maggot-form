@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:23:50
+ * @LastEditTime: 2021-03-17 11:31:58
  * @Description: file content
  */
 import Vue from 'vue';
@@ -23,6 +23,7 @@ import {
     InputNumber,
     Option,
     OptionGroup,
+    DatePicker,
     Select,
     Upload,
     Form,
@@ -50,6 +51,7 @@ Vue.use(Input);
 Vue.use(InputNumber);
 Vue.use(Option);
 Vue.use(OptionGroup);
+Vue.use(DatePicker);
 Vue.use(Select);
 Vue.use(Upload);
 Vue.use(Form);

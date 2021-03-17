@@ -1,0 +1,95 @@
+[
+    {
+        "componentName": "mg-time",
+        "mold": "date",
+        "field": "dateFixed",
+        "value": "2021-03-01 00:00:00",
+        "dataSchema": {},
+        "uiSchema": {
+            "label": "请选择日期"
+        },
+        "ruleSchema": [
+            {
+                "message": "请选择日期",
+                "required": true
+            }
+        ],
+        "leaderTag": {},
+        "workerTag": []
+    },
+    {
+        "componentName": "mg-time",
+        "mold": "datetime",
+        "field": "datetimeFixed",
+        "value": "2021-03-01 12:00:00",
+        "dataSchema": {},
+        "uiSchema": {
+            "label": "请选择日期"
+        },
+        "ruleSchema": [
+            {
+                "message": "请选择日期",
+                "required": true
+            }
+        ],
+        "leaderTag": {},
+        "workerTag": []
+    },
+    {
+        "componentName": "mg-time",
+        "mold": "month",
+        "field": "monthFixed",
+        "value": "2021-03-01 12:00:00",
+        "dataSchema": {},
+        "uiSchema": {
+            "label": "请选择月份"
+        },
+        "ruleSchema": [
+            {
+                "message": "请选择月份",
+                "required": true
+            }
+        ],
+        "leaderTag": {},
+        "workerTag": []
+    },
+    {
+        "componentName": "mg-time",
+        "mold": "year",
+        "field": "yearFixed",
+        "value": "2021-03-01 12:00:00",
+        "dataSchema": {},
+        "uiSchema": {
+            "label": "请选择年份"
+        },
+        "ruleSchema": [
+            {
+                "message": "请选择年份",
+                "required": true
+            }
+        ],
+        "leaderTag": {},
+        "workerTag": []
+    },
+    {
+        "componentName": "mg-time",
+        "mold": "daterange",
+        "field": "daterangeFixed",
+        "value": [
+            "2021-03-01 00:00:00",
+            "2021-03-06 00:00:00"
+        ],
+        "dataSchema": {},
+        "uiSchema": {
+            "label": "开始/结束日期"
+        },
+        "ruleSchema": [
+            {
+                "message": "请选择日期",
+                "required": true
+            }
+        ],
+        "leaderTag": {},
+        "workerTag": []
+    }
+]

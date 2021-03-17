@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:38:51
+ * @LastEditTime: 2021-03-17 14:49:11
  * @Description: file content
 -->
 <template>
     <div id="app">
         <mg-form
             proName="kyhxs"
-            token="b3b1054a-eb72-499c-8d31-e82b96878c23"
+            token="a160081c-2d0e-44fd-b32a-f4d1ae1d4838"
             :job="jobFunction"
             :schema="testSchema"
             @submitForm="submit"
@@ -22,9 +22,10 @@
 // import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
-import TestJsonschema from "../test/test-upload";
+// import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
+import TestJsonschema from "../test/test-time";
 export default {
     name: "App",
     mixins: [],

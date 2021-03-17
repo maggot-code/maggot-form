@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:47:25
+ * @LastEditTime: 2021-03-17 17:30:02
  * @Description: mg form mixins component package
  */
 export default {
