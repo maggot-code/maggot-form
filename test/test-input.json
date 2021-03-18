@@ -1,0 +1,30 @@
+[
+    {
+        "componentName": "mg-input",
+        "field": "projtotalfunding",
+        "mold": "float",
+        "ruleSchema": [
+            {
+                "message": "申请经费（万元）为必填，请填写。",
+                "required": true
+            },
+            {
+                "max": 18,
+                "message": "申请经费（万元）必须小于18，请修改。"
+            }
+        ],
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "max": 18,
+            "precision": 2,
+            "label": "申请经费（万元）"
+        },
+        "clearable": true,
+        "col": 12,
+        "label": "申请经费（万元）",
+        "max": 18,
+        "precision": 2,
+        "value": ""
+    }
+]

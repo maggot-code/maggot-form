@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 23:56:54
+ * @LastEditTime: 2021-03-18 18:32:27
  * @Description: mg-input.vue component
 -->
 <template>
@@ -104,7 +104,7 @@ export default {
             this.monitorValue({
                 mold: this.mold,
                 field: this.field,
-                value: newVal,
+                value: newVal.toString(),
                 handle: "input",
             });
         },

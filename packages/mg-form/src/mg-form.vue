@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 18:30:42
+ * @LastEditTime: 2021-03-18 18:34:17
  * @Description: mg-form.vue component
 -->
 <template>
@@ -273,7 +273,7 @@ export default {
             );
 
             this.$emit("submitForm", {
-                status: valid,
+                status: true,
                 data: formData,
             });
         },
