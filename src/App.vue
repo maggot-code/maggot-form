@@ -2,18 +2,27 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-18 18:27:45
+ * @LastEditTime: 2021-03-19 11:13:58
  * @Description: file content
 -->
 <template>
     <div id="app">
         <mg-form
             proName="kyhxs"
-            token="a160081c-2d0e-44fd-b32a-f4d1ae1d4838"
+            :ref="formRefName"
             :job="jobFunction"
             :schema="testSchema"
-            @submitForm="submit"
+            @form-error="handlerFormError"
         ></mg-form>
+        <el-button
+            v-for="(cell, keys) in formButtonGroup"
+            plain
+            :key="keys"
+            :type="cell.type"
+            :icon="cell.icon"
+            @click="cell.handle"
+            >{{ cell.label }}</el-button
+        >
     </div>
 </template>
 
@@ -26,7 +35,8 @@
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
 // import TestJsonschema from "../test/test-time";
-import TestJsonschema from "../test/test-input";
+// import TestJsonschema from "../test/test-input";
+import TestJsonschema from "../test/test-v1";
 export default {
     name: "App",
     mixins: [],
@@ -42,6 +52,28 @@ export default {
                 cellSchema: TestJsonschema,
             },
             jobFunction: {},
+
+            formRefName: "apply",
+            formButtonGroup: {
+                submit: {
+                    type: "success",
+                    icon: "el-icon-check",
+                    label: "提交",
+                    handle: this.submit,
+                },
+                temp: {
+                    type: "primary",
+                    icon: "el-icon-folder",
+                    label: "暂存",
+                    handle: this.temp,
+                },
+                reset: {
+                    type: "info",
+                    icon: "el-icon-refresh",
+                    label: "重置",
+                    handle: this.reset,
+                },
+            },
         };
     },
     //监听属性 类似于data概念
@@ -50,9 +82,24 @@ export default {
     watch: {},
     //方法集合
     methods: {
-        submit(formData) {
-            const { status, data } = formData;
-            console.log(status, data);
+        handlerFormError(error) {
+            console.log(error);
+        },
+        submit() {
+            const { validate, data } = this.$refs[
+                this.formRefName
+            ].formOutput();
+            validate((status) => {
+                console.log(status);
+                console.log(data);
+            });
+        },
+        temp() {
+            const { data } = this.$refs[this.formRefName].formOutput();
+            console.log(data);
+        },
+        reset() {
+            this.$refs[this.formRefName].resetForm();
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

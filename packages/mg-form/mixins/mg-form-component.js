@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 17:30:02
+ * @LastEditTime: 2021-03-19 11:04:52
  * @Description: mg form mixins component package
  */
 export default {
@@ -68,6 +68,12 @@ export default {
 
             this.$emit("update:value", value);
             this.$emit('monitorValue', params);
+        },
+        formThrowError(componentName, error) {
+            this.$emit('formError', {
+                componentName: componentName,
+                error: error
+            })
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 18:37:42
+ * @LastEditTime: 2021-03-19 11:09:34
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -41,6 +41,7 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
+import { flake, getToken } from "maggot-utils";
 import {
     isBoolean,
     isNumber,
@@ -72,12 +73,12 @@ export default {
     mixins: [MgFormComponent],
     components: {},
     props: {
-        reset: Number,
+        reset: [String, Number],
     },
     data() {
         //这里存放数据
         return {
-            uploadRefs: new Date().getTime(),
+            uploadRefs: flake.gen(),
             fileValue: this.setFileList(this.value),
             deleteFile: [],
             uploadRule: {},
@@ -190,7 +191,7 @@ export default {
          */
         handleSuccess(response, file, fileList) {
             setTimeout(() => {
-                if (file.status === "success") {
+                if (file.status === "success" && isArray(response)) {
                     this.fileValue.push(response[0]);
                 }
             }, fileList.length * 200);
@@ -202,8 +203,7 @@ export default {
          * @param {Array[File]} fileList
          */
         handleError(err, file, fileList) {
-            console.log(file);
-            console.log(err);
+            this.formThrowError("mg-upload", { ...err, file: file });
         },
         /**
          * @description: 文件上传中的操作
@@ -211,7 +211,12 @@ export default {
          * @param {File} file
          * @param {Array[File]} fileList
          */
-        handleProgress(event, file, fileList) {},
+        handleProgress(event, file, fileList) {
+            this.$emit("uploadSpeed", {
+                event: event,
+                file: file,
+            });
+        },
         /**
          * @description: 文件状态改变时的操作（添加文件、上传成功和上传失败时会被调用）
          * @param {File} file
@@ -225,9 +230,8 @@ export default {
          */
         handleExceed(files, fileList) {
             const { limit } = this.ui;
-            console.error(
-                `抱歉，超过一次性上传文件数量限制，一次性上传最大${limit}个文件!`
-            );
+            const errExplain = `抱歉，超过一次性上传文件数量限制，一次性上传最大${limit}个文件!`;
+            this.uploadError(errExplain, files);
         },
         /**
          * @description: 文件上传之前的操作，返回false或者promise.reject会停止上传
@@ -270,11 +274,11 @@ export default {
         setAction(ui) {
             const { action } = ui;
             const isAction = !isNil(action) && isString(action);
+            const errExplain =
+                "上传组件必须携带 “action” 属性，指定上传文件地址!";
 
             if (!isAction) {
-                console.error(
-                    "上传组件必须携带 “action” 属性，指定上传文件地址!"
-                );
+                this.uploadError(errExplain);
             }
 
             return {
@@ -295,8 +299,8 @@ export default {
         setHeaders(ui) {
             const headers = {};
 
-            if (this.token) {
-                headers.token = this.token;
+            if (this.token || getToken()) {
+                headers.token = this.token || getToken();
             }
 
             return headers;
@@ -354,9 +358,10 @@ export default {
             const backType = this.backFileType.indexOf(type) >= 0;
             const whiteType = typeList.indexOf(type) >= 0;
             const isType = !backType && whiteType;
+            const errExplain = `${name} 文件类型与要求类型不符!`;
 
             if (!isType) {
-                console.error(`${name} 文件类型与要求类型不符!`);
+                this.uploadError(errExplain, file);
             }
 
             return isType;
@@ -365,11 +370,21 @@ export default {
         checkFileSize(file, size, baseSize) {
             const { name } = file;
             const isSize = size < baseSize;
+            const errExplain = `${name} 文件大小超出上传限制!`;
 
             if (!isSize) {
-                console.error(`${name} 文件大小超出上传限制!`);
+                this.uploadError(errExplain, file);
             }
             return isSize;
+        },
+        // 上传控件错误抛出
+        uploadError(explain, file = {}) {
+            console.error(explain);
+
+            this.formThrowError("mg-upload", {
+                txt: explain,
+                file: file,
+            });
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

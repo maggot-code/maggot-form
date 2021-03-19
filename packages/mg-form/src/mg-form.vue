@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-18 18:34:17
+ * @LastEditTime: 2021-03-19 10:56:08
  * @Description: mg-form.vue component
 -->
 <template>
@@ -40,6 +40,8 @@
                         :rule="cell.ruleSchema"
                         :reset="componentReset"
                         @monitorValue="monitorValue"
+                        @formError="formError"
+                        @uploadSpeed="uploadSpeed"
                     ></component>
                 </el-form-item>
             </template>
@@ -80,6 +82,8 @@
                                     :rule="cell.ruleSchema"
                                     :reset="componentReset"
                                     @monitorValue="monitorValue"
+                                    @formError="formError"
+                                    @uploadSpeed="uploadSpeed"
                                 ></component>
                             </el-tooltip>
                         </el-form-item>
@@ -89,32 +93,7 @@
         </template>
 
         <el-form-item label-width="0" :style="buttonGroupStyle">
-            <el-button
-                v-if="useSubmit"
-                type="success"
-                icon="el-icon-check"
-                plain
-                @click="submitForm"
-                >{{ submitLabel }}</el-button
-            >
-
-            <el-button
-                v-if="ifTempButton"
-                type="primary"
-                icon="el-icon-folder-checked"
-                plain
-                @click="tempForm"
-                >暂存</el-button
-            >
-
-            <el-button
-                v-if="useReset"
-                type="info"
-                icon="el-icon-refresh"
-                plain
-                @click="resetForm"
-                >重置</el-button
-            >
+            <slot name="form-button"></slot>
         </el-form-item>
     </el-form>
 </template>
@@ -124,6 +103,7 @@ import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents } from "../install";
 import { mergeSchema } from "../utils";
 import { cloneDeep, isNil, isString, isArray } from "lodash";
+import { flake } from "maggot-utils";
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
@@ -141,32 +121,16 @@ export default {
             type: [String, Boolean],
             default: () => false,
         },
-        useSubmit: {
-            type: Boolean,
-            default: () => true,
-        },
-        useTemp: {
-            type: Boolean,
-            default: () => true,
-        },
-        useReset: {
-            type: Boolean,
-            default: () => true,
-        },
         submitFormat: {
             type: Boolean,
             default: () => true,
-        },
-        loadSubmit: {
-            type: Boolean,
-            default: () => false,
         },
     },
     data() {
         //这里存放数据
         return {
-            ruleForm: new Date().getTime(),
-            componentReset: new Date().getTime(),
+            ruleForm: flake.gen(),
+            componentReset: flake.gen(),
             // medium | small | mini
             // formSize: "medium",
             // [inline, disabled, labelWidth,labelPosition,gutter ]
@@ -253,39 +217,26 @@ export default {
     },
     //方法集合
     methods: {
-        submitForm() {
-            this.$refs[this.ruleForm].validate((valid) => {
-                const formData = this.fileSubmitHandleHook(
-                    cloneDeep(this.formData)
-                );
-
-                this.$emit("submitForm", {
-                    status: valid,
-                    data: formData,
-                });
-
-                return valid;
-            });
+        uploadSpeed(uploadInfo) {
+            this.$emit("upload-speed", uploadInfo);
         },
-        tempForm() {
-            const formData = this.fileSubmitHandleHook(
-                cloneDeep(this.formData)
-            );
-
-            this.$emit("submitForm", {
-                status: true,
-                data: formData,
-            });
+        formError(errorInfo) {
+            this.$emit("form-error", errorInfo);
+        },
+        formOutput() {
+            return {
+                validate: this.$refs[this.ruleForm].validate,
+                data: this.fileSubmitHandleHook(cloneDeep(this.formData)),
+            };
         },
         resetForm() {
-            this.componentReset = new Date().getTime();
+            this.componentReset = flake.gen();
             this.$refs[this.ruleForm].resetFields();
         },
         // 文件上传 提交参数处理
         fileSubmitHandleHook(formData) {
             this.fileField.forEach((field) => {
                 const refs = this.$refs[this.refsName(field)][0];
-                console.log(refs);
                 formData[`savefile${field}`] = this.fileSubmitFormat(
                     formData[field]
                 );
@@ -434,11 +385,7 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {
-        this.$nextTick(() => {
-            this.loadSubmit && this.submitForm();
-        });
-    },
+    mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前
     beforeUpdate() {}, //生命周期 - 更新之前
