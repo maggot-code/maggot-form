@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-19 10:56:08
+ * @LastEditTime: 2021-03-22 17:36:18
  * @Description: mg-form.vue component
 -->
 <template>
@@ -268,6 +268,8 @@ export default {
 
             const { leaderTag, lib } = tag;
             this.leaderRun(field, leaderTag, lib, value);
+
+            this.$emit("monitor-value", params);
         },
         // 拼接 refs name
         refsName(field) {
