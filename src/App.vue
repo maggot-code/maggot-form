@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-19 11:13:58
+ * @LastEditTime: 2021-03-22 17:43:39
  * @Description: file content
 -->
 <template>
@@ -13,6 +13,7 @@
             :job="jobFunction"
             :schema="testSchema"
             @form-error="handlerFormError"
+            @monitor-value="handleValue"
         ></mg-form>
         <el-button
             v-for="(cell, keys) in formButtonGroup"
@@ -84,6 +85,9 @@ export default {
     methods: {
         handlerFormError(error) {
             console.log(error);
+        },
+        handleValue(params) {
+            console.log(params);
         },
         submit() {
             const { validate, data } = this.$refs[
