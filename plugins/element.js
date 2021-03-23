@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 11:31:58
+ * @LastEditTime: 2021-03-23 11:31:02
  * @Description: file content
  */
 import Vue from 'vue';
@@ -13,6 +13,7 @@ import {
     Button,
     ButtonGroup,
     // Form 表单
+    Autocomplete,
     Radio,
     RadioGroup,
     RadioButton,
@@ -41,6 +42,7 @@ Vue.use(Col);
 Vue.use(Button);
 Vue.use(ButtonGroup);
 // Form 表单
+Vue.use(Autocomplete);
 Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 14:06:42
+ * @LastEditTime: 2021-03-23 13:32:48
  * @Description: file content
  */
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -36,7 +36,7 @@ module.exports = {
         open: false,
         proxy: {
             '/kyhxs': {
-                target: 'http://192.1.1.199:8081',
+                target: 'http://192.1.1.5:8080',
                 ws: true,
                 secure: false,
                 changeOrigin: true,

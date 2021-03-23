@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:51:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 13:13:59
+ * @LastEditTime: 2021-03-23 11:26:08
  * @Description: unify install form components
  */
 import MgInput from '../mg-input';
@@ -11,6 +11,7 @@ import MgRadio from '../mg-radio';
 import MgCheckBox from '../mg-check-box';
 import MgUpload from '../mg-upload';
 import MgTime from '../mg-time';
+import MgAutocomplete from '../mg-autocomplete';
 
 const components = [
     MgInput,
@@ -18,7 +19,8 @@ const components = [
     MgRadio,
     MgCheckBox,
     MgUpload,
-    MgTime
+    MgTime,
+    MgAutocomplete
 ];
 
 const FormCellComponents = {};

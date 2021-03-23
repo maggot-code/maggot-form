@@ -1,0 +1,17 @@
+[
+    {
+        "componentName": "mg-autocomplete",
+        "mold": "default",
+        "field": "selectName",
+        "value": "",
+        "dataSchema": {
+            "api": "/SystemManage/SM_Users/GetListForCombobox"
+        },
+        "uiSchema": {
+            "label": "姓名"
+        },
+        "ruleSchema": [],
+        "leaderTag": {},
+        "workerTag": []
+    }
+]
