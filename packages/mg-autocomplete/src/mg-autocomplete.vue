@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 12:52:58
+ * @LastEditTime: 2021-03-24 13:17:30
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -86,7 +86,6 @@ export default {
             this.$set(this, "selectValue", newVal);
         },
         selectValue(newVal) {
-            console.log(newVal);
             this.monitorValue({
                 mold: this.mold,
                 field: this.field,
