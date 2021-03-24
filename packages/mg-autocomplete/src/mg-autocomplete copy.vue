@@ -2,25 +2,17 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 12:52:58
+ * @LastEditTime: 2021-03-24 12:35:55
  * @Description: mg-autocomplete.vue component
 -->
 <template>
-    <el-select
+    <el-autocomplete
         class="mg-autocomplete"
-        v-model="selectValue"
+        v-model="inputLabel"
         v-bind="options"
-        :remote-method="remoteMethod"
-        :loading="selectLoading"
-    >
-        <el-option
-            v-for="item in selectGather"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-        >
-        </el-option>
-    </el-select>
+        :fetch-suggestions="querySearchAsync"
+        @select="handleSelect"
+    ></el-autocomplete>
 </template>
 
 <script>
@@ -35,9 +27,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            selectValue: this.value,
-            selectLoading: false,
-            selectGather: [],
+            inputLabel: "",
             timeout: null,
         };
     },
@@ -46,20 +36,14 @@ export default {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
             const { label, placeholder, clearable } = ui;
-            const baseLabel = label || "标签";
-            const basePlaceholder = placeholder || `请选择${baseLabel}`;
+            const baseLabel = label || "内容";
+            const basePlaceholder = placeholder || `请输入${baseLabel}`;
             const vbind = Object.assign({}, ui, {
                 placeholder: basePlaceholder,
                 clearable: vm.setDefault(clearable, true),
-                remote: true,
-                filterable: true,
-                "default-first-option": true,
-                "reserve-keyword": true,
-                "loading-text": `获取${baseLabel}中..`,
-                "no-match-text": "未找到匹配信息",
-                "no-data-text": "未找到信息",
-
-                "value-key": "value",
+                "value-key": "label",
+                "highlight-first-item": true,
+                "trigger-on-focus": false,
             });
 
             return vbind;
@@ -80,60 +64,55 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.setSelectGather(newVal);
-            this.$set(this, "selectValue", newVal);
-        },
-        selectValue(newVal) {
-            console.log(newVal);
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "change",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         setDefault(value, def) {
             return isNil(value) ? def : value;
         },
-        setSelectGather(value) {
+        setInputLabel(value) {
             if (!value) {
-                this.selectGather = [];
+                this.inputLabel = "";
                 return false;
             }
+            const params = {};
+            params[this.valueKey] = value;
 
-            this.getData({ [this.valueKey]: value })
+            this.getData(params)
                 .then((res) => {
                     const { data } = res;
-                    this.selectGather =
-                        data.length <= 0 ? [] : this.setDataStruct(data);
+                    this.inputLabel =
+                        data.length <= 0 ? value : data[0][this.labelKey];
                 })
                 .catch((error) => {
-                    this.selectGather = [];
+                    this.inputLabel = "";
                 });
         },
-        remoteMethod(queryString) {
+        handleSelect(cell) {
+            const { value } = cell;
+            this.monitorValue({
+                mold: this.mold,
+                field: this.field,
+                value: value.toString(),
+                handle: "input",
+            });
+        },
+        querySearchAsync(queryString, callback) {
             clearTimeout(this.timeout);
-            if (queryString === "") {
-                this.selectGather = [];
-            } else {
-                this.selectLoading = true;
-                this.timeout = setTimeout(() => {
-                    this.getData({ [this.labelKey]: queryString })
-                        .then((res) => {
-                            const { data } = res;
-                            this.selectGather = this.setDataStruct(data);
-                        })
-                        .catch((error) => {
-                            this.selectGather = [];
-                        });
-                    this.selectLoading = false;
-                }, 200);
-            }
+            this.timeout = setTimeout(() => {
+                const params = {};
+                params[this.labelKey] = queryString;
+
+                this.getData(params)
+                    .then((res) => {
+                        const { data } = res;
+                        callback(this.setDataStruct(data));
+                    })
+                    .catch((error) => {
+                        callback([]);
+                        this.inputLabel = "";
+                    });
+            }, 200);
         },
         setDataStruct(data) {
             return data.map((cell) => this.setCellStruct(cell));
@@ -158,7 +137,8 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.setSelectGather(this.value);
+        // 1735443
+        this.setInputLabel(this.value);
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

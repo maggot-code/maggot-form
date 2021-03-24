@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-22 17:43:31
+ * @LastEditTime: 2021-03-24 13:15:20
  * @Description: mg-form.vue component
 -->
 <template>
@@ -382,6 +382,11 @@ export default {
             const isName = componentName === "mg-upload";
 
             return isNil(tips) || isName;
+        },
+        setFormDataValue(field, value) {
+            const defValue = this.formDefData[field];
+
+            this.$set(this.formData, field, isNil(value) ? defValue : value);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
