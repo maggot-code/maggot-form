@@ -38,8 +38,8 @@
 // import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
-// import TestJsonschema from "../test/test-autocomplete.json";
-import TestJsonschema from "../test/test-cascader.json";
+import TestJsonschema from "../test/test-autocomplete.json";
+// import TestJsonschema from "../test/test-cascader.json";
 export default {
     name: "App",
     mixins: [],

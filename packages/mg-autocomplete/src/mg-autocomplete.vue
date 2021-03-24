@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 10:53:36
+ * @LastEditTime: 2021-03-24 11:10:05
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -18,6 +18,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { send } from "../../mg-form/axios";
+import { isNil } from "lodash";
 export default {
     name: "mg-autocomplete",
     mixins: [MgFormComponent],
@@ -50,23 +51,37 @@ export default {
             const { proName, database } = vm;
             const { api } = database;
 
+            console.log(isNil(api) ? false : proName + api);
             return isNil(api) ? false : proName + api;
+        },
+        valueKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.valueField, "userid");
+        },
+        labelKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.textField, "truename");
         },
     },
     //监控data中的数据变化
     watch: {},
     //方法集合
     methods: {
+        setDefault(value, def) {
+            return isNil(value) ? def : value;
+        },
         setInputLabel(value) {
             if (!value) {
                 return "";
             }
+            const params = {};
+            params[this.valueKey] = value;
 
-            this.getData({ userid: value })
+            this.getData(params)
                 .then((res) => {
                     const { data } = res;
                     this.inputLabel =
-                        data.length <= 0 ? value : data[0].truename;
+                        data.length <= 0 ? value : data[0][this.labelKey];
                 })
                 .catch((error) => {
                     this.inputLabel = "";
@@ -84,7 +99,10 @@ export default {
         querySearchAsync(queryString, callback) {
             clearTimeout(this.timeout);
             this.timeout = setTimeout(() => {
-                this.getData({ truename: queryString })
+                const params = {};
+                params[this.labelKey] = queryString;
+
+                this.getData(params)
                     .then((res) => {
                         const { data } = res;
                         callback(this.setDataStruct(data));
@@ -98,27 +116,20 @@ export default {
             return data.map((cell) => this.setCellStruct(cell));
         },
         setCellStruct(cell) {
-            const { userid, truename, departmentidname } = cell;
-            const label = truename;
             return {
-                value: userid,
-                label: label,
+                value: cell[this.valueKey],
+                label: cell[this.labelKey],
             };
         },
         getData(params) {
-            const { truename, userid } = params;
             return new Promise((resolve, reject) => {
-                if (this.requestApi) {
-                    send({
-                        url: this.requestApi,
-                        method: "POST",
-                        params: { truename: truename, userid: userid },
-                    })
-                        .then((res) => resolve(res))
-                        .catch((error) => reject(error));
-                } else {
-                    resolve([]);
-                }
+                send({
+                    url: this.requestApi,
+                    method: "POST",
+                    params: params,
+                })
+                    .then((res) => resolve(res))
+                    .catch((error) => reject(error));
             });
         },
     },

@@ -1,17 +1,19 @@
 [
     {
         "componentName": "mg-autocomplete",
-        "mold": "default",
-        "field": "selectName",
-        "value": "",
         "dataSchema": {
-            "api": "/SystemManage/SM_Users/GetListForCombobox"
+            "api": "/SystemManage/SM_Users/GetListForCombobox",
+            "textField": "truename",
+            "valueField": "userid"
         },
-        "uiSchema": {
-            "label": "姓名"
-        },
+        "field": "userid",
+        "mold": "default",
         "ruleSchema": [],
-        "leaderTag": {},
-        "workerTag": []
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "作者姓名"
+        },
+        "value": ""
     }
 ]
