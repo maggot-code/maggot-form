@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 14:00:16
+ * @LastEditTime: 2021-03-24 20:01:51
  * @Description: mg-select.vue component
 -->
 <template>
@@ -37,13 +37,14 @@ export default {
     computed: {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
-            const { label, placeholder } = ui;
+            const { label, placeholder, clearable } = ui;
 
             const baseLabel = label || "内容";
             const basePlaceholder = placeholder || `请输入${baseLabel}`;
 
             return Object.assign({}, ui, {
                 placeholder: basePlaceholder,
+                clearable: vm.setDefault(clearable, true),
             });
         },
         selectList: (vm) => {
@@ -75,6 +76,9 @@ export default {
     },
     //方法集合
     methods: {
+        setDefault(value, def) {
+            return isNil(value) ? def : value;
+        },
         /**
          * @description: 处理 change 事件
          * @param {String | Number | Array} value 更新数值
