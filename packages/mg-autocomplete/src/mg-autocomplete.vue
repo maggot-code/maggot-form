@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 18:02:32
+ * @LastEditTime: 2021-03-24 10:53:36
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -50,7 +50,7 @@ export default {
             const { proName, database } = vm;
             const { api } = database;
 
-            return proName + api;
+            return isNil(api) ? false : proName + api;
         },
     },
     //监控data中的数据变化
@@ -108,13 +108,17 @@ export default {
         getData(params) {
             const { truename, userid } = params;
             return new Promise((resolve, reject) => {
-                send({
-                    url: this.requestApi,
-                    method: "POST",
-                    params: { truename: truename, userid: userid },
-                })
-                    .then((res) => resolve(res))
-                    .catch((error) => reject(error));
+                if (this.requestApi) {
+                    send({
+                        url: this.requestApi,
+                        method: "POST",
+                        params: { truename: truename, userid: userid },
+                    })
+                        .then((res) => resolve(res))
+                        .catch((error) => reject(error));
+                } else {
+                    resolve([]);
+                }
             });
         },
     },

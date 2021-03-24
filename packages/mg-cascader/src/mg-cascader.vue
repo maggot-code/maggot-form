@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 10:18:37
+ * @LastEditTime: 2021-03-24 10:52:18
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -71,7 +71,7 @@ export default {
             const { proName, database } = vm;
             const { api } = database;
 
-            return proName + api;
+            return isNil(api) ? false : proName + api;
         },
         requestParams: (vm) => {
             const { database } = vm;
@@ -152,13 +152,17 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        send({
-            url: this.requestApi,
-            method: "POST",
-            params: this.requestParams,
-        })
-            .then((res) => this.setSelectData(res.data))
-            .catch((error) => this.setSelectData());
+        if (this.requestApi) {
+            send({
+                url: this.requestApi,
+                method: "POST",
+                params: this.requestParams,
+            })
+                .then((res) => this.setSelectData(res.data))
+                .catch((error) => this.setSelectData());
+        } else {
+            this.setSelectData();
+        }
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
