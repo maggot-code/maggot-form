@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 16:34:11
+ * @LastEditTime: 2021-03-24 18:58:46
  * @Description: file content
 -->
 <template>
@@ -30,15 +30,16 @@
 <script>
 // import TestFormWorker from "../test/test-form-worker";
 // import TestJsonschema from "../test/test-select";
+// import TestJsonschema from "../test/test-select-copy";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
 // import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
-// import TestJsonschema from "../test/test-time";
+import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
-import TestJsonschema from "../test/test-autocomplete.json";
+// import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
 export default {
     name: "App",

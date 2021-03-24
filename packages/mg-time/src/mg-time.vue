@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 18:02:27
+ * @LastEditTime: 2021-03-24 19:08:09
  * @Description: mg-time.vue component
 -->
 <template>
@@ -43,7 +43,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            timeValue: this.value,
+            timeValue: "",
             handleMoldOptions: {
                 date: this.moldDate,
                 // dates: this.moldDates,
@@ -135,7 +135,9 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.timeValue = this.setupValue(this.value);
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

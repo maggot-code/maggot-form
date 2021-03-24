@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 13:17:40
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 18:01:34
+ * @LastEditTime: 2021-03-24 19:05:07
  * @Description: mg time datetime mold
  */
 import { mergeSchema } from '../../mg-form/utils';
 
 const defaultBind = {
     "type": "datetime",
-    "format": "yyyy-MM-dd HH:mm:ss",
+    "format": "yyyy-MM-dd hh:mm:ss",
     "prefix-icon": "el-icon-date",
     "placeholder": "请选择时间",
 };
