@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 19:08:09
+ * @LastEditTime: 2021-03-24 19:21:15
  * @Description: mg-time.vue component
 -->
 <template>
@@ -136,7 +136,9 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.timeValue = this.setupValue(this.value);
+        if (this.value) {
+            this.timeValue = this.setupValue(this.value);
+        }
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
