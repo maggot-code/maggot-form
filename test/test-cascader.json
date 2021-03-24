@@ -1,0 +1,21 @@
+[
+    {
+        "dataSchema": {
+            "lib": {
+                "codeid": "UM",
+                "parentid": "0"
+            },
+            "step": "3",
+            "api": "/SystemManage/SM_Department/GetListForTree"
+        },
+        "field": "departmentid",
+        "uiSchema": {
+            "label": "所属院系",
+            "checkStrictly": false
+        },
+        "ruleSchema": [],
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": "001013313"
+    }
+]

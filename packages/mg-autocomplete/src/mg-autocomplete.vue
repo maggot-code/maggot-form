@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 15:38:15
+ * @LastEditTime: 2021-03-23 18:02:32
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -26,7 +26,6 @@ export default {
     data() {
         //这里存放数据
         return {
-            inputValue: this.value,
             inputLabel: "",
             timeout: null,
         };
@@ -36,7 +35,7 @@ export default {
         options: (vm) => {
             const { mold, field, ui, rule } = vm;
             const { label, placeholder } = ui;
-            const baseLabel = label || vbind.label;
+            const baseLabel = label || "内容";
             const basePlaceholder = placeholder || `请输入${baseLabel}`;
             const vbind = Object.assign({}, ui, {
                 placeholder: basePlaceholder,
@@ -55,14 +54,10 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "inputValue", newVal);
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
-        setInputValue(value) {
+        setInputLabel(value) {
             if (!value) {
                 return "";
             }
@@ -126,7 +121,7 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
         // 1735443
-        this.inputLabel = this.setInputValue(this.value);
+        this.inputLabel = this.setInputLabel(this.value);
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

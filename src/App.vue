@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 11:27:35
+ * @LastEditTime: 2021-03-23 16:34:11
  * @Description: file content
 -->
 <template>
@@ -38,7 +38,8 @@
 // import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
-import TestJsonschema from "../test/test-autocomplete.json";
+// import TestJsonschema from "../test/test-autocomplete.json";
+import TestJsonschema from "../test/test-cascader.json";
 export default {
     name: "App",
     mixins: [],

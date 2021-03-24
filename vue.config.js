@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 13:32:48
+ * @LastEditTime: 2021-03-24 09:22:55
  * @Description: file content
  */
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
