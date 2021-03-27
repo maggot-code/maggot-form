@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 10:52:18
+ * @LastEditTime: 2021-03-26 18:13:33
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -102,6 +102,7 @@ export default {
             this.$set(this, "selectValue", this.serializeValue(newVal));
         },
         selectValue(newVal) {
+            console.log(newVal);
             this.monitorValue({
                 mold: this.mold,
                 field: this.field,

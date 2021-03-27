@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 19:53:52
+ * @LastEditTime: 2021-03-27 15:41:32
  * @Description: file content
 -->
 <template>
@@ -31,7 +31,7 @@
 // import TestFormWorker from "../test/test-form-worker";
 // import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-select-copy";
-import TestJsonschema from "../test/test-select1";
+// import TestJsonschema from "../test/test-select1";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
 // import TestJsonschema from "../test/test-upload";
@@ -42,6 +42,8 @@ import TestJsonschema from "../test/test-select1";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
+// import TestJsonschema from "../test/test-cascader-v1.json";
+import TestJsonschema from "../test/test-add-v1.json";
 export default {
     name: "App",
     mixins: [],
@@ -91,16 +93,10 @@ export default {
             console.log(error);
         },
         handleValue(params) {
-            console.log(params);
+            // console.log(params);
         },
         submit() {
-            const { validate, data } = this.$refs[
-                this.formRefName
-            ].formOutput();
-            validate((status) => {
-                console.log(status);
-                console.log(data);
-            });
+            this.$refs[this.formRefName].formValidate();
         },
         temp() {
             const { data } = this.$refs[this.formRefName].formOutput();

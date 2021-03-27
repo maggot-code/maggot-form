@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:32:02
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 15:40:05
+ * @LastEditTime: 2021-03-26 18:21:23
  * @Description: mg input number mold
  */
 import { mergeSchema, inputMinus } from "../../mg-form/utils";

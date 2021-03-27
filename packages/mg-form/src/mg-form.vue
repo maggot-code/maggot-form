@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 13:15:20
+ * @LastEditTime: 2021-03-27 15:43:26
  * @Description: mg-form.vue component
 -->
 <template>
@@ -228,6 +228,9 @@ export default {
                 validate: this.$refs[this.ruleForm].validate,
                 data: this.fileSubmitHandleHook(cloneDeep(this.formData)),
             };
+        },
+        clearValidate() {
+            this.$refs[this.ruleForm].clearValidate();
         },
         resetForm() {
             this.componentReset = flake.gen();

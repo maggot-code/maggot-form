@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 20:07:01
+ * @LastEditTime: 2021-03-26 16:27:13
  * @Description: mg-select.vue component
 -->
 <template>
@@ -45,6 +45,7 @@ export default {
             return Object.assign({}, ui, {
                 placeholder: basePlaceholder,
                 clearable: vm.setDefault(clearable, true),
+                "popper-append-to-body": false,
             });
         },
         selectList: (vm) => {
