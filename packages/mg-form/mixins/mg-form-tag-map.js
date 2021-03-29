@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-05 15:53:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-11 17:39:43
+ * @LastEditTime: 2021-03-29 17:35:08
  * @Description: mg form mixins tag map package
  */
 import { forIn, set, cloneDeep } from 'lodash';
@@ -28,15 +28,16 @@ export default {
     watch: {},
     //方法集合
     methods: {
-        leaderRun(field, leader, lib, value) {
+        leaderRun(field, leader, lib, value, defValue) {
             forIn(leader, (target, name) => {
                 const { controller, workerMan } = target;
                 const handlerName = this.splitLeaderName(name);
                 const handleFunc = this.job[handlerName];
-                handleFunc && handleFunc({ ...lib, value }).then(res => {
+                handleFunc && handleFunc({ ...lib, field, value, defValue }).then(res => {
                     workerMan.forEach(worker => this.assignWorker(worker, controller, res));
                 }).catch(error => {
                     console.log(error);
+                    workerMan.forEach(worker => this.assignWorker(worker, controller, defValue));
                 })
             })
         },
