@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:56:12
+ * @LastEditTime: 2021-03-29 18:24:05
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -126,6 +126,10 @@ export default {
     methods: {
         // 序列化接口格式为element格式
         serializeValue(value) {
+            if (value.length <= 0) {
+                return [];
+            }
+
             const { step } = this.database;
             const valuePath = [];
             let baseLen = value.length / step;
