@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 18:24:05
+ * @LastEditTime: 2021-03-29 18:39:40
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -148,7 +148,7 @@ export default {
         desSerializeValue(valuePath) {
             const index = valuePath.length - 1;
 
-            return valuePath[index];
+            return index < 0 ? "" : valuePath[index];
         },
         removeTreeLevel(data, someNumber) {
             if (someNumber <= 0) {
