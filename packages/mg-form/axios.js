@@ -2,13 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 13:07:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-27 15:59:39
+ * @LastEditTime: 2021-03-29 13:55:51
  * @Description: file content
  */
 import axios from 'axios';
 import { MGaxios } from 'maggot-utils';
 import { flake, getToken, setToken } from 'maggot-utils';
-// setToken('c69aa0a8-b082-465b-87e9-d2ca7ae3307d');
+// setToken('92e7d3ff-aaa2-4169-ab04-c61f922d47e4');
 const BASEURL = process.env.NODE_ENV === 'production' ? window.location.origin : '/';
 const { Send } = MGaxios;
 

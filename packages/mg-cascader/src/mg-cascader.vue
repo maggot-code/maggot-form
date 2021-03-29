@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 18:13:33
+ * @LastEditTime: 2021-03-29 13:53:25
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -17,7 +17,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { send } from "../../mg-form/axios";
-import { isArray, isNil } from "lodash";
+import { isArray, isNil, cloneDeep } from "lodash";
 export default {
     name: "mg-cascader",
     mixins: [MgFormComponent],
@@ -26,7 +26,8 @@ export default {
     data() {
         //这里存放数据
         return {
-            selectValue: this.serializeValue(this.value),
+            removeLevel: 0,
+            selectValue: [],
             selectData: [],
         };
     },
@@ -102,7 +103,6 @@ export default {
             this.$set(this, "selectValue", this.serializeValue(newVal));
         },
         selectValue(newVal) {
-            console.log(newVal);
             this.monitorValue({
                 mold: this.mold,
                 field: this.field,
@@ -127,13 +127,33 @@ export default {
                 baseLen--;
             }
 
-            return valuePath.reverse();
+            return this.removeTreeLevel(valuePath, this.removeLevel).reverse();
         },
         // 反序列化element格式到接口格式
         desSerializeValue(valuePath) {
             const index = valuePath.length - 1;
 
             return valuePath[index];
+        },
+        removeTreeLevel(data, someNumber) {
+            if (someNumber <= 0) {
+                return data;
+            }
+            const copyData = cloneDeep(data);
+
+            while (someNumber > 0) {
+                copyData.pop();
+                someNumber--;
+            }
+            return copyData;
+        },
+        // 处理树的层级关系
+        handleTreeLevel(treeData) {
+            const { step } = this.database;
+            const firstValue = treeData[0][this.valueKey];
+            const valueLen = firstValue.length;
+
+            return valueLen / step - 1;
         },
         // 拆分字符串
         handleSelectValue(baseStep) {
@@ -148,7 +168,15 @@ export default {
             return isNil(value) ? def : value;
         },
         setSelectData(data = []) {
-            this.selectData = isArray(data) ? data : [];
+            const baseData = isArray(data) ? data : [];
+
+            this.selectData = baseData;
+
+            if (baseData.length > 0) {
+                this.removeLevel = this.handleTreeLevel(baseData);
+            }
+
+            this.selectValue = this.serializeValue(this.value);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
