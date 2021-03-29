@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:42:16
+ * @LastEditTime: 2021-03-29 15:56:12
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -189,7 +189,7 @@ export default {
 
             this.initValue("selectValue", this.serializeValue(this.value)).then(
                 (val) => {
-                    this.$emit("update:value", val);
+                    this.$emit("update:value", this.desSerializeValue(val));
                     this.mountWatch(this.watchHandle);
                 }
             );
