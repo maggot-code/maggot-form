@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 17:34:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 18:05:06
+ * @LastEditTime: 2021-03-29 15:39:58
  * @Description: mg-check-box.vue component
 -->
 <template>
@@ -52,9 +52,29 @@ export default {
     data() {
         //这里存放数据
         return {
-            checkValue: this.value,
+            checkValue: "",
             checkAll: false,
             isIndeterminate: false,
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "checkValue", newVal);
+                    },
+                },
+                {
+                    variable: "checkValue",
+                    func(newVal) {
+                        this.isCheckAll(newVal);
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal,
+                            handle: "change",
+                        });
+                    },
+                },
+            ],
         };
     },
     //监听属性 类似于data概念
@@ -73,20 +93,7 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "checkValue", newVal);
-        },
-        checkValue(newVal) {
-            this.isCheckAll(newVal);
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "change",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         handleCheckAllChange(value) {
@@ -106,7 +113,12 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.initValue("checkValue", this.value).then((val) => {
+            this.$emit("update:value", val);
+            this.mountWatch(this.watchHandle);
+        });
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 19:21:15
+ * @LastEditTime: 2021-03-29 15:34:17
  * @Description: mg-time.vue component
 -->
 <template>
@@ -24,7 +24,7 @@ import MgTimeMonth from "../mixins/mg-time-month";
 // import MgTimeMonthrange from "../mixins/mg-time-monthrange";
 import MgTimeYear from "../mixins/mg-time-year";
 
-import { isArray, cloneDeep } from "lodash";
+import { isString, isArray, cloneDeep } from "lodash";
 export default {
     name: "mg-time",
     mixins: [
@@ -44,6 +44,25 @@ export default {
         //这里存放数据
         return {
             timeValue: "",
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "timeValue", newVal);
+                    },
+                },
+                {
+                    variable: "timeValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal,
+                            handle: "input",
+                        });
+                    },
+                },
+            ],
             handleMoldOptions: {
                 date: this.moldDate,
                 // dates: this.moldDates,
@@ -90,7 +109,13 @@ export default {
     //方法集合
     methods: {
         setupValue(value) {
-            if (!isArray(value)) return this.changeDate(value);
+            const stringEmpty = isString(value) && value.length <= 0;
+            const stringNotEmpty = isString(value) && value.length > 0;
+
+            if (stringEmpty) return value;
+
+            if (!isArray(value) && stringNotEmpty)
+                return this.changeDate(value);
 
             return value.map((val) => this.changeDate(val));
         },
@@ -136,9 +161,10 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        if (this.value) {
-            this.timeValue = this.setupValue(this.value);
-        }
+        this.initValue("timeValue", this.setupValue(this.value)).then((val) => {
+            this.$emit("update:value", val);
+            this.mountWatch(this.watchHandle);
+        });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

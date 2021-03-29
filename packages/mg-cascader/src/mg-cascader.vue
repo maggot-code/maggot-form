@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 13:53:25
+ * @LastEditTime: 2021-03-29 15:42:16
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -29,6 +29,29 @@ export default {
             removeLevel: 0,
             selectValue: [],
             selectData: [],
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(
+                            this,
+                            "selectValue",
+                            this.serializeValue(newVal)
+                        );
+                    },
+                },
+                {
+                    variable: "selectValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: this.desSerializeValue(newVal),
+                            handle: "change",
+                        });
+                    },
+                },
+            ],
         };
     },
     //监听属性 类似于data概念
@@ -98,19 +121,7 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "selectValue", this.serializeValue(newVal));
-        },
-        selectValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: this.desSerializeValue(newVal),
-                handle: "change",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         // 序列化接口格式为element格式
@@ -176,7 +187,12 @@ export default {
                 this.removeLevel = this.handleTreeLevel(baseData);
             }
 
-            this.selectValue = this.serializeValue(this.value);
+            this.initValue("selectValue", this.serializeValue(this.value)).then(
+                (val) => {
+                    this.$emit("update:value", val);
+                    this.mountWatch(this.watchHandle);
+                }
+            );
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

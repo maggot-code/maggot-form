@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 16:27:13
+ * @LastEditTime: 2021-03-29 15:36:33
  * @Description: mg-select.vue component
 -->
 <template>
@@ -30,7 +30,26 @@ export default {
     data() {
         //这里存放数据
         return {
-            selectValue: this.value,
+            selectValue: "",
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "selectValue", newVal);
+                    },
+                },
+                {
+                    variable: "selectValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal,
+                            handle: "change",
+                        });
+                    },
+                },
+            ],
         };
     },
     //监听属性 类似于data概念
@@ -62,19 +81,7 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "selectValue", newVal);
-        },
-        selectValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "change",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         setDefault(value, def) {
@@ -94,7 +101,12 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.initValue("selectValue", this.value).then((val) => {
+            this.$emit("update:value", val);
+            this.mountWatch(this.watchHandle);
+        });
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

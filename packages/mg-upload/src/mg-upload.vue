@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-19 11:09:34
+ * @LastEditTime: 2021-03-29 15:48:59
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -25,13 +25,13 @@
         <el-button slot="trigger" size="small" type="primary"
             >选取文件</el-button
         >
-        <el-button
+        <!-- <el-button
             style="margin-left: 10px"
             size="small"
             type="success"
             @click="submitUpload"
             >上传到服务器</el-button
-        >
+        > -->
 
         <div v-if="uploadTips.isTips" slot="tip" class="el-upload__tip">
             {{ uploadTips.text }}
@@ -79,7 +79,26 @@ export default {
         //这里存放数据
         return {
             uploadRefs: flake.gen(),
-            fileValue: this.setFileList(this.value),
+            fileValue: [],
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "fileValue", this.setFileList(newVal));
+                    },
+                },
+                {
+                    variable: "fileValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal,
+                            handle: "upload",
+                        });
+                    },
+                },
+            ],
             deleteFile: [],
             uploadRule: {},
         };
@@ -93,7 +112,7 @@ export default {
             const limit = vm.setLimit(ui);
             const vbind = {
                 "list-type": "text",
-                "auto-upload": false,
+                "auto-upload": true,
                 "show-file-list": true,
                 "with-credentials": true,
                 action: action,
@@ -145,19 +164,7 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "fileValue", this.setFileList(newVal));
-        },
-        fileValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "upload",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         submitUpload() {
@@ -168,7 +175,7 @@ export default {
          * @param {File} file
          */
         handlePreview(file) {
-            console.log(file);
+            this.$emit("uploadCellEvent", file);
         },
         /**
          * @description: 从文件列表移除文件时的操作
@@ -388,7 +395,14 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.initValue("fileValue", this.setFileList(this.value)).then(
+            (val) => {
+                this.$emit("update:value", val);
+                this.mountWatch(this.watchHandle);
+            }
+        );
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

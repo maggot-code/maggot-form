@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-18 18:32:27
+ * @LastEditTime: 2021-03-29 15:22:42
  * @Description: mg-input.vue component
 -->
 <template>
@@ -50,7 +50,26 @@ export default {
     data() {
         //这里存放数据
         return {
-            inputValue: this.value,
+            inputValue: "",
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "inputValue", newVal);
+                    },
+                },
+                {
+                    variable: "inputValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal.toString(),
+                            handle: "input",
+                        });
+                    },
+                },
+            ],
             handleMoldOptions: {
                 text: this.moldText,
                 textarea: this.moldTextarea,
@@ -97,35 +116,28 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        value(newVal) {
-            this.$set(this, "inputValue", newVal);
-        },
-        inputValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal.toString(),
-                handle: "input",
-            });
-        },
+        // value(newVal) {
+        //     this.$set(this, "inputValue", newVal);
+        // },
+        // inputValue(newVal) {
+        //     console.log(newVal);
+        //     this.monitorValue({
+        //         mold: this.mold,
+        //         field: this.field,
+        //         value: newVal.toString(),
+        //         handle: "input",
+        //     });
+        // },
     },
     //方法集合
-    methods: {
-        /**
-         * @description: 处理 input 事件
-         * @param {String | Number} value 更新数值
-         */
-        handleInput(value) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: value,
-                handle: "input",
-            });
-        },
-    },
+    methods: {},
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.initValue("inputValue", this.value).then((val) => {
+            this.$emit("update:value", val);
+            this.mountWatch(this.watchHandle);
+        });
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

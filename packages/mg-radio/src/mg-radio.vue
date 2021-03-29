@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 14:43:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-06 17:32:51
+ * @LastEditTime: 2021-03-29 15:38:07
  * @Description: mg-radio.vue component
 -->
 <template>
@@ -47,7 +47,26 @@ export default {
     data() {
         //这里存放数据
         return {
-            radioValue: this.value,
+            radioValue: "",
+            watchHandle: [
+                {
+                    variable: "value",
+                    func(newVal) {
+                        this.$set(this, "radioValue", newVal);
+                    },
+                },
+                {
+                    variable: "radioValue",
+                    func(newVal) {
+                        this.monitorValue({
+                            mold: this.mold,
+                            field: this.field,
+                            value: newVal,
+                            handle: "change",
+                        });
+                    },
+                },
+            ],
         };
     },
     //监听属性 类似于data概念
@@ -62,23 +81,16 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "radioValue", newVal);
-        },
-        radioValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "change",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {},
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.initValue("radioValue", this.value).then((val) => {
+            this.$emit("update:value", val);
+            this.mountWatch(this.watchHandle);
+        });
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前

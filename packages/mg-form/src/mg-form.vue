@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-27 15:49:23
+ * @LastEditTime: 2021-03-29 15:48:21
  * @Description: mg-form.vue component
 -->
 <template>
@@ -42,6 +42,7 @@
                         @monitorValue="monitorValue"
                         @formError="formError"
                         @uploadSpeed="uploadSpeed"
+                        @uploadCellEvent="uploadCellEvent"
                     ></component>
                 </el-form-item>
             </template>
@@ -84,6 +85,7 @@
                                     @monitorValue="monitorValue"
                                     @formError="formError"
                                     @uploadSpeed="uploadSpeed"
+                                    @uploadCellEvent="uploadCellEvent"
                                 ></component>
                             </el-tooltip>
                         </el-form-item>
@@ -219,6 +221,9 @@ export default {
     methods: {
         uploadSpeed(uploadInfo) {
             this.$emit("upload-speed", uploadInfo);
+        },
+        uploadCellEvent(cell) {
+            this.$message("upload-event", cell);
         },
         formError(errorInfo) {
             this.$emit("form-error", errorInfo);

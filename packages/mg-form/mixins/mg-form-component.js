@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-19 11:04:52
+ * @LastEditTime: 2021-03-29 15:22:21
  * @Description: mg form mixins component package
  */
 export default {
@@ -51,7 +51,10 @@ export default {
     },
     data() {
         //这里存放数据
-        return {};
+        return {
+            uninstallWatch: [],
+            watchHandle: [],
+        };
     },
     //监听属性 类似于data概念
     computed: {},
@@ -74,6 +77,18 @@ export default {
                 componentName: componentName,
                 error: error
             })
+        },
+        initValue(value, baseValue) {
+            this[value] = baseValue;
+            return Promise.resolve(this[value]);
+        },
+        mountWatch(watchQueue = []) {
+            watchQueue.forEach(item => {
+                const { variable, func } = item;
+                const uninstall = this.$watch(variable, func);
+
+                this.uninstallWatch.push(uninstall);
+            });
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
@@ -84,7 +99,11 @@ export default {
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
-    beforeDestroy() { }, //生命周期 - 销毁之前
+    beforeDestroy() {
+        if (this.uninstallWatch.length > 0) {
+            this.uninstallWatch.forEach(uninstall => uninstall());
+        }
+    }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
