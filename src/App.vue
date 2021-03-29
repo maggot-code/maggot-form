@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:54:51
+ * @LastEditTime: 2021-03-29 16:17:12
  * @Description: file content
 -->
 <template>
@@ -37,12 +37,12 @@
 // import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
-// import TestJsonschema from "../test/test-time";
+import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
-import TestJsonschema from "../test/test-cascader-v1.json";
+// import TestJsonschema from "../test/test-cascader-v1.json";
 // import TestJsonschema from "../test/test-add-v1.json";
 export default {
     name: "App",

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:48:59
+ * @LastEditTime: 2021-03-29 16:05:23
  * @Description: mg-upload.vue component
 -->
 <template>

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:34:17
+ * @LastEditTime: 2021-03-29 16:17:54
  * @Description: mg-time.vue component
 -->
 <template>
@@ -93,19 +93,7 @@ export default {
         },
     },
     //监控data中的数据变化
-    watch: {
-        value(newVal) {
-            this.$set(this, "timeValue", newVal);
-        },
-        timeValue(newVal) {
-            this.monitorValue({
-                mold: this.mold,
-                field: this.field,
-                value: newVal,
-                handle: "input",
-            });
-        },
-    },
+    watch: {},
     //方法集合
     methods: {
         setupValue(value) {
