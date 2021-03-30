@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:25:16
+ * @LastEditTime: 2021-03-30 20:34:23
  * @Description: mg-form.vue component
 -->
 <template>
@@ -10,8 +10,8 @@
         class="mg-form"
         label-suffix="："
         :ref="ruleForm"
-        :model="formData"
         :rules="formRules"
+        :model="formData"
         :size="formSize"
         :status-icon="false"
         v-bind="options"
@@ -54,10 +54,10 @@
                 <template v-for="cell in formCellSchema">
                     <el-col
                         v-if="checkIsComponents(cell.componentName)"
-                        :key="cell.field"
                         :span="setColSpan(cell.uiSchema)"
                     >
                         <el-form-item
+                            :key="cell.field"
                             v-bind="setFormItem(cell.field, cell.uiSchema)"
                         >
                             <el-tooltip
@@ -290,9 +290,13 @@ export default {
             return fileList;
         },
         monitorValue(params) {
+            const { field, value, defValue, handle } = params;
             this.$emit("monitor-value", params);
 
-            const { field, value, defValue } = params;
+            if (handle === "select") {
+                this.$refs[this.ruleForm].clearValidate(field);
+            }
+
             const tag = this.getTag(field);
             if (!tag) {
                 return false;
@@ -355,7 +359,9 @@ export default {
                     });
                 }
 
-                return Object.assign({}, item, { trigger: baseTrigger });
+                return Object.assign({}, item, {
+                    trigger: baseTrigger,
+                });
             });
         },
         removeUploadRule(componentName, ruleSchema) {

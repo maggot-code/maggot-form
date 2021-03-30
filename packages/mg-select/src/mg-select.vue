@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:18:08
+ * @LastEditTime: 2021-03-30 20:33:35
  * @Description: mg-select.vue component
 -->
 <template>
@@ -46,7 +46,7 @@ export default {
                             mold: this.mold,
                             field: this.field,
                             value: newVal,
-                            handle: "change",
+                            handle: "select",
                         });
                     },
                 },
@@ -66,6 +66,7 @@ export default {
                 placeholder: basePlaceholder,
                 clearable: vm.setDefault(clearable, true),
                 "popper-append-to-body": false,
+                "default-first-option": true,
             });
         },
         selectList: (vm) => {

@@ -4,11 +4,7 @@
         "mold": "default",
         "field": "sheng",
         "value": "",
-        "leaderTag": {
-            "request.getCity": {
-                "controller": "dataSchema.enums"
-            }
-        },
+        "leaderTag": {},
         "workerTag": [],
         "dataSchema": {
             "lib": {},
@@ -28,59 +24,59 @@
                     "label": "东北省",
                     "value": "1002"
                 }
-            ]
+            ],
+            "valueField": "eid",
+            "textField": "label"
         },
         "uiSchema": {
             "col": 7,
             "label": "省市区选择",
             "placeholder": "请选择省份"
         },
-        "ruleSchema": []
-    },
-    {
-        "componentName": "mg-select",
-        "mold": "default",
-        "field": "city",
-        "value": "",
-        "leaderTag": {
-            "request.getArea": {
-                "controller": "dataSchema.enums"
+        "ruleSchema": [
+            {
+                "message": "项目类型为必填，请填写。",
+                "required": true
             }
-        },
-        "workerTag": [
-            "request.getCity"
-        ],
-        "dataSchema": {
-            "lib": {},
-            "enums": []
-        },
-        "uiSchema": {
-            "col": 4,
-            "label": "",
-            "placeholder": "请选择城市",
-            "no-data-text": "请先确定省份"
-        },
-        "ruleSchema": []
+        ]
     },
     {
         "componentName": "mg-select",
-        "mold": "default",
-        "field": "area",
-        "value": "",
-        "leaderTag": {},
-        "workerTag": [
-            "request.getArea"
-        ],
         "dataSchema": {
-            "lib": {},
-            "enums": []
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "临床研究",
+                    "pptr": "BG"
+                },
+                {
+                    "code": "02",
+                    "description": "基础研究",
+                    "pptr": "BG"
+                }
+            ],
+            "lib": {
+                "codeid": "BG"
+            },
+            "textField": "description",
+            "valueField": "code"
         },
+        "field": "projtype",
+        "leaderTag": {},
+        "mold": "default",
+        "ruleSchema": [
+            {
+                "message": "研究类别为必填，请填写。",
+                "required": true
+            }
+        ],
         "uiSchema": {
-            "col": 4,
-            "label": "",
-            "placeholder": "请选择街道/区域",
-            "no-data-text": "请先确定城市"
+            "col": 12,
+            "clearable": true,
+            "label": "研究类别"
         },
-        "ruleSchema": []
+        "value": "",
+        "workerTag": []
     }
 ]

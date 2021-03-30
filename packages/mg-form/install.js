@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:51:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:16:00
+ * @LastEditTime: 2021-03-30 18:30:18
  * @Description: unify install form components
  */
 import MgInput from '../mg-input';

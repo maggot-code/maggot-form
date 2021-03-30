@@ -2,12 +2,31 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:51:48
+ * @LastEditTime: 2021-03-30 19:38:13
  * @Description: file content
 -->
 <template>
     <div id="app">
+        <el-form
+            :model="ruleForm"
+            :rules="rules"
+            ref="ruleForm"
+            label-width="100px"
+            class="demo-ruleForm"
+        >
+            <el-form-item label="活动区域" prop="region">
+                <el-select
+                    v-model="ruleForm.region"
+                    placeholder="请选择活动区域"
+                >
+                    <el-option label="区域一" value="shanghai"></el-option>
+                    <el-option label="区域二" value="beijing"></el-option>
+                </el-select>
+            </el-form-item>
+        </el-form>
+
         <mg-form
+            style="height: 600px"
             proName="kyhxs"
             :ref="formRefName"
             :job="jobFunction"
@@ -37,13 +56,14 @@
 // import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
-import TestJsonschema from "../test/test-time";
+// import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
 // import TestJsonschema from "../test/test-cascader-v1.json";
 // import TestJsonschema from "../test/test-add-v1.json";
+import TestJsonschema from "../test/test-ceshi-v1.json";
 export default {
     name: "App",
     mixins: [],
@@ -52,6 +72,19 @@ export default {
     data() {
         //这里存放数据
         return {
+            ruleForm: {
+                region: "",
+            },
+            rules: {
+                region: [
+                    {
+                        required: true,
+                        message: "请选择活动区域",
+                        trigger: "change",
+                    },
+                ],
+            },
+
             testSchema: {
                 formSchema: {
                     labelWidth: "160px",
