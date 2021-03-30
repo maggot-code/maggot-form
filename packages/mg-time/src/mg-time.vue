@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:50:20
+ * @LastEditTime: 2021-03-30 14:53:57
  * @Description: mg-time.vue component
 -->
 <template>
@@ -49,7 +49,7 @@ export default {
                 {
                     variable: "value",
                     func(newVal) {
-                        this.$set(this, "timeValue", newVal);
+                        this.$set(this, "timeValue", this.changeDate(newVal));
                     },
                 },
                 {
