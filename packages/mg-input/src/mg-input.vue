@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:50:31
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:22:42
+ * @LastEditTime: 2021-03-30 13:18:32
  * @Description: mg-input.vue component
 -->
 <template>
@@ -36,6 +36,7 @@ import MgInputInteger from "../mixins/mg-input-integer";
 import MgInputFloat from "../mixins/mg-input-float";
 export default {
     name: "mg-input",
+    trigger: "blur",
     mixins: [
         MgFormComponent,
         MgInputText,

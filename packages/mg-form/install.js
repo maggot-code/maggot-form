@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:51:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 16:34:41
+ * @LastEditTime: 2021-03-30 13:16:00
  * @Description: unify install form components
  */
 import MgInput from '../mg-input';
@@ -26,12 +26,16 @@ const components = [
 ];
 
 const FormCellComponents = {};
+const FormCellRules = {};
 components.forEach(component => {
-    FormCellComponents[component.name] = component;
+    const { name, trigger } = component;
+    FormCellComponents[name] = component;
+    FormCellRules[name] = trigger || "blur"
 });
 
 export {
-    FormCellComponents
+    FormCellComponents,
+    FormCellRules,
 };
 
 

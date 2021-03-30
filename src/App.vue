@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 16:17:12
+ * @LastEditTime: 2021-03-30 13:51:48
  * @Description: file content
 -->
 <template>
@@ -97,7 +97,16 @@ export default {
             // console.log(params);
         },
         submit() {
-            this.$refs[this.formRefName].formValidate();
+            const cellSchema = this.$refs[this.formRefName].getFormCell(
+                "dateFixed"
+            );
+            console.log(cellSchema);
+            const { validate, data } = this.$refs[
+                this.formRefName
+            ].formOutput();
+            validate(() => {
+                console.log(data);
+            });
         },
         temp() {
             const { data } = this.$refs[this.formRefName].formOutput();

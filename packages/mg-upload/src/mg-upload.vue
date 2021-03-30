@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 16:05:23
+ * @LastEditTime: 2021-03-30 13:18:00
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -70,6 +70,7 @@ const DefBlacklist = [
 ];
 export default {
     name: "mg-upload",
+    trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {

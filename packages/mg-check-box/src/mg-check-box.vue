@@ -46,6 +46,7 @@ import { setEnums } from "../../mg-form/utils";
 import { isArray, isNil } from "lodash";
 export default {
     name: "mg-check-box",
+    trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {},

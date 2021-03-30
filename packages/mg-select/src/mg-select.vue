@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:36:33
+ * @LastEditTime: 2021-03-30 13:18:08
  * @Description: mg-select.vue component
 -->
 <template>
@@ -24,6 +24,7 @@ import { setEnums } from "../../mg-form/utils";
 import { isArray, isNil } from "lodash";
 export default {
     name: "mg-select",
+    trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {},

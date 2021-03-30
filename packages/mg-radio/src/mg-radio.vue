@@ -41,6 +41,7 @@ import { setEnums } from "../../mg-form/utils";
 import { isArray } from "lodash";
 export default {
     name: "mg-radio",
+    trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {},

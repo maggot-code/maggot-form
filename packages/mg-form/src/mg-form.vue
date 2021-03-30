@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 17:34:13
+ * @LastEditTime: 2021-03-30 13:25:16
  * @Description: mg-form.vue component
 -->
 <template>
@@ -102,7 +102,7 @@
 
 <script>
 import MgFormTagMap from "../mixins/mg-form-tag-map";
-import { FormCellComponents } from "../install";
+import { FormCellComponents, FormCellRules } from "../install";
 import { mergeSchema } from "../utils";
 import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
@@ -219,6 +219,28 @@ export default {
     },
     //方法集合
     methods: {
+        getFormCell(field) {
+            const cellSchema = this.formCellSchema[field];
+            const cellData = this.formData[field];
+            const cellDefData = this.formDefData[field];
+            const cellRules = this.formRules[field];
+
+            return {
+                schema: cellSchema,
+                value: cellData,
+                defValue: cellDefData,
+                rules: cellRules,
+            };
+        },
+        setFormCell(field, options) {
+            const { schema, value, defValue, rules } = options;
+
+            this.$set(this.formDefCellSchema, field, schema);
+            this.$set(this.formCellSchema, field, schema);
+            this.$set(this.formData, field, value);
+            this.$set(this.formDefData, field, defValue);
+            this.$set(this.formRules, field, rules);
+        },
         uploadSpeed(uploadInfo) {
             this.$emit("upload-speed", uploadInfo);
         },
@@ -323,7 +345,9 @@ export default {
 
             return ruleSchema.map((item) => {
                 const { required, trigger } = item;
-                const baseTrigger = isNil(trigger) ? "blur" : trigger;
+                const baseTrigger = isNil(trigger)
+                    ? FormCellRules[componentName]
+                    : trigger;
 
                 if (componentName === "mg-upload") {
                     return Object.assign({}, item, {

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 16:26:50
+ * @LastEditTime: 2021-03-30 13:19:00
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -29,6 +29,7 @@ import { send } from "../../mg-form/axios";
 import { isNil } from "lodash";
 export default {
     name: "mg-autocomplete",
+    trigger: "blur",
     mixins: [MgFormComponent],
     components: {},
     props: {},

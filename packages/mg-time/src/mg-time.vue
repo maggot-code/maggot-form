@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 16:17:54
+ * @LastEditTime: 2021-03-30 13:50:20
  * @Description: mg-time.vue component
 -->
 <template>
@@ -27,6 +27,7 @@ import MgTimeYear from "../mixins/mg-time-year";
 import { isString, isArray, cloneDeep } from "lodash";
 export default {
     name: "mg-time",
+    trigger: "change",
     mixins: [
         MgFormComponent,
         MgTimeDate,
@@ -89,6 +90,7 @@ export default {
                 clearable: true,
                 "value-format": vbind.format,
                 "range-separator": "至",
+                "validate-event": false,
             });
         },
     },

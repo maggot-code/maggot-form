@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 18:39:40
+ * @LastEditTime: 2021-03-30 13:18:46
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -20,6 +20,7 @@ import { send } from "../../mg-form/axios";
 import { isArray, isNil, cloneDeep } from "lodash";
 export default {
     name: "mg-cascader",
+    trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {},
