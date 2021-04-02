@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 20:37:48
+ * @LastEditTime: 2021-04-02 15:23:17
  * @Description: mg-time.vue component
 -->
 <template>
@@ -24,7 +24,7 @@ import MgTimeMonth from "../mixins/mg-time-month";
 // import MgTimeMonthrange from "../mixins/mg-time-monthrange";
 import MgTimeYear from "../mixins/mg-time-year";
 
-import { isString, isArray, cloneDeep } from "lodash";
+import { isNil, isString, isArray, cloneDeep } from "lodash";
 export default {
     name: "mg-time",
     trigger: "change",
@@ -58,7 +58,7 @@ export default {
                         this.monitorValue({
                             mold: this.mold,
                             field: this.field,
-                            value: newVal,
+                            value: newVal || "",
                             handle: "input",
                         });
                     },
