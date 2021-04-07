@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 20:33:35
+ * @LastEditTime: 2021-04-07 10:17:42
  * @Description: mg-select.vue component
 -->
 <template>
@@ -65,7 +65,7 @@ export default {
             return Object.assign({}, ui, {
                 placeholder: basePlaceholder,
                 clearable: vm.setDefault(clearable, true),
-                "popper-append-to-body": false,
+                "popper-append-to-body": true,
                 "default-first-option": true,
             });
         },
