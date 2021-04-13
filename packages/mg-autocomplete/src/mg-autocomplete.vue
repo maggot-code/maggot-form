@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:19:00
+ * @LastEditTime: 2021-04-13 16:54:43
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -54,7 +54,7 @@ export default {
                 clearable: vm.setDefault(clearable, true),
                 remote: true,
                 filterable: true,
-                "popper-append-to-body": false,
+                "popper-append-to-body": true,
                 "default-first-option": true,
                 "reserve-keyword": true,
                 "loading-text": `获取${baseLabel}中..`,
