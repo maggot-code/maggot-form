@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 17:34:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:39:58
+ * @LastEditTime: 2021-04-13 13:24:57
  * @Description: mg-check-box.vue component
 -->
 <template>
@@ -19,21 +19,21 @@
             <template v-if="mold === 'button'">
                 <el-checkbox-button
                     v-for="cell in checkList"
-                    :key="cell.eid"
-                    :label="cell.value"
+                    :key="cell[valueKey]"
+                    :label="cell[valueKey]"
                     :disabled="cell.disabled"
-                    >{{ cell.label }}</el-checkbox-button
+                    >{{ cell[labelKey] }}</el-checkbox-button
                 >
             </template>
 
             <template v-else>
                 <el-checkbox
                     v-for="cell in checkList"
-                    :key="cell.eid"
-                    :label="cell.value"
+                    :key="cell[valueKey]"
+                    :label="cell[valueKey]"
                     :disabled="cell.disabled"
                     :border="options.border"
-                    >{{ cell.label }}</el-checkbox
+                    >{{ cell[labelKey] }}</el-checkbox
                 >
             </template>
         </el-checkbox-group>
@@ -84,6 +84,14 @@ export default {
             const { mold, field, ui, rule } = vm;
             return ui;
         },
+        valueKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.valueField, "id");
+        },
+        labelKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.textField, "text");
+        },
         checkList: (vm) => {
             const { enums } = vm.database;
             return isArray(enums) ? enums.map(setEnums) : [];
@@ -111,6 +119,9 @@ export default {
 
             this.checkAll = checkAll;
             this.isIndeterminate = isIndeterminate;
+        },
+        setDefault(value, def) {
+            return isNil(value) ? def : value;
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

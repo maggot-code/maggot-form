@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 14:43:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-29 15:38:07
+ * @LastEditTime: 2021-04-13 13:23:05
  * @Description: mg-radio.vue component
 -->
 <template>
@@ -15,21 +15,21 @@
         <template v-if="mold === 'button'">
             <el-radio-button
                 v-for="cell in radioList"
-                :key="cell.eid"
-                :label="cell.value"
+                :key="cell[valueKey]"
+                :label="cell[valueKey]"
                 :disabled="cell.disabled"
-                >{{ cell.label }}</el-radio-button
+                >{{ cell[labelKey] }}</el-radio-button
             >
         </template>
 
         <template v-else>
             <el-radio
                 v-for="cell in radioList"
-                :key="cell.eid"
-                :label="cell.value"
+                :key="cell[valueKey]"
+                :label="cell[valueKey]"
                 :disabled="cell.disabled"
                 :border="options.border"
-                >{{ cell.label }}</el-radio
+                >{{ cell[labelKey] }}</el-radio
             >
         </template>
     </el-radio-group>
@@ -38,7 +38,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { setEnums } from "../../mg-form/utils";
-import { isArray } from "lodash";
+import { isArray, isNil } from "lodash";
 export default {
     name: "mg-radio",
     trigger: "change",
@@ -80,11 +80,23 @@ export default {
             const { enums } = vm.database;
             return isArray(enums) ? enums.map(setEnums) : [];
         },
+        valueKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.valueField, "id");
+        },
+        labelKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.textField, "text");
+        },
     },
     //监控data中的数据变化
     watch: {},
     //方法集合
-    methods: {},
+    methods: {
+        setDefault(value, def) {
+            return isNil(value) ? def : value;
+        },
+    },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
         this.initValue("radioValue", this.value).then((val) => {
