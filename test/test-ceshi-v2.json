@@ -1,0 +1,683 @@
+[
+    {
+        "field": "loginname",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "账号"
+        },
+        "ruleSchema": [
+            {
+                "message": "账号为必填，请填写。",
+                "required": true
+            },
+            {
+                "max": 50,
+                "message": "账号长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "truename",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "姓名"
+        },
+        "ruleSchema": [
+            {
+                "message": "姓名为必填，请填写。",
+                "required": true
+            },
+            {
+                "max": 50,
+                "message": "姓名长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "jobno",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "教工号"
+        },
+        "ruleSchema": [
+            {
+                "max": 50,
+                "message": "教工号长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "childrenKey": "children",
+            "lib": {
+                "codeid": "UM",
+                "parentid": "0"
+            },
+            "step": "3",
+            "api": "/SystemManage/SM_Department/GetListForTree.do",
+            "valueField": "id",
+            "textField": "text"
+        },
+        "field": "affiliation",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "科研单位",
+            "tips": "考核院系"
+        },
+        "ruleSchema": [],
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "childrenKey": "children",
+            "lib": {
+                "codeid": "UM",
+                "parentid": "0"
+            },
+            "step": "3",
+            "api": "/SystemManage/SM_Department/GetListForTree.do",
+            "valueField": "id",
+            "textField": "text"
+        },
+        "field": "departmentid",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "部门、院、系",
+            "checkStrictly": true
+        },
+        "ruleSchema": [
+            {
+                "message": "部门、院、系为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": ""
+    },
+    {
+        "field": "homeaddress",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "籍贯"
+        },
+        "ruleSchema": [
+            {
+                "max": 200,
+                "message": "籍贯长度必须小于200字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "男",
+                    "pptr": "FM"
+                },
+                {
+                    "code": "02",
+                    "description": "女",
+                    "pptr": "FM"
+                }
+            ],
+            "lib": {
+                "codeid": "FM"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "sex",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "性别"
+        },
+        "ruleSchema": [
+            {
+                "message": "性别为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "radio",
+        "componentName": "mg-radio",
+        "leaderTag": {},
+        "value": "01",
+        "workerTag": []
+    },
+    {
+        "field": "idcard",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "证件号码"
+        },
+        "ruleSchema": [
+            {
+                "max": 50,
+                "message": "证件号码长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "birthday",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "出生日期"
+        },
+        "ruleSchema": [
+            {
+                "message": "出生日期为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "date",
+        "componentName": "mg-time",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "博士研究生",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "02",
+                    "description": "硕士研究生",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "03",
+                    "description": "大学本科",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "04",
+                    "description": "大学专科",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "06",
+                    "description": "中专",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "07",
+                    "description": "高中及以下",
+                    "pptr": "FI"
+                },
+                {
+                    "code": "05",
+                    "description": "其他",
+                    "pptr": "FI"
+                }
+            ],
+            "lib": {
+                "codeid": "FI"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "degreetag",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "最后学历"
+        },
+        "ruleSchema": [
+            {
+                "message": "最后学历为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-select",
+        "leaderTag": {},
+        "value": "",
+        "workerTag": []
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "博士",
+                    "pptr": "FJ"
+                },
+                {
+                    "code": "02",
+                    "description": "硕士",
+                    "pptr": "FJ"
+                },
+                {
+                    "code": "03",
+                    "description": "学士",
+                    "pptr": "FJ"
+                },
+                {
+                    "code": "04",
+                    "description": "其他",
+                    "pptr": "FJ"
+                }
+            ],
+            "lib": {
+                "codeid": "FJ"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "degree",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "最后学位"
+        },
+        "ruleSchema": [
+            {
+                "message": "最后学位为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "radio",
+        "componentName": "mg-radio",
+        "leaderTag": {},
+        "value": "",
+        "workerTag": []
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "正高级",
+                    "pptr": "FO"
+                },
+                {
+                    "code": "02",
+                    "description": "副高级",
+                    "pptr": "FO"
+                },
+                {
+                    "code": "03",
+                    "description": "中级",
+                    "pptr": "FO"
+                },
+                {
+                    "code": "04",
+                    "description": "初级",
+                    "pptr": "FO"
+                },
+                {
+                    "code": "08",
+                    "description": "辅助人员  ",
+                    "pptr": "FO"
+                },
+                {
+                    "code": "09",
+                    "description": "其他人员",
+                    "pptr": "FO"
+                }
+            ],
+            "lib": {
+                "codeid": "FO"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "titlegrade",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "职称级别"
+        },
+        "ruleSchema": [
+            {
+                "message": "职称级别为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-select",
+        "leaderTag": {
+            "request.titlegrade": {
+                "controller": "dataSchema.enums"
+            }
+        },
+        "value": "",
+        "workerTag": []
+    },
+    {
+        "dataSchema": {
+            "enums": [],
+            "lib": {
+                "codeid": "FO"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "title",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "职称"
+        },
+        "ruleSchema": [],
+        "mold": "default",
+        "componentName": "mg-select",
+        "leaderTag": {},
+        "value": "",
+        "workerTag": [
+            "request.titlegrade"
+        ]
+    },
+    {
+        "field": "joborientationdate",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "定职日期"
+        },
+        "ruleSchema": [],
+        "mold": "date",
+        "componentName": "mg-time",
+        "value": ""
+    },
+    {
+        "field": "titletag",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "职务"
+        },
+        "ruleSchema": [
+            {
+                "max": 400,
+                "message": "职务长度必须小于400字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "中共党员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "02",
+                    "description": "中共预备党员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "03",
+                    "description": "共青团员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "04",
+                    "description": "民革党员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "05",
+                    "description": "民盟盟员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "06",
+                    "description": "民建会员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "07",
+                    "description": "民进会员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "08",
+                    "description": "农工党员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "09",
+                    "description": "致公党员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "10",
+                    "description": "九三社员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "11",
+                    "description": "台盟盟员",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "12",
+                    "description": "无党派民主人士",
+                    "pptr": "QA"
+                },
+                {
+                    "code": "13",
+                    "description": "群众",
+                    "pptr": "QA"
+                }
+            ],
+            "lib": {
+                "codeid": "QA"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "field": "politicalappearancetag",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "政治面貌"
+        },
+        "ruleSchema": [
+            {
+                "message": "政治面貌为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-select",
+        "leaderTag": {},
+        "value": "",
+        "workerTag": []
+    },
+    {
+        "field": "subject",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "研究方向"
+        },
+        "ruleSchema": [
+            {
+                "message": "研究方向为必填，请填写。",
+                "required": true
+            },
+            {
+                "max": 100,
+                "message": "研究方向长度必须小于100字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "email",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "电子邮件"
+        },
+        "ruleSchema": [
+            {
+                "max": 300,
+                "message": "电子邮件长度必须小于300字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "officephone",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "办公电话"
+        },
+        "ruleSchema": [
+            {
+                "max": 50,
+                "message": "办公电话长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "fax",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "传真"
+        },
+        "ruleSchema": [
+            {
+                "max": 50,
+                "message": "传真长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "mobilephone",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "手机"
+        },
+        "ruleSchema": [
+            {
+                "max": 200,
+                "message": "手机长度必须小于200字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "qqaccount",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "QQ帐号"
+        },
+        "ruleSchema": [
+            {
+                "max": 50,
+                "message": "QQ帐号长度必须小于50字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "address",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "联系地址"
+        },
+        "ruleSchema": [
+            {
+                "max": 200,
+                "message": "联系地址长度必须小于200字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "zipcode",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "邮编"
+        },
+        "ruleSchema": [
+            {
+                "max": 200,
+                "message": "邮编长度必须小于200字节，请修改。"
+            }
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "remark",
+        "uiSchema": {
+            "col": 24,
+            "clearable": true,
+            "label": "简介",
+            "autosize": {
+                "minRows": 5
+            }
+        },
+        "ruleSchema": [],
+        "mold": "textarea",
+        "componentName": "mg-input",
+        "value": ""
+    }
+]

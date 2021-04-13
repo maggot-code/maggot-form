@@ -2,29 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 19:38:13
+ * @LastEditTime: 2021-04-13 13:35:16
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <el-form
-            :model="ruleForm"
-            :rules="rules"
-            ref="ruleForm"
-            label-width="100px"
-            class="demo-ruleForm"
-        >
-            <el-form-item label="活动区域" prop="region">
-                <el-select
-                    v-model="ruleForm.region"
-                    placeholder="请选择活动区域"
-                >
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                </el-select>
-            </el-form-item>
-        </el-form>
-
         <mg-form
             style="height: 600px"
             proName="kyhxs"
@@ -63,7 +45,8 @@
 // import TestJsonschema from "../test/test-cascader.json";
 // import TestJsonschema from "../test/test-cascader-v1.json";
 // import TestJsonschema from "../test/test-add-v1.json";
-import TestJsonschema from "../test/test-ceshi-v1.json";
+// import TestJsonschema from "../test/test-ceshi-v1.json";
+import TestJsonschema from "../test/test-ceshi-v2.json";
 export default {
     name: "App",
     mixins: [],

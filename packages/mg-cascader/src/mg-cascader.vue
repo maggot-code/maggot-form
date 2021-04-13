@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:18:46
+ * @LastEditTime: 2021-04-13 13:40:10
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -48,7 +48,7 @@ export default {
                             mold: this.mold,
                             field: this.field,
                             value: this.desSerializeValue(newVal),
-                            handle: "change",
+                            handle: "radio",
                         });
                     },
                 },

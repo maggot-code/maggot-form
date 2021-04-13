@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 17:34:33
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 13:24:57
+ * @LastEditTime: 2021-04-13 13:38:44
  * @Description: mg-check-box.vue component
 -->
 <template>
@@ -71,7 +71,7 @@ export default {
                             mold: this.mold,
                             field: this.field,
                             value: newVal,
-                            handle: "change",
+                            handle: "radio",
                         });
                     },
                 },

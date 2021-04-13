@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-06 14:43:37
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 13:23:05
+ * @LastEditTime: 2021-04-13 13:39:38
  * @Description: mg-radio.vue component
 -->
 <template>
@@ -63,7 +63,7 @@ export default {
                             mold: this.mold,
                             field: this.field,
                             value: newVal,
-                            handle: "change",
+                            handle: "radio",
                         });
                     },
                 },

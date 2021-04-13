@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 20:34:23
+ * @LastEditTime: 2021-04-13 13:40:49
  * @Description: mg-form.vue component
 -->
 <template>
@@ -293,7 +293,7 @@ export default {
             const { field, value, defValue, handle } = params;
             this.$emit("monitor-value", params);
 
-            if (handle === "select") {
+            if (handle === "select" || handle === "radio") {
                 this.$refs[this.ruleForm].clearValidate(field);
             }
 
