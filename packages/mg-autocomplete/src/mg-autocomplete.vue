@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 16:54:43
+ * @LastEditTime: 2021-04-13 18:53:11
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -26,7 +26,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { send } from "../../mg-form/axios";
-import { isNil } from "lodash";
+import { isNil, isBoolean } from "lodash";
 export default {
     name: "mg-autocomplete",
     trigger: "blur",
@@ -72,6 +72,11 @@ export default {
 
             return isNil(api) ? false : proName + api;
         },
+        useAttach: (vm) => {
+            const { ui } = vm;
+            const { isAttach } = ui;
+            return isBoolean(isAttach) ? isAttach : false;
+        },
         valueKey: (vm) => {
             const { database } = vm;
             return vm.setDefault(database.valueField, "userid");
@@ -79,6 +84,10 @@ export default {
         labelKey: (vm) => {
             const { database } = vm;
             return vm.setDefault(database.textField, "truename");
+        },
+        attachKey: (vm) => {
+            const { database } = vm;
+            return vm.setDefault(database.attachField, "attach");
         },
     },
     //监控data中的数据变化
@@ -140,9 +149,15 @@ export default {
             return data.map((cell) => this.setCellStruct(cell));
         },
         setCellStruct(cell) {
+            const {
+                [this.labelKey]: baseLabel,
+                [this.attachKey]: baseAttach,
+            } = cell;
             return {
                 value: cell[this.valueKey],
-                label: cell[this.labelKey],
+                label: this.useAttach
+                    ? `${baseLabel} (${baseAttach})`
+                    : baseLabel,
             };
         },
         getData(params) {
