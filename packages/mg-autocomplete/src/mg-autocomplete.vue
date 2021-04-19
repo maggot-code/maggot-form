@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 18:53:11
+ * @LastEditTime: 2021-04-19 09:57:33
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -73,8 +73,8 @@ export default {
             return isNil(api) ? false : proName + api;
         },
         useAttach: (vm) => {
-            const { ui } = vm;
-            const { isAttach } = ui;
+            const { database } = vm;
+            const { isAttach } = database;
             return isBoolean(isAttach) ? isAttach : false;
         },
         valueKey: (vm) => {
