@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 13:18:00
+ * @LastEditTime: 2021-07-12 17:54:10
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -185,11 +185,14 @@ export default {
          */
         handleRemove(file, fileList) {
             const { status } = file;
-            if (status === "success") {
-                const { id } = file;
-                this.deleteFile.push(file);
-                remove(this.fileValue, (item) => item.id === id);
-            }
+            // if (status === "success") {
+            //     const { id } = file;
+            //     this.deleteFile.push(file);
+            //     remove(this.fileValue, (item) => item.id === id);
+            // }
+            const { id } = file;
+            this.deleteFile.push(file);
+            remove(this.fileValue, (item) => item.id === id);
         },
         /**
          * @description: 文件上传成功时的操作
