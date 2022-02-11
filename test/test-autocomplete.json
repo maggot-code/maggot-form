@@ -11,7 +11,8 @@
         "ruleSchema": [],
         "uiSchema": {
             "col": 12,
-            "label": "作者姓名"
+            "label": "作者姓名",
+            "multiple":true
         },
         "value": ""
     }

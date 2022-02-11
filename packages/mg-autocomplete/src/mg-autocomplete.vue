@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 11:24:59
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-19 09:57:33
+ * @LastEditTime: 2022-02-11 11:32:45
  * @Description: mg-autocomplete.vue component
 -->
 <template>
@@ -12,6 +12,7 @@
         v-bind="options"
         :remote-method="remoteMethod"
         :loading="selectLoading"
+        @focus="handlerFocus"
     >
         <el-option
             v-for="item in selectGather"
@@ -26,7 +27,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { send } from "../../mg-form/axios";
-import { isNil, isBoolean } from "lodash";
+import { isNil, isBoolean,isArray } from "lodash";
 export default {
     name: "mg-autocomplete",
     trigger: "blur",
@@ -111,11 +112,10 @@ export default {
             return isNil(value) ? def : value;
         },
         setSelectGather(value) {
-            if (!value) {
-                this.selectGather = [];
-                return false;
-            }
-
+            // if (!value) {
+            //     this.selectGather = this.defaultEnums();
+            //     return false;
+            // }
             this.getData({ [this.valueKey]: value })
                 .then((res) => {
                     const { data } = res;
@@ -161,16 +161,32 @@ export default {
             };
         },
         getData(params) {
+            const requestParams = {};
+
+            for (const key in params) {
+                requestParams[key] = isArray(params[key]) ? params[key].join(',') : params[key];
+            }
+
             return new Promise((resolve, reject) => {
                 send({
                     url: this.requestApi,
                     method: "POST",
-                    params: params,
+                    params: requestParams,
                 })
                     .then((res) => resolve(res))
                     .catch((error) => reject(error));
             });
         },
+        defaultEnums(){
+            const {enums} = this.database;
+
+            if(!isArray(enums)||enums.length <= 0) return [];
+
+            return this.setDataStruct(enums);
+        },
+        handlerFocus(){
+            this.setSelectGather(this.value);
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
