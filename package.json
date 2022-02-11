@@ -1,6 +1,6 @@
 {
     "name": "maggot-form",
-    "version": "1.0.59",
+    "version": "1.0.60",
     "description": "",
     "main": "lib/maggot-form.common.js",
     "files": [
