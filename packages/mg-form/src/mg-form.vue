@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 13:40:49
+ * @LastEditTime: 2022-03-01 11:04:20
  * @Description: mg-form.vue component
 -->
 <template>
@@ -186,9 +186,9 @@ export default {
             return inline
                 ? {}
                 : {
-                      display: "flex",
-                      "justify-content": "center",
-                  };
+                    display: "flex",
+                    "justify-content": "center",
+                };
         },
         submitLabel: (vm) => {
             const { inline } = vm.options;
@@ -245,7 +245,8 @@ export default {
             this.$emit("upload-speed", uploadInfo);
         },
         uploadCellEvent(cell) {
-            this.$message("upload-event", cell);
+            // this.$message("upload-event", cell);
+            this.$emit("upload-event", cell);
         },
         formError(errorInfo) {
             this.$emit("form-error", errorInfo);
@@ -428,16 +429,16 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {},
-    beforeCreate() {}, //生命周期 - 创建之前
-    beforeMount() {}, //生命周期 - 挂载之前
-    beforeUpdate() {}, //生命周期 - 更新之前
-    updated() {}, //生命周期 - 更新之后
-    beforeDestroy() {}, //生命周期 - 销毁之前
-    destroyed() {}, //生命周期 - 销毁完成
-    activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
+    mounted() { },
+    beforeCreate() { }, //生命周期 - 创建之前
+    beforeMount() { }, //生命周期 - 挂载之前
+    beforeUpdate() { }, //生命周期 - 更新之前
+    updated() { }, //生命周期 - 更新之后
+    beforeDestroy() { }, //生命周期 - 销毁之前
+    destroyed() { }, //生命周期 - 销毁完成
+    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang='scss'>
