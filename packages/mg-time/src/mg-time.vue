@@ -2,15 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-02 15:23:17
+ * @LastEditTime: 2022-04-18 10:48:18
  * @Description: mg-time.vue component
 -->
 <template>
-    <el-date-picker
-        class="mg-time"
-        v-model="timeValue"
-        v-bind="options"
-    ></el-date-picker>
+    <el-date-picker class="mg-time" v-model="timeValue" v-bind="options"></el-date-picker>
 </template>
 
 <script>
@@ -25,6 +21,8 @@ import MgTimeMonth from "../mixins/mg-time-month";
 import MgTimeYear from "../mixins/mg-time-year";
 
 import { isNil, isString, isArray, cloneDeep } from "lodash";
+import { default as dateFormat } from 'date-fns/format';
+
 export default {
     name: "mg-time",
     trigger: "change",
@@ -112,41 +110,16 @@ export default {
         changeDate(dateValue) {
             const { format } = this.options;
             if (this.isDateObject(dateValue)) {
-                return this.dateFormat(new Date(dateValue), format);
+                return dateFormat(new Date(dateValue), format);
             } else {
                 const date = new Date(dateValue);
                 return this.isDateObject(date)
-                    ? this.dateFormat(date, format)
+                    ? dateFormat(date, format)
                     : "";
             }
         },
         isDateObject(value) {
             return value instanceof Date;
-        },
-        dateFormat(date, format) {
-            var o = {
-                "M+": date.getMonth() + 1, //月份
-                "d+": date.getDate(), //日
-                "h+": date.getHours(), //小时
-                "m+": date.getMinutes(), //分
-                "s+": date.getSeconds(), //秒
-                "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-                S: date.getMilliseconds(), //毫秒
-            };
-            if (/(y+)/.test(format))
-                format = format.replace(
-                    RegExp.$1,
-                    (date.getFullYear() + "").substr(4 - RegExp.$1.length)
-                );
-            for (var k in o)
-                if (new RegExp("(" + k + ")").test(format))
-                    format = format.replace(
-                        RegExp.$1,
-                        RegExp.$1.length === 1
-                            ? o[k]
-                            : ("00" + o[k]).substr(("" + o[k]).length)
-                    );
-            return cloneDeep(format);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
@@ -157,14 +130,14 @@ export default {
         });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {},
-    beforeCreate() {}, //生命周期 - 创建之前
-    beforeMount() {}, //生命周期 - 挂载之前
-    beforeUpdate() {}, //生命周期 - 更新之前
-    updated() {}, //生命周期 - 更新之后
-    beforeDestroy() {}, //生命周期 - 销毁之前
-    destroyed() {}, //生命周期 - 销毁完成
-    activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
+    mounted() { },
+    beforeCreate() { }, //生命周期 - 创建之前
+    beforeMount() { }, //生命周期 - 挂载之前
+    beforeUpdate() { }, //生命周期 - 更新之前
+    updated() { }, //生命周期 - 更新之后
+    beforeDestroy() { }, //生命周期 - 销毁之前
+    destroyed() { }, //生命周期 - 销毁完成
+    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang='scss' scoped>
