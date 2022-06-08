@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-04-18 10:48:18
+ * @LastEditTime: 2022-06-08 20:29:22
  * @Description: mg-time.vue component
 -->
 <template>
@@ -15,12 +15,12 @@ import MgTimeDate from "../mixins/mg-time-date";
 import MgTimeDaterange from "../mixins/mg-time-daterange";
 // import MgTimeDates from "../mixins/mg-time-dates";
 import MgTimeDatetime from "../mixins/mg-time-datetime";
-// import MgTimeDatetimerange from "../mixins/mg-time-datetimerange";
+import MgTimeDatetimerange from "../mixins/mg-time-datetimerange";
 import MgTimeMonth from "../mixins/mg-time-month";
 // import MgTimeMonthrange from "../mixins/mg-time-monthrange";
 import MgTimeYear from "../mixins/mg-time-year";
 
-import { isNil, isString, isArray, cloneDeep } from "lodash";
+import { isEqual, isNil, isString, isArray, cloneDeep } from "lodash";
 import { default as dateFormat } from 'date-fns/format';
 
 export default {
@@ -32,7 +32,7 @@ export default {
         MgTimeDaterange,
         // MgTimeDates,
         MgTimeDatetime,
-        // MgTimeDatetimerange,
+        MgTimeDatetimerange,
         MgTimeMonth,
         // MgTimeMonthrange,
         MgTimeYear,
@@ -46,17 +46,19 @@ export default {
             watchHandle: [
                 {
                     variable: "value",
-                    func(newVal) {
+                    func(newVal, oldVal) {
+                        if (isEqual(newVal, oldVal)) return;
                         this.$set(this, "timeValue", this.setupValue(newVal));
                     },
                 },
                 {
                     variable: "timeValue",
                     func(newVal) {
+                        const defValue = isArray(newVal) ? [] : "";
                         this.monitorValue({
                             mold: this.mold,
                             field: this.field,
-                            value: newVal || "",
+                            value: newVal ?? defValue,
                             handle: "input",
                         });
                     },
@@ -67,7 +69,7 @@ export default {
                 // dates: this.moldDates,
                 daterange: this.moldDaterange,
                 datetime: this.moldDatetime,
-                // datetimerange: this.moldDatetimerange,
+                datetimerange: this.moldDatetimerange,
                 month: this.moldMonth,
                 // monthrange: this.moldMonthrange,
                 year: this.moldYear,
