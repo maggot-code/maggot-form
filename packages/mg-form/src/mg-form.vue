@@ -2,48 +2,23 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-03-01 11:04:20
+ * @LastEditTime: 2022-06-10 01:26:33
  * @Description: mg-form.vue component
 -->
 <template>
-    <el-form
-        class="mg-form"
-        label-suffix="："
-        :ref="ruleForm"
-        :rules="formRules"
-        :model="formData"
-        :size="formSize"
-        :status-icon="false"
-        v-bind="options"
-    >
+    <el-form class="mg-form" label-suffix="：" :ref="ruleForm" :rules="formRules" :model="formData" :size="formSize"
+        :status-icon="false" v-bind="options">
         <!-- inline form -->
         <template v-if="options.inline">
             <template v-for="cell in formCellSchema">
-                <el-form-item
-                    v-if="checkIsComponents(cell.componentName)"
-                    :key="cell.field"
-                    v-bind="setFormItem(cell.field, cell.uiSchema)"
-                >
-                    <component
-                        :is="cell.componentName"
-                        :ref="refsName(cell.field)"
-                        :proName="proName"
-                        :token="token"
-                        :mold="cell.mold"
-                        :field="cell.field"
-                        :value.sync="formData[cell.field]"
-                        :defValue="formDefData[cell.field]"
-                        :leaderTag="cell.leaderTag"
-                        :workerTag="cell.workerTag"
-                        :database="cell.dataSchema"
-                        :ui="cell.uiSchema"
-                        :rule="cell.ruleSchema"
-                        :reset="componentReset"
-                        @monitorValue="monitorValue"
-                        @formError="formError"
-                        @uploadSpeed="uploadSpeed"
-                        @uploadCellEvent="uploadCellEvent"
-                    ></component>
+                <el-form-item v-if="checkIsComponents(cell.componentName)" :key="cell.field"
+                    v-bind="setFormItem(cell.field, cell.uiSchema)">
+                    <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName" :token="token"
+                        :mold="cell.mold" :field="cell.field" :value.sync="formData[cell.field]"
+                        :defValue="formDefData[cell.field]" :leaderTag="cell.leaderTag" :workerTag="cell.workerTag"
+                        :database="cell.dataSchema" :ui="cell.uiSchema" :rule="cell.ruleSchema" :reset="componentReset"
+                        @monitorValue="monitorValue" @formError="formError" @uploadSpeed="uploadSpeed"
+                        @uploadCellEvent="uploadCellEvent"></component>
                 </el-form-item>
             </template>
         </template>
@@ -52,41 +27,18 @@
         <template v-else>
             <el-row :gutter="options.gutter">
                 <template v-for="cell in formCellSchema">
-                    <el-col
-                        v-if="checkIsComponents(cell.componentName)"
-                        :span="setColSpan(cell.uiSchema)"
-                    >
-                        <el-form-item
-                            :key="cell.field"
-                            v-bind="setFormItem(cell.field, cell.uiSchema)"
-                        >
-                            <el-tooltip
-                                :disabled="
-                                    useTips(cell.uiSchema, cell.componentName)
-                                "
-                                :content="handleTips(cell.uiSchema)"
-                                placement="top"
-                            >
-                                <component
-                                    :is="cell.componentName"
-                                    :ref="refsName(cell.field)"
-                                    :proName="proName"
-                                    :token="token"
-                                    :mold="cell.mold"
-                                    :field="cell.field"
-                                    :value.sync="formData[cell.field]"
-                                    :defValue="formDefData[cell.field]"
-                                    :leaderTag="cell.leaderTag"
-                                    :workerTag="cell.workerTag"
-                                    :database="cell.dataSchema"
-                                    :ui="cell.uiSchema"
-                                    :rule="cell.ruleSchema"
-                                    :reset="componentReset"
-                                    @monitorValue="monitorValue"
-                                    @formError="formError"
-                                    @uploadSpeed="uploadSpeed"
-                                    @uploadCellEvent="uploadCellEvent"
-                                ></component>
+                    <el-col v-if="checkIsComponents(cell.componentName)" :span="setColSpan(cell.uiSchema)">
+                        <el-form-item :key="cell.field" v-bind="setFormItem(cell.field, cell.uiSchema)">
+                            <el-tooltip :disabled="
+                                useTips(cell.uiSchema, cell.componentName)
+                            " :content="handleTips(cell.uiSchema)" placement="top">
+                                <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName"
+                                    :token="token" :mold="cell.mold" :field="cell.field"
+                                    :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
+                                    :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema"
+                                    :ui="cell.uiSchema" :rule="cell.ruleSchema" :reset="componentReset"
+                                    @monitorValue="monitorValue" @formError="formError" @uploadSpeed="uploadSpeed"
+                                    @uploadCellEvent="uploadCellEvent"></component>
                             </el-tooltip>
                         </el-form-item>
                     </el-col>
@@ -304,7 +256,7 @@ export default {
             }
 
             const { leaderTag, lib } = tag;
-            this.leaderRun(field, leaderTag, lib, value, defValue);
+            this.leaderRun(field, leaderTag, lib, value, defValue, params);
         },
         // 拼接 refs name
         refsName(field) {
