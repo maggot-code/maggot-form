@@ -1,5 +1,5 @@
 .mg-upload{
-    /deep/ .el-upload__tip{
+    :deep(.el-upload__tip) {
         color: #F56C6C;
     }
 }

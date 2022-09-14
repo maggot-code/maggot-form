@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-24 09:22:55
+ * @LastEditTime: 2022-09-14 13:32:48
  * @Description: file content
  */
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -22,40 +22,47 @@ const pluginList = [
 ]
 
 module.exports = {
-    publicPath: './',
-    outputDir: 'dist', // 打包输出目录
-    assetsDir: 'static',
+    publicPath: "./",
+    outputDir: "dist", // 打包输出目录
+    assetsDir: "static",
     productionSourceMap: false,
     css: {
         // 查看CSS属于哪个css文件
-        sourceMap: process.env.NODE_ENV === 'development',
-        extract: true
+        sourceMap: process.env.NODE_ENV === "development",
+        extract: true,
     },
     devServer: {
         https: false,
         open: false,
         proxy: {
-            '/kyhxs': {
-                target: 'http://192.1.1.5:8080',
+            "/kyhxs": {
+                target: "http://192.1.1.5:8080",
                 ws: true,
                 secure: false,
                 changeOrigin: true,
-                pathReWrite: { '^/kyhxs': '' }
+                pathReWrite: { "^/kyhxs": "" },
             },
-        }
+            "/api/node": {
+                target: "http://127.0.0.1:8000",
+                ws: true,
+                secure: false,
+                changeOrigin: true,
+                pathReWrite: { "^/api/node": "" },
+            },
+        },
     },
-    configureWebpack: config => {
+    configureWebpack: (config) => {
         // 调试JS
-        if (process.env.NODE_ENV === 'development') {
-            config.devtool = 'source-map';
+        if (process.env.NODE_ENV === "development") {
+            config.devtool = "source-map";
         } else {
             pluginList.push(new BundleAnalyzerPlugin());
         }
         //打包文件大小配置
         config.performance = {
-            "maxEntrypointSize": 10240 * 100,
-            "maxAssetSize": 10240 * 100
-        }
+            maxEntrypointSize: 10240 * 100,
+            maxAssetSize: 10240 * 100,
+        };
         // 公共代码抽离
         config.optimization = {
             // 分割代码块
@@ -63,21 +70,21 @@ module.exports = {
                 cacheGroups: {
                     //公用模块抽离
                     common: {
-                        chunks: 'initial',
+                        chunks: "initial",
                         minSize: 10240 * 10, //大于0个字节
                         minChunks: 2, //抽离公共代码时，这个代码块最小被引用的次数
                     },
                     vendor: {
                         priority: 1, //权重
                         test: /node_modules/,
-                        chunks: 'initial',
+                        chunks: "initial",
                         minSize: 10240 * 10, //大于0个字节
                         minChunks: 2, //在分割之前，这个代码块最小应该被引用的次数
-                    }
+                    },
                 },
-            }
+            },
         };
         config.plugins.push(...pluginList);
         config.mode = process.env.NODE_ENV;
-    }
-}
+    },
+};

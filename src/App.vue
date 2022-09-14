@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-04-18 10:46:16
+ * @LastEditTime: 2022-09-14 13:32:22
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-form style="height: 600px" proName="kyhxs" :ref="formRefName" :job="jobFunction" :schema="testSchema"
+        <mg-form style="height: 600px" proName="api/node" :ref="formRefName" :job="jobFunction" :schema="testSchema"
             @form-error="handlerFormError" @monitor-value="handleValue"></mg-form>
         <el-button v-for="(cell, keys) in formButtonGroup" plain :key="keys" :type="cell.type" :icon="cell.icon"
             @click="cell.handle">{{ cell.label }}</el-button>
@@ -24,11 +24,11 @@
 // import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
-import TestJsonschema from "../test/test-time";
+// import TestJsonschema from "../test/test-time";
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
-// import TestJsonschema from "../test/test-cascader.json";
+import TestJsonschema from "../test/test-cascader.json";
 // import TestJsonschema from "../test/test-cascader-v1.json";
 // import TestJsonschema from "../test/test-add-v1.json";
 // import TestJsonschema from "../test/test-ceshi-v1.json";
