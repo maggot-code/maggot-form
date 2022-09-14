@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-14 13:32:48
+ * @LastEditTime: 2022-09-14 14:02:52
  * @Description: file content
  */
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
@@ -53,10 +53,13 @@ module.exports = {
     },
     configureWebpack: (config) => {
         // 调试JS
+        // if (process.env.NODE_ENV === "development") {
+        //     config.devtool = "source-map";
+        // } else {
+        //     pluginList.push(new BundleAnalyzerPlugin());
+        // }
         if (process.env.NODE_ENV === "development") {
             config.devtool = "source-map";
-        } else {
-            pluginList.push(new BundleAnalyzerPlugin());
         }
         //打包文件大小配置
         config.performance = {
