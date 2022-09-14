@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 13:40:10
+ * @LastEditTime: 2022-09-14 13:49:40
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -16,6 +16,7 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
+import { setEnums } from "../../mg-form/utils";
 import { send } from "../../mg-form/axios";
 import { isArray, isNil, cloneDeep } from "lodash";
 export default {
@@ -103,6 +104,10 @@ export default {
             const { lib } = database;
 
             return lib;
+        },
+        selectList: (vm) => {
+            const { enums } = vm.database;
+            return isArray(enums) ? enums.map(setEnums) : [];
         },
         valueKey: (vm) => {
             const { database } = vm;
@@ -211,7 +216,7 @@ export default {
                 .then((res) => this.setSelectData(res.data))
                 .catch((error) => this.setSelectData());
         } else {
-            this.setSelectData();
+            this.setSelectData(this.selectList);
         }
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
