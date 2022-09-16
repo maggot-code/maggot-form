@@ -14,7 +14,8 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lib-vue": "vue-cli-service build --target lib --inline-vue --name maggot-form --dest lib ./src/index.js",
-        "lib": "vue-cli-service build --target lib --name maggot-form --dest lib ./src/index.js"
+        "lib": "vue-cli-service build --target lib --name maggot-form --dest lib ./src/index.js",
+        "lib:watch": "vue-cli-service build --target lib --name maggot-form --dest lib ./src/index.js --watch"
     },
     "repository": {
         "type": "git",
@@ -27,6 +28,7 @@
     },
     "homepage": "https://github.com/maggot-code/maggot-form#readme",
     "devDependencies": {
+        "@babel/preset-env": "^7.19.1",
         "@vue/cli-plugin-babel": "5.0.8",
         "@vue/cli-service": "5.0.8",
         "axios": "^0.21.1",
