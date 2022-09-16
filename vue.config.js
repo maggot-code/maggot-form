@@ -2,14 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-14 14:02:52
+ * @LastEditTime: 2022-09-16 16:54:15
  * @Description: file content
  */
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin =require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 const pluginList = [
+    // new BundleAnalyzerPlugin(),
     new LodashModuleReplacementPlugin(),
     new CompressionWebpackPlugin({
         filename: info => `${info.path}.gz${info.query}`,
