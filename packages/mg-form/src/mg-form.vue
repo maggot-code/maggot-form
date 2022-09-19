@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-10 01:26:33
+ * @LastEditTime: 2022-09-19 10:36:12
  * @Description: mg-form.vue component
 -->
 <template>
@@ -158,10 +158,12 @@ export default {
                 const { struct, data, rules, tag } = this.handleSchema(newVal);
 
                 this.$set(this, "formDefCellSchema", cloneDeep(struct));
+                this.$set(this, "formRules", cloneDeep(rules));
                 this.$set(this, "formCellSchema", cloneDeep(struct));
                 this.$set(this, "formDefData", cloneDeep(data));
                 this.$set(this, "formData", cloneDeep(data));
-                this.$set(this, "formRules", cloneDeep(rules));
+
+                this.$nextTick(this.clearValidate);
 
                 this.setTagmap(tag, struct);
             },
@@ -209,6 +211,9 @@ export default {
                 data: this.fileSubmitHandleHook(cloneDeep(this.formData)),
             };
         },
+        clearValidateField(field) {
+            this.$refs[this.ruleForm].clearValidate(field)
+        },
         clearValidate() {
             this.$refs[this.ruleForm].clearValidate();
         },
@@ -247,7 +252,7 @@ export default {
             this.$emit("monitor-value", params);
 
             if (handle === "select" || handle === "radio") {
-                this.$refs[this.ruleForm].clearValidate(field);
+                this.clearValidateField(field);
             }
 
             const tag = this.getTag(field);
@@ -383,7 +388,7 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() { },
+    mounted() {},
     beforeCreate() { }, //生命周期 - 创建之前
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前

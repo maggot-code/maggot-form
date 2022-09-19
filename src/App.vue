@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-14 13:32:22
+ * @LastEditTime: 2022-09-19 10:17:52
  * @Description: file content
 -->
 <template>
@@ -28,11 +28,13 @@
 // import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
-import TestJsonschema from "../test/test-cascader.json";
+// import TestJsonschema from "../test/test-cascader.json";
 // import TestJsonschema from "../test/test-cascader-v1.json";
 // import TestJsonschema from "../test/test-add-v1.json";
 // import TestJsonschema from "../test/test-ceshi-v1.json";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
+
+import TestJsonschema from "../test/test.v2.json";
 export default {
     name: "App",
     mixins: [],
@@ -58,7 +60,7 @@ export default {
                 formSchema: {
                     labelWidth: "160px",
                 },
-                cellSchema: TestJsonschema,
+                cellSchema: [],
             },
             jobFunction: {},
 
@@ -121,7 +123,11 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() { },
+    mounted() {
+        setTimeout(() => {
+            this.$set(this.testSchema, "cellSchema", TestJsonschema);
+        }, 3000);
+    },
     beforeCreate() { }, //生命周期 - 创建之前
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前
