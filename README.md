@@ -37,12 +37,12 @@
 | 属性            | 说明                                                         | 类型     | 默认值                   |
 | --------------- | ------------------------------------------------------------ | -------- | ------------------------ |
 | `mold`          | 用作设置同组件下的不同使用方式                               | `String` | `default`                |
-| `componentName` | 表单项组件名称                                               | `String` | 必填/详情                |
+| `componentName` | 表单项组件名称                                               | `String` | [必填/详情](##组件)      |
 | `field`         | 表单项数据的绑定字段名称                                     | `String` | 必填                     |
 | `value`         | 表单项所属数据                                               | `Any`    | 具体类型查看对应组件说明 |
-| `uiSchema`      | 表单项UI结构                                                 | `Object` | 详情                     |
-| `ruleSchema`    | 表单项校验规则                                               | `Array`  | 详情                     |
-| `dataSchema`    | 表单项数据结构（多用作有额外数据的表单项中，例如多选，单选） | `Object` | 详情                     |
+| `uiSchema`      | 表单项UI结构                                                 | `Object` | [详情](##UISchema)       |
+| `ruleSchema`    | 表单项校验规则                                               | `Array`  | [详情](##RuleSchema)     |
+| `dataSchema`    | 表单项数据结构（多用作有额外数据的表单项中，例如多选，单选） | `Object` | [详情](##DataSchema)     |
 | `leaderTag`     | 表单项触发数值修改后的对应异步操作（控制者）                 | `Object` | 详情                     |
 | `workerTag`     | 接收其他表单项异步操作的标识集合（受控者）                   | `Array`  | `[]`                     |
 
@@ -82,6 +82,7 @@
 * `单选框 -> mg-radio` [说明](###mg-radio)
 * `多选框 -> mg-check-box` [说明](###mg-check-box)
 * `下拉框 -> mg-select` [说明](###mg-select)
+* `日期框 -> mg-time` [说明](###mg-time)
 
 -----
 
@@ -119,7 +120,7 @@
 
 | 属性            | 说明                     | 类型                                  | 默认值                   |
 | --------------- | ------------------------ | ------------------------------------- | ------------------------ |
-| `placeholder`   | 占位文本内容             | `String`                              | `请输入文本内容`         |
+| `placeholder`   | 占位文本内容             | `String`                              | 请输入文本内容           |
 | `showWordLimit` | 是否显示字数统计         | `Boolean`                             | `true`                   |
 | `maxlength`     | 最大输入长度（原生属性） | `Number`                              | `200`                    |
 | `minlength`     | 最小输入长度（原生属性） | `Number`                              | `0`                      |
@@ -257,3 +258,24 @@
 | `multipleLimit` | 多选时允许选择的最大数量，`0`标识不做限制 | `Number`  | `0`     |
 | `placeholder`   | 占位文本内容                              | `String`  | 请选择  |
 | `noDataText`    | 没有数据时的文本内容                      | `String`  | 无数据  |
+
+---
+
+
+
+### mg-time
+
+#### `uiSchema`
+
+##### `mold - date `
+
+##### `mold - daterange`
+
+##### `mold - datetime`
+
+##### `mold - datetimerange`
+
+##### `mold - month`
+
+##### `mold - year`
+
