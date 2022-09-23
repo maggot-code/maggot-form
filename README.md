@@ -68,9 +68,15 @@
 
 ### DataSchema
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
+| 属性          | 说明                     | 类型              | 默认值     |
+| ------------- | ------------------------ | ----------------- | ---------- |
+| `valueField`  | 数值标识                 | `String`          | `id`       |
+| `textField`   | 标签标识                 | `String`          | `text`     |
+| `enums`       | 选项集合                 | `Array`           | `[]`       |
+| `lib`         | 额外数据                 | `Object`          | `{}`       |
+| `childrenKey` | 下级节点标识             | `String`          | `children` |
+| `step`        | `valueField`数值规则步长 | `String / Number` |            |
+| `api`         | 异步选项集合来源         | `String`          |            |
 
 ---
 
