@@ -83,6 +83,9 @@
 * `多选框 -> mg-check-box` [说明](###mg-check-box)
 * `下拉框 -> mg-select` [说明](###mg-select)
 * `日期框 -> mg-time` [说明](###mg-time)
+* `上传 -> mg-upload` [说明](###mg-upload)
+* `级联 -> mg-cascade` [说明](###mg-cascade)
+* `搜索 -> mg-search` [说明](###mg-search)
 
 -----
 
@@ -261,21 +264,93 @@
 
 ---
 
-
-
 ### mg-time
 
 #### `uiSchema`
 
+| 属性               | 说明                               | 类型                    | 默认值                 |
+| ------------------ | ---------------------------------- | ----------------------- | ---------------------- |
+| `readonly`         | 是否只读                           | `Boolean`               | `false`                |
+| `disabled`         | 是否禁用                           | `Boolean`               | `false`                |
+| `clearable`        | 是否显示清除按钮                   | `Boolean`               | `true`                 |
+| `placeholder`      | 非范围选择器占位内容               | `String`                | `""`                   |
+| `startPlaceholder` | 范围选择器 - 开始日期的占位内容    | `String`                | `""`                   |
+| `endPlaceholder`   | 范围选择器 - 结束日期的占位内容    | `String`                | `""`                   |
+| `timeArrowControl` | 是否使用箭头进行时间选择           | `Boolean`               | `false`                |
+| `format`           | 格式化规则                         | `String`                | 详情                   |
+| `align`            | 对齐方式                           | `left / right / center` | `center`               |
+| `rangeSeparator`   | 范围选择器分隔符号                 | `String`                | 至                     |
+| `unlinkPanels`     | 范围选择器中取消两个面板之间的联动 | `Boolean`               | `false`                |
+| `prefixIcon`       | 自定义头部图标                     | `String`                | `el-icon-date`         |
+| `clearIcon`        | 自定义清空图标                     | `String`                | `el-icon-circle-close` |
+
 ##### `mold - date `
+
+> `value 和 defValue`的类型是`String`，默认值是`""`
+
+| 属性          | 说明       | 类型     | 默认值       |
+| ------------- | ---------- | -------- | ------------ |
+| `format`      | 格式化规则 | `String` | `yyyy-MM-dd` |
+| `placeholder` | 占位内容   | `String` | 请选择日期   |
 
 ##### `mold - daterange`
 
+> `value 和 defValue`的类型是`[String, String]`，默认值是`["", ""]`
+
+| 属性               | 说明               | 类型     | 默认值       |
+| ------------------ | ------------------ | -------- | ------------ |
+| `format`           | 格式化规则         | `String` | `yyyy-MM-dd` |
+| `startPlaceholder` | 开始日期的占位内容 | `String` | 开始日期     |
+| `endPlaceholder`   | 结束日期的占位内容 | `String` | 结束日期     |
+
 ##### `mold - datetime`
+
+> `value 和 defValue`的类型是`String`，默认值是`""`
+
+| 属性          | 说明       | 类型     | 默认值                |
+| ------------- | ---------- | -------- | --------------------- |
+| `format`      | 格式化规则 | `String` | `yyyy-MM-dd HH:mm:ss` |
+| `placeholder` | 占位内容   | `String` | 请选择时间            |
 
 ##### `mold - datetimerange`
 
+> `value 和 defValue`的类型是`[String, String]`，默认值是`["", ""]`
+
+| 属性               | 说明             | 类型     | 默认值                |
+| ------------------ | ---------------- | -------- | --------------------- |
+| `format`           | 格式化规则       | `String` | `yyyy-MM-dd HH:mm:ss` |
+| `startPlaceholder` | 开始日期占位内容 | `String` | 开始日期              |
+| `endPlaceholder`   | 结束日期占位内容 | `String` | 结束日期              |
+
 ##### `mold - month`
 
+> `value 和 defValue`的类型是`String`，默认值是`""`
+
+| 属性          | 说明       | 类型     | 默认值     |
+| ------------- | ---------- | -------- | ---------- |
+| `format`      | 格式化规则 | `String` | `yyyy-MM`  |
+| `placeholder` | 占位内容   | `String` | 请选择月份 |
+
 ##### `mold - year`
+
+> `value 和 defValue`的类型是`String`，默认值是`""`
+
+| 属性          | 说明       | 类型     | 默认值     |
+| ------------- | ---------- | -------- | ---------- |
+| `format`      | 格式化规则 | `String` | `yyyy`     |
+| `placeholder` | 占位内容   | `String` | 请选择年份 |
+
+---
+
+### mg-upload
+
+---
+
+### mg-cascade
+
+---
+
+### mg-search
+
+---
 
