@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 14:36:31
+ * @LastEditTime: 2022-09-26 14:42:48
  * @Description: mg-form.vue component
 -->
 <template>
@@ -88,6 +88,10 @@ export default {
             type: Boolean,
             default: () => true,
         },
+        serviceCall: {
+            type: Function,
+            default:()=>Promise.resolve({})
+        }
     },
     provide() {
         return {
@@ -397,7 +401,7 @@ export default {
             const defValue = this.formDefData[field];
 
             this.$set(this.formData, field, isNil(value) ? defValue : value);
-        },
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },

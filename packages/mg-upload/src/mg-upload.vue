@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 14:33:17
+ * @LastEditTime: 2022-09-26 15:17:46
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -245,12 +245,17 @@ export default {
 
         // 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。	function(file, fileList)
         beforeRemove(file, fileList) {
+            console.log("before remove", file);
             // TODO..
             return true;
         },
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
-        httpRequest() { },
+        httpRequest(request) {
+            // const response = await this.form.serviceCall();
+            // console.log(response);
+            console.log(request);
+        },
 
         // 上传控件错误抛出
         uploadError(file,txt) {

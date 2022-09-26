@@ -2,13 +2,21 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 14:04:15
+ * @LastEditTime: 2022-09-26 15:05:45
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-form style="height: 600px" proName="api/node" :ref="formRefName" :job="jobFunction" :schema="testSchema"
-            @form-error="handlerFormError" @monitor-value="handleValue"></mg-form>
+        <mg-form
+            style="height: 600px" 
+            proName="api/node"
+            :ref="formRefName"
+            :job="jobFunction"
+            :schema="testSchema"
+            :serviceCall="serviceCall"
+            @form-error="handlerFormError"
+            @monitor-value="handleValue">
+        </mg-form>
         <el-button v-for="(cell, keys) in formButtonGroup" plain :key="keys" :type="cell.type" :icon="cell.icon"
             @click="cell.handle">{{ cell.label }}</el-button>
     </div>
@@ -120,6 +128,9 @@ export default {
         reset() {
             this.$refs[this.formRefName].resetForm();
         },
+        serviceCall() {
+            console.log(11);
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },
