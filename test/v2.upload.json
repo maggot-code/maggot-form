@@ -18,7 +18,8 @@
             "types": [
                 "pdf",
                 "gif",
-                "txt"
+                "txt",
+                "gif"
             ],
             "blacklist": []
         },

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 15:17:46
+ * @LastEditTime: 2022-09-26 18:10:54
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -48,6 +48,27 @@ const DefBlacklist = [
     "jsx",
     "vue",
 ];
+const Download = document.createElement("a");
+function useDownload(file) {
+    const {name, size,type} = file;
+    const blob = new Blob([size], { type:type });
+    const href = window.URL.createObjectURL(blob);
+    function unhref() {
+        window.URL.revokeObjectURL(href);
+    }
+
+    Download.href = href;
+    Download.download = name;
+
+    return {
+        href,
+        toload: () => {
+            Download.click();
+            unhref();
+        },
+        unhref
+    }
+}
 
 // mb 换算 byte
 function mb2byte(value) {
@@ -198,6 +219,10 @@ export default {
         // 点击文件列表中已上传的文件时的钩子	function(file)
         onPreview(file) {
             console.log("onPreview", file);
+            
+            const { href, toload } = useDownload(file);
+            console.log(href);
+            toload();
         },
 
         // 文件列表移除文件时的钩子	function(file, fileList)
@@ -251,10 +276,9 @@ export default {
         },
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
-        httpRequest(request) {
-            // const response = await this.form.serviceCall();
-            // console.log(response);
-            console.log(request);
+        async httpRequest(request) {
+            const response = await this.form.serviceCall(request);
+            return response;
         },
 
         // 上传控件错误抛出

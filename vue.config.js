@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-16 16:54:15
+ * @LastEditTime: 2022-09-26 16:16:00
  * @Description: file content
  */
 // const BundleAnalyzerPlugin =require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -36,12 +36,12 @@ module.exports = {
         https: false,
         open: false,
         proxy: {
-            "/kyhxs": {
+            "/SWZDH": {
                 target: "http://192.1.1.5:8080",
                 ws: true,
                 secure: false,
                 changeOrigin: true,
-                pathReWrite: { "^/kyhxs": "" },
+                pathReWrite: { "^/SWZDH": "" },
             },
             "/api/node": {
                 target: "http://127.0.0.1:8000",

@@ -2,14 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 15:05:45
+ * @LastEditTime: 2022-09-26 17:53:30
  * @Description: file content
 -->
 <template>
     <div id="app">
         <mg-form
             style="height: 600px" 
-            proName="api/node"
+            proName="SWZDH"
             :ref="formRefName"
             :job="jobFunction"
             :schema="testSchema"
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import axios from "axios";
 // import TestFormWorker from "../test/test-form-worker";
 // import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-select-copy";
@@ -128,12 +129,35 @@ export default {
         reset() {
             this.$refs[this.formRefName].resetForm();
         },
-        serviceCall() {
-            console.log(11);
+        async serviceCall(request) {
+            const fileAddress = "http://192.1.1.5:8080/SWZDH/file";
+            const service = "/SWZDH/Common/UpFile";
+            const body = new FormData();
+            body.append("files", request.file);
+
+            const {data} = await axios({
+                url: service,
+                method: "POST",
+                data: body,
+            });
+
+            // const [{ url }] = data;
+            // const address = fileAddress + url;
+
+            // const { data: blobData } = await axios({ url: address, method: "GET", responseType: 'blob' });
+            // const URL = window.URL.createObjectURL(blobData);
+            // console.log(URL);
+            // const download = document.createElement("a");
+            // download.href = URL;
+            // download.download = request.file.name;
+            // download.click();
+            // window.URL.revokeObjectURL(URL);
+
+            return data;
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() { },
+    created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$set(this.testSchema, "cellSchema", TestJsonschema);
