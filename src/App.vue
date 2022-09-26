@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-19 10:17:52
+ * @LastEditTime: 2022-09-26 09:40:45
  * @Description: file content
 -->
 <template>
@@ -21,7 +21,7 @@
 // import TestJsonschema from "../test/test-select1";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
-// import TestJsonschema from "../test/test-upload";
+import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
 // import TestJsonschema from "../test/test-time";
@@ -34,7 +34,7 @@
 // import TestJsonschema from "../test/test-ceshi-v1.json";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
-import TestJsonschema from "../test/test.v2.json";
+// import TestJsonschema from "../test/test.v2.json";
 export default {
     name: "App",
     mixins: [],

@@ -3,6 +3,7 @@
     //     "./src/**/*"
     // ]
     "compilerOptions": {
+        "jsx": "preserve",
         "baseUrl": "./",
         "paths": {
             "@/*": [
@@ -13,5 +14,8 @@
     "exclude": [
         "node_modules",
         "dist"
-    ]
+    ],
+    "vueCompilerOptions": {
+        "target": 2
+    }
 }
