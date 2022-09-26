@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-19 10:36:12
+ * @LastEditTime: 2022-09-26 14:36:31
  * @Description: mg-form.vue component
 -->
 <template>
@@ -29,17 +29,23 @@
                 <template v-for="cell in formCellSchema">
                     <el-col v-if="checkIsComponents(cell.componentName)" :span="setColSpan(cell.uiSchema)">
                         <el-form-item :key="cell.field" v-bind="setFormItem(cell.field, cell.uiSchema)">
-                            <el-tooltip :disabled="
-                                useTips(cell.uiSchema, cell.componentName)
-                            " :content="handleTips(cell.uiSchema)" placement="top">
-                                <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName"
-                                    :token="token" :mold="cell.mold" :field="cell.field"
-                                    :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
-                                    :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema"
-                                    :ui="cell.uiSchema" :rule="cell.ruleSchema" :reset="componentReset"
-                                    @monitorValue="monitorValue" @formError="formError" @uploadSpeed="uploadSpeed"
-                                    @uploadCellEvent="uploadCellEvent"></component>
-                            </el-tooltip>
+                            <template v-if="useTips(cell.uiSchema, cell.componentName)">
+                                <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName" :token="token" :mold="cell.mold"
+                                    :field="cell.field" :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
+                                    :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema" :ui="cell.uiSchema"
+                                    :rule="cell.ruleSchema" :reset="componentReset" @monitorValue="monitorValue" @formError="formError"
+                                    @uploadSpeed="uploadSpeed" @uploadCellEvent="uploadCellEvent"></component>
+                            </template>
+
+                            <template v-else>
+                                <el-tooltip :content="handleTips(cell.uiSchema)" placement="top">
+                                    <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName" :token="token" :mold="cell.mold"
+                                        :field="cell.field" :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
+                                        :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema" :ui="cell.uiSchema"
+                                        :rule="cell.ruleSchema" :reset="componentReset" @monitorValue="monitorValue" @formError="formError"
+                                        @uploadSpeed="uploadSpeed" @uploadCellEvent="uploadCellEvent"></component>
+                                </el-tooltip>
+                            </template>
                         </el-form-item>
                     </el-col>
                 </template>
@@ -58,6 +64,9 @@ import { FormCellComponents, FormCellRules } from "../install";
 import { mergeSchema } from "../utils";
 import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
+
+const unusableTipsComponent = ["mg-upload"];
+
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
@@ -79,6 +88,11 @@ export default {
             type: Boolean,
             default: () => true,
         },
+    },
+    provide() {
+        return {
+            form: this,
+        };
     },
     data() {
         //这里存放数据
@@ -375,9 +389,9 @@ export default {
         },
         useTips(uiSchema, componentName) {
             const { tips } = uiSchema;
-            const isName = componentName === "mg-upload";
 
-            return isNil(tips) || isName;
+            // 一些组件不需要提示或者提示在组件内部已经内置了位置
+            return isNil(tips) || unusableTipsComponent.includes(componentName);
         },
         setFormDataValue(field, value) {
             const defValue = this.formDefData[field];

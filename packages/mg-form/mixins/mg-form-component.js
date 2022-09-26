@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 18:54:52
+ * @LastEditTime: 2022-09-26 13:57:00
  * @Description: mg form mixins component package
  */
 export default {
@@ -49,6 +49,7 @@ export default {
             default: () => []
         }
     },
+    inject:["form"],
     data() {
         //这里存放数据
         return {

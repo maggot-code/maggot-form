@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 09:40:45
+ * @LastEditTime: 2022-09-26 14:04:15
  * @Description: file content
 -->
 <template>
@@ -21,7 +21,7 @@
 // import TestJsonschema from "../test/test-select1";
 // import TestJsonschema from "../test/test-radio";
 // import TestJsonschema from "../test/test-check-box";
-import TestJsonschema from "../test/test-upload";
+// import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
 // import TestJsonschema from "../test/test-time";
@@ -35,6 +35,7 @@ import TestJsonschema from "../test/test-upload";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
 // import TestJsonschema from "../test/test.v2.json";
+import TestJsonschema from "../test/v2.upload";
 export default {
     name: "App",
     mixins: [],
@@ -124,9 +125,7 @@ export default {
     created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        setTimeout(() => {
-            this.$set(this.testSchema, "cellSchema", TestJsonschema);
-        }, 3000);
+        this.$set(this.testSchema, "cellSchema", TestJsonschema);
     },
     beforeCreate() { }, //生命周期 - 创建之前
     beforeMount() { }, //生命周期 - 挂载之前

@@ -1,0 +1,27 @@
+[
+    {
+        "componentName": "mg-upload",
+        "mold": "default",
+        "field": "doc",
+        "value": [],
+        "leaderTag": {},
+        "workerTag": [],
+        "dataSchema": {
+            "lib": {}
+        },
+        "uiSchema": {
+            "col": 24,
+            "label": "文档",
+            "tips": "上传文档",
+            "multiple": true,
+            "size": 10,
+            "types": [
+                "pdf",
+                "gif",
+                "txt"
+            ],
+            "blacklist": []
+        },
+        "ruleSchema": []
+    }
+]
