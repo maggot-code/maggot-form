@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 16:51:15
+ * @LastEditTime: 2022-09-27 18:08:58
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,7 @@
             :ref="formRefName"
             :job="jobFunction"
             :schema="testSchema"
-            :serviceCall="serviceCall"
+            :upload="uploadService"
             @form-error="handlerFormError"
             @monitor-value="handleValue">
         </mg-form>
@@ -45,6 +45,33 @@ import axios from "axios";
 
 // import TestJsonschema from "../test/test.v2.json";
 import TestJsonschema from "../test/v2.upload";
+
+const requestAxios = axios.create({
+    
+});
+function requestCall(request) {
+    const {file} = request;
+    const service = "/SWZDH/Common/UpFile";
+    const body = new FormData();
+    body.append("files", file);
+
+    const cancel = new AbortController();
+
+    async function tocall() {
+        return requestAxios({
+            url: service,
+            method: "post",
+            data: body,
+            signal: cancel.signal,
+        });
+    }
+
+    return {
+        uid: file.uid,
+        tocall,
+        tocancel: cancel.abort
+    }
+}
 export default {
     name: "App",
     mixins: [],
@@ -55,6 +82,9 @@ export default {
         return {
             ruleForm: {
                 region: "",
+            },
+            uploadService: {
+                call: requestCall
             },
             rules: {
                 region: [
@@ -128,9 +158,6 @@ export default {
         },
         reset() {
             this.$refs[this.formRefName].resetForm();
-        },
-        onUploadProgress(progress) {
-            console.log(progress);
         },
         async serviceCall(request) {
             const fileAddress = "http://192.1.1.5:8080/SWZDH/file";

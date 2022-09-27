@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 17:36:13
+ * @LastEditTime: 2022-09-27 17:58:32
  * @Description: mg-form.vue component
 -->
 <template>
@@ -111,7 +111,7 @@ export default {
             type: Boolean,
             default: () => true,
         },
-        uploadService: {
+        upload: {
             type: Object,
             default:()=>({})
         }

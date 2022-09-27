@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 17:37:25
+ * @LastEditTime: 2022-09-27 18:09:33
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -161,6 +161,7 @@ export default {
             const vbind = {
                 action: "",
                 listType: "text",
+                data:{},
                 autoUpload: true,
                 withCredentials: true,
                 showFileList: true,
@@ -263,8 +264,8 @@ export default {
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
         httpRequest(request) {
-            console.log(request);
-            console.log(this.form);
+            const {uid, tocall, tocancel } = this.form.upload.call(request);
+            console.log(uid,tocall,tocancel);
         },
 
         // 上传控件错误抛出
