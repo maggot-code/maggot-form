@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 18:10:54
+ * @LastEditTime: 2022-09-27 10:12:16
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -48,27 +48,6 @@ const DefBlacklist = [
     "jsx",
     "vue",
 ];
-const Download = document.createElement("a");
-function useDownload(file) {
-    const {name, size,type} = file;
-    const blob = new Blob([size], { type:type });
-    const href = window.URL.createObjectURL(blob);
-    function unhref() {
-        window.URL.revokeObjectURL(href);
-    }
-
-    Download.href = href;
-    Download.download = name;
-
-    return {
-        href,
-        toload: () => {
-            Download.click();
-            unhref();
-        },
-        unhref
-    }
-}
 
 // mb 换算 byte
 function mb2byte(value) {
@@ -141,6 +120,7 @@ export default {
     mixins: [MgFormComponent],
     components: {},
     props: {},
+    inject: ["useDownload"],
     data() {
         //这里存放数据
         const refs = flake.gen();
@@ -217,12 +197,10 @@ export default {
     //方法集合
     methods: {
         // 点击文件列表中已上传的文件时的钩子	function(file)
-        onPreview(file) {
+        async onPreview(file) {
             console.log("onPreview", file);
-            
-            const { href, toload } = useDownload(file);
-            console.log(href);
-            toload();
+            const download = this.useDownload(file.raw);
+            download.toload();
         },
 
         // 文件列表移除文件时的钩子	function(file, fileList)

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 14:42:48
+ * @LastEditTime: 2022-09-27 10:10:22
  * @Description: mg-form.vue component
 -->
 <template>
@@ -66,6 +66,30 @@ import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
 
 const unusableTipsComponent = ["mg-upload"];
+const download = document.createElement("a");
+function useDownload(file) {
+    const { name, type } = file;
+    const blob = new Blob([file], { type });
+    const href = window.URL.createObjectURL(blob);
+    function unload() {
+        window.URL.revokeObjectURL(href);
+    }
+    function toload() {
+        download.click();
+        unload();
+    }
+
+    download.href = href;
+    download.download = name ?? flake.gen();
+
+    return {
+        file,
+        blob,
+        unload,
+        toload
+    }
+}
+
 
 export default {
     name: "mg-form",
@@ -96,6 +120,7 @@ export default {
     provide() {
         return {
             form: this,
+            useDownload
         };
     },
     data() {
@@ -411,7 +436,9 @@ export default {
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
-    beforeDestroy() { }, //生命周期 - 销毁之前
+    beforeDestroy() {
+        download.remove();
+    }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
