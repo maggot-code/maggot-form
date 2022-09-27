@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 10:10:22
+ * @LastEditTime: 2022-09-27 17:36:13
  * @Description: mg-form.vue component
 -->
 <template>
@@ -90,7 +90,6 @@ function useDownload(file) {
     }
 }
 
-
 export default {
     name: "mg-form",
     mixins: [MgFormTagMap],
@@ -112,9 +111,9 @@ export default {
             type: Boolean,
             default: () => true,
         },
-        serviceCall: {
-            type: Function,
-            default:()=>Promise.resolve({})
+        uploadService: {
+            type: Object,
+            default:()=>({})
         }
     },
     provide() {

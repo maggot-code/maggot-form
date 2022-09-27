@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 14:06:27
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 09:34:35
+ * @LastEditTime: 2022-09-27 17:09:26
  * @Description: mg form utils
  */
 /**
@@ -48,4 +48,13 @@ export const setEnums = (item) => {
     const disabled = disabledFlg ? item.disabled : false;
 
     return { ...item, disabled: disabled };
+}
+
+// mb 换算 byte
+export function mb2byte(value) {
+    return value * 1024 * 1024;
+}
+// byte 换算 mb
+export function byte2mb(value) {
+    return (value / 1024 / 1024);
 }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 16:06:09
+ * @LastEditTime: 2022-09-27 17:37:25
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -22,57 +22,21 @@
         :before-remove="beforeRemove"
         :http-request="httpRequest"
     >
-        <div
+        <mg-upload-list
             slot="file"
             slot-scope="{file}"
-            class="mg-upload-list"
-            :class="file.status === 'uploading' ? [] : ['mg-upload-end']"
-        >
-            <!-- :format="progressFormat" -->
-            <el-progress
-                v-if="file.status === 'uploading'"
-                class="mg-upload-list-progress"
-                :key="file.uid"
-                :percentage="file.percentage"
-                :color="customColors"
-                :text-inside="false">
-            </el-progress>
-
-            <div class="mg-upload-info">
-                <el-link class="mg-upload-info-title" type="primary" @click="onPreview(file)">{{file.name}}</el-link>
-                <div class="mg-upload-info-speed">
-                    <p>{{toSpeed(file).current}} MB</p>
-                    <el-divider direction="vertical"></el-divider>
-                    <p>{{toSpeed(file).total}} MB</p>
-                </div>
-                <div class="mg-upload-info-control">
-                    <el-tag
-                        v-show="file.status === 'uploading'"
-                        class="mg-upload-info-control-item"
-                        size="mini"
-                        type="warning"
-                    >
-                        取消
-                    </el-tag>
-
-                    <el-tag
-                        v-show="file.status !== 'uploading'"
-                        class="mg-upload-info-control-item"
-                        size="mini"
-                        type="danger"
-                    >
-                        删除
-                    </el-tag>
-                </div>
-            </div>
-        </div>
+            :key="file.uid"
+            :file="file">
+        </mg-upload-list>
         <el-button slot="trigger" size="mini" type="primary">选取文件</el-button>
         <div v-if="fileTips.show" slot="tip" class="mg-upload-tip">{{fileTips.value}}</div>
     </el-upload>
 </template>
 
 <script>
+import MgUploadList from "./mg-upload-list.vue";
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
+import { mb2byte } from "../../mg-form/utils";
 import { flake } from "maggot-utils";
 import { concat, compact, isNil, isString, isBoolean, isNumber } from "lodash";
 
@@ -92,15 +56,6 @@ const DefBlacklist = [
     "jsx",
     "vue",
 ];
-
-// mb 换算 byte
-function mb2byte(value) {
-    return value * 1024 * 1024;
-}
-// byte 换算 mb
-function byte2mb(value) {
-    return (value / 1024 / 1024).toFixed(2);
-}
 
 // 获取文件类型
 function getFileType(file) {
@@ -162,15 +117,11 @@ function checkFile(file, fileType, fileSize,emitError) {
     return !(typeState && sizeState);
 }
 
-function progressFormat() {
-
-}
-
 export default {
     name: "mg-upload",
     trigger: "change",
     mixins: [MgFormComponent],
-    components: {},
+    components: {MgUploadList},
     props: {},
     inject: ["useDownload"],
     data() {
@@ -193,22 +144,11 @@ export default {
                 })
             }
         };
-        const customColors = [
-            { color: '#f56c6c', percentage: 20 },
-            { color: '#e6a23c', percentage: 40 },
-            { color: '#5cb87a', percentage: 60 },
-            { color: '#1989fa', percentage: 80 },
-            { color: '#6f7ad3', percentage: 100 }
-        ];
 
         return {
             refs,
             watchHandle: Object.freeze([watchValue, watchFileValue]),
-            customColors:Object.freeze(customColors),
-            fileValue: [],
-            progressFormat,
-            mb2byte,
-            byte2mb
+            fileValue: []
         };
     },
     //监听属性 类似于data概念
@@ -263,7 +203,7 @@ export default {
         onPreview(file) {
             const download = this.useDownload(file.raw);
 
-            download.toload();
+            this.ui.download && download.toload();
 
             this.$emit("uploadCellEvent", download);
         },
@@ -289,8 +229,9 @@ export default {
         },
 
         // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用	function(file, fileList)
-        onChange(file, fileList) {
-            console.log("onChange", file, fileList);
+        onChange(file) {
+            const { status } = file;
+            console.log(status);
         },
 
         // 文件超出个数限制时的钩子	function(files, fileList)
@@ -321,21 +262,14 @@ export default {
         },
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
-        async httpRequest(request) {
-            const response = await this.form.serviceCall(request);
-            return Array.isArray(response) ? response : [response];
+        httpRequest(request) {
+            console.log(request);
+            console.log(this.form);
         },
 
         // 上传控件错误抛出
         uploadError(file,txt) {
             this.formThrowError("mg-upload", {file,txt});
-        },
-        toSpeed(file) {
-            const { size, percentage } = file;
-            return {
-                current: byte2mb(size * percentage / 100),
-                total: byte2mb(size),
-            }
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
@@ -358,7 +292,4 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import "./mg-upload.scss";
-::v-deep .el-upload-list__item:hover .el-progress__text{
-    display: inline-block;
-}
 </style>

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 13:43:33
+ * @LastEditTime: 2022-09-27 16:51:15
  * @Description: file content
 -->
 <template>
@@ -146,7 +146,7 @@ export default {
                 data: body,
                 onUploadProgress: (progress) => {
                     const { loaded, total } = progress;
-                    const percent = Math.floor((loaded / total) * 100);
+                    const percent = (loaded / total) * 100;
                     request.onProgress({ percent });
                 }
             });
