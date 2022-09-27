@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 10:12:16
+ * @LastEditTime: 2022-09-27 16:06:09
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -22,6 +22,50 @@
         :before-remove="beforeRemove"
         :http-request="httpRequest"
     >
+        <div
+            slot="file"
+            slot-scope="{file}"
+            class="mg-upload-list"
+            :class="file.status === 'uploading' ? [] : ['mg-upload-end']"
+        >
+            <!-- :format="progressFormat" -->
+            <el-progress
+                v-if="file.status === 'uploading'"
+                class="mg-upload-list-progress"
+                :key="file.uid"
+                :percentage="file.percentage"
+                :color="customColors"
+                :text-inside="false">
+            </el-progress>
+
+            <div class="mg-upload-info">
+                <el-link class="mg-upload-info-title" type="primary" @click="onPreview(file)">{{file.name}}</el-link>
+                <div class="mg-upload-info-speed">
+                    <p>{{toSpeed(file).current}} MB</p>
+                    <el-divider direction="vertical"></el-divider>
+                    <p>{{toSpeed(file).total}} MB</p>
+                </div>
+                <div class="mg-upload-info-control">
+                    <el-tag
+                        v-show="file.status === 'uploading'"
+                        class="mg-upload-info-control-item"
+                        size="mini"
+                        type="warning"
+                    >
+                        取消
+                    </el-tag>
+
+                    <el-tag
+                        v-show="file.status !== 'uploading'"
+                        class="mg-upload-info-control-item"
+                        size="mini"
+                        type="danger"
+                    >
+                        删除
+                    </el-tag>
+                </div>
+            </div>
+        </div>
         <el-button slot="trigger" size="mini" type="primary">选取文件</el-button>
         <div v-if="fileTips.show" slot="tip" class="mg-upload-tip">{{fileTips.value}}</div>
     </el-upload>
@@ -30,7 +74,7 @@
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { flake } from "maggot-utils";
-import { concat, compact, isNil,isString} from "lodash";
+import { concat, compact, isNil, isString, isBoolean, isNumber } from "lodash";
 
 const DefaultFileName = "files";
 const DefBlacklist = [
@@ -64,18 +108,21 @@ function getFileType(file) {
 }
 
 // 设置是否多选
-function setupMultiple(ui) {
-    return true;
+function setupMultiple({ multiple }) {
+    return isBoolean(multiple) ? multiple : false;
 }
 
 // 设置是否禁用
-function setupDisabled(ui) {
-    return false;
+function setupDisabled({ disabled }) {
+    return isBoolean(disabled) ? disabled : false;
 }
 
 // 设置单次上传数量
-function setupLimit(ui) {
-    return [false,0];
+function setupLimit({ limit }) {
+    const value = isNumber(limit) ? limit : 0;
+    const state = value > 0;
+    
+    return [state,value];
 }
 
 // 设置文件列表
@@ -97,8 +144,9 @@ function checkFileType(file, fileType) {
 
 // 检查文件大小
 function checkFileSize(file, fileSize) {
-    const { name,size } = file;
-    const state = size < fileSize;
+    const { name, size } = file;
+
+    const state = fileSize <= 0 ? true : size < fileSize;
 
     return [state,`${name} 文件大小不符合要求`];
 }
@@ -112,6 +160,10 @@ function checkFile(file, fileType, fileSize,emitError) {
     if (!sizeState) emitError(file, sizeError);
 
     return !(typeState && sizeState);
+}
+
+function progressFormat() {
+
 }
 
 export default {
@@ -141,11 +193,22 @@ export default {
                 })
             }
         };
+        const customColors = [
+            { color: '#f56c6c', percentage: 20 },
+            { color: '#e6a23c', percentage: 40 },
+            { color: '#5cb87a', percentage: 60 },
+            { color: '#1989fa', percentage: 80 },
+            { color: '#6f7ad3', percentage: 100 }
+        ];
 
         return {
             refs,
-            watchHandle: Object.freeze([watchValue,watchFileValue]),
+            watchHandle: Object.freeze([watchValue, watchFileValue]),
+            customColors:Object.freeze(customColors),
             fileValue: [],
+            progressFormat,
+            mb2byte,
+            byte2mb
         };
     },
     //监听属性 类似于data概念
@@ -197,10 +260,12 @@ export default {
     //方法集合
     methods: {
         // 点击文件列表中已上传的文件时的钩子	function(file)
-        async onPreview(file) {
-            console.log("onPreview", file);
+        onPreview(file) {
             const download = this.useDownload(file.raw);
+
             download.toload();
+
+            this.$emit("uploadCellEvent", download);
         },
 
         // 文件列表移除文件时的钩子	function(file, fileList)
@@ -219,8 +284,8 @@ export default {
         },
 
         // 文件上传时的钩子	function(event, file, fileList)
-        onProgress(event, file, fileList) {
-            console.log("onProgress", event, file, fileList);
+        onProgress(event, file) {
+            console.log("onProgress", event, file);
         },
 
         // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用	function(file, fileList)
@@ -229,8 +294,10 @@ export default {
         },
 
         // 文件超出个数限制时的钩子	function(files, fileList)
-        onExceed(files, fileList) {
-            console.log("onExceed", files, fileList);
+        onExceed(files) {
+            const { limit } = this.ui;
+            
+            this.uploadError(files,`抱歉，一次最多只能上传 ${limit} 个文件`);
         },
 
         // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。	function(file)
@@ -256,13 +323,20 @@ export default {
         // 覆盖默认的上传行为，可以自定义上传的实现	function
         async httpRequest(request) {
             const response = await this.form.serviceCall(request);
-            return response;
+            return Array.isArray(response) ? response : [response];
         },
 
         // 上传控件错误抛出
         uploadError(file,txt) {
             this.formThrowError("mg-upload", {file,txt});
         },
+        toSpeed(file) {
+            const { size, percentage } = file;
+            return {
+                current: byte2mb(size * percentage / 100),
+                total: byte2mb(size),
+            }
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
@@ -284,4 +358,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import "./mg-upload.scss";
+::v-deep .el-upload-list__item:hover .el-progress__text{
+    display: inline-block;
+}
 </style>

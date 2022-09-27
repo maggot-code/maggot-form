@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 17:04:11
+ * @LastEditTime: 2022-09-27 15:50:21
  * @Description: file content
  */
 import Vue from 'vue';
@@ -12,6 +12,7 @@ import {
     Col,
     Button,
     ButtonGroup,
+    Link,
     // Form 表单
     Autocomplete,
     Radio,
@@ -31,9 +32,12 @@ import {
     Form,
     FormItem,
     // Data 数据
+    Tag,
+    Progress,
     // Notice 通知
     // Navigation 导航
     // Others 其他
+    Divider,
     Tooltip
 } from 'element-ui';
 
@@ -42,6 +46,7 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(Button);
 Vue.use(ButtonGroup);
+Vue.use(Link);
 // Form 表单
 Vue.use(Autocomplete);
 Vue.use(Radio);
@@ -61,7 +66,10 @@ Vue.use(Upload);
 Vue.use(Form);
 Vue.use(FormItem);
 // Data 数据
+Vue.use(Tag);
+Vue.use(Progress);
 // Notice 通知
 // Navigation 导航
 // Others 其他
+Vue.use(Divider);
 Vue.use(Tooltip);

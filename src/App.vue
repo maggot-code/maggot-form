@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 17:53:30
+ * @LastEditTime: 2022-09-27 13:43:33
  * @Description: file content
 -->
 <template>
@@ -129,16 +129,26 @@ export default {
         reset() {
             this.$refs[this.formRefName].resetForm();
         },
+        onUploadProgress(progress) {
+            console.log(progress);
+        },
         async serviceCall(request) {
             const fileAddress = "http://192.1.1.5:8080/SWZDH/file";
             const service = "/SWZDH/Common/UpFile";
             const body = new FormData();
+            console.log(request);
+            console.log(request.file);
             body.append("files", request.file);
 
             const {data} = await axios({
                 url: service,
                 method: "POST",
                 data: body,
+                onUploadProgress: (progress) => {
+                    const { loaded, total } = progress;
+                    const percent = Math.floor((loaded / total) * 100);
+                    request.onProgress({ percent });
+                }
             });
 
             // const [{ url }] = data;

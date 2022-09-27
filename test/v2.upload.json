@@ -14,12 +14,15 @@
             "label": "文档",
             "tips": "上传文档",
             "multiple": true,
-            "size": 10,
+            "limit":3,
             "types": [
                 "pdf",
                 "gif",
                 "txt",
-                "gif"
+                "gif",
+                "png",
+                "csv",
+                "doc"
             ],
             "blacklist": []
         },
