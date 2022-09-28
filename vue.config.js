@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 16:16:00
+ * @LastEditTime: 2022-09-28 10:22:04
  * @Description: file content
  */
 // const BundleAnalyzerPlugin =require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -49,7 +49,7 @@ module.exports = {
                 secure: false,
                 changeOrigin: true,
                 pathReWrite: { "^/api/node": "" },
-            },
+            }
         },
     },
     configureWebpack: (config) => {

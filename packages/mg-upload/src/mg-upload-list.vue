@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-09-27 17:00:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 17:29:36
+ * @LastEditTime: 2022-09-28 10:29:39
  * @Description: 
 -->
 <template>
@@ -69,7 +69,7 @@ export default {
     //方法集合
     methods: {
         uploadCancel() {
-            this.$emit('upload-cancel', this.file);
+            this.$emit('on-cancel', this.file);
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 18:08:58
+ * @LastEditTime: 2022-09-28 10:36:20
  * @Description: file content
 -->
 <template>
@@ -47,7 +47,7 @@ import axios from "axios";
 import TestJsonschema from "../test/v2.upload";
 
 const requestAxios = axios.create({
-    
+    baseURL:window.location.origin,
 });
 function requestCall(request) {
     const {file} = request;
@@ -63,13 +63,18 @@ function requestCall(request) {
             method: "post",
             data: body,
             signal: cancel.signal,
+            onUploadProgress: (progress) => {
+                const { loaded, total } = progress;
+                const percent = (loaded / total) * 100;
+                request.onProgress({ percent });
+            }
         });
     }
 
     return {
         uid: file.uid,
         tocall,
-        tocancel: cancel.abort
+        tocancel: cancel
     }
 }
 export default {

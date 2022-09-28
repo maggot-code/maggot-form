@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 18:09:33
+ * @LastEditTime: 2022-09-28 10:38:02
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -26,7 +26,8 @@
             slot="file"
             slot-scope="{file}"
             :key="file.uid"
-            :file="file">
+            :file="file"
+            @on-cancel="onCancel">
         </mg-upload-list>
         <el-button slot="trigger" size="mini" type="primary">选取文件</el-button>
         <div v-if="fileTips.show" slot="tip" class="mg-upload-tip">{{fileTips.value}}</div>
@@ -56,6 +57,7 @@ const DefBlacklist = [
     "jsx",
     "vue",
 ];
+const Cache = new Map();
 
 // 获取文件类型
 function getFileType(file) {
@@ -242,6 +244,20 @@ export default {
             this.uploadError(files,`抱歉，一次最多只能上传 ${limit} 个文件`);
         },
 
+        onCancel(file) {
+            const { uid } = file;
+
+            if (!Cache.has(uid)) return;
+
+            const { tocancel } = Cache.get(uid);
+            try {
+                tocancel.abort();
+            } catch (error) {
+                console.log(error);
+            }
+            Cache.delete(uid);
+        },
+
         // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。	function(file)
         beforeUpload(file) {
             // 检查文件类型和文件大小
@@ -265,7 +281,9 @@ export default {
         // 覆盖默认的上传行为，可以自定义上传的实现	function
         httpRequest(request) {
             const {uid, tocall, tocancel } = this.form.upload.call(request);
-            console.log(uid,tocall,tocancel);
+            Cache.set(uid, { tocancel });
+
+            return tocall();
         },
 
         // 上传控件错误抛出
@@ -286,7 +304,18 @@ export default {
     beforeMount() {}, //生命周期 - 挂载之前
     beforeUpdate() {}, //生命周期 - 更新之前
     updated() {}, //生命周期 - 更新之后
-    beforeDestroy() {}, //生命周期 - 销毁之前
+    beforeDestroy() {
+        Cache.forEach(({ tocancel }, key) => {
+            try {
+                tocancel.abort();
+            } catch (error) {
+                console.log(error);
+            }
+            Cache.delete(key);
+        });
+        
+        Cache.clear();
+    }, //生命周期 - 销毁之前
     destroyed() {}, //生命周期 - 销毁完成
     activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
