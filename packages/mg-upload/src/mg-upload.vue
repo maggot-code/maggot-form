@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 15:00:24
+ * @LastEditTime: 2022-09-28 15:56:22
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -28,6 +28,7 @@
             slot-scope="{file}"
             :key="file.uid"
             :file="file"
+            :ui="ui"
             @on-delete="onDelete"
             @on-preview="onPreview"
             @on-cancel="onCancel">
@@ -60,7 +61,7 @@ const DefBlacklist = [
     "jsx",
     "vue",
 ];
-const Cache = new Map();
+const UploadCache = new Map();
 
 // 获取文件类型
 function getFileType(file) {
@@ -131,7 +132,7 @@ export default {
     inject: ["useDownload","useUploadCache"],
     data() {
         //这里存放数据
-        const cache = this.useUploadCache();
+        const cache = this.useUploadCache(UploadCache);
         const uploadKey = flake.gen();
         const refs = flake.gen();
         const watchValue = {
@@ -243,7 +244,6 @@ export default {
 
         // 文件上传失败时的钩子	function(err, file, fileList)
         onError(err, file) {
-            console.log(222);
             this.uploadError(file, err);
         },
 

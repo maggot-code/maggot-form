@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 15:00:01
+ * @LastEditTime: 2022-09-28 15:08:23
  * @Description: mg-form.vue component
 -->
 <template>
@@ -66,8 +66,7 @@ import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
 
 const unusableTipsComponent = ["mg-upload"];
-const uploadCache = new Map();
-function useUploadCache() {
+function useUploadCache(cache) {
     function run(target) {
         const { tocancel } = target;
         try {
@@ -80,21 +79,21 @@ function useUploadCache() {
     function setup(key, value) {
         const [state, target] = find(key);
         state && run(target).remove(key);
-        uploadCache.set(key, value);
+        cache.set(key, value);
     }
     function find(key) {
-        const has = uploadCache.has(key);
-        const value = uploadCache.get(key);
+        const has = cache.has(key);
+        const value = cache.get(key);
         return [has,has ? value : null];
     }
     function remove(key) {
-        uploadCache.delete(key);
+        cache.delete(key);
     }
     function clear() {
-        uploadCache.forEach((target, key) => {
+        cache.forEach((target, key) => {
             run(target).remove(key);
         });
-        uploadCache.clear();
+        cache.clear();
     }
 
     return {

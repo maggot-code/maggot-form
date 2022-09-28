@@ -16,6 +16,10 @@
             "multiple": true,
             "limit":3,
             "download":false,
+            "speed":true,
+            "current":true,
+            "total":true,
+            "percentage":true,
             "types": [
                 "pdf",
                 "gif",
