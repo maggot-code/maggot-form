@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 15:08:23
+ * @LastEditTime: 2022-09-28 16:32:23
  * @Description: mg-form.vue component
 -->
 <template>
@@ -17,8 +17,7 @@
                         :mold="cell.mold" :field="cell.field" :value.sync="formData[cell.field]"
                         :defValue="formDefData[cell.field]" :leaderTag="cell.leaderTag" :workerTag="cell.workerTag"
                         :database="cell.dataSchema" :ui="cell.uiSchema" :rule="cell.ruleSchema" :reset="componentReset"
-                        @monitorValue="monitorValue" @formError="formError" @uploadSpeed="uploadSpeed"
-                        @uploadCellEvent="uploadCellEvent"></component>
+                        @monitorValue="monitorValue" @formError="formError" @uploadCellEvent="uploadCellEvent"></component>
                 </el-form-item>
             </template>
         </template>
@@ -34,7 +33,7 @@
                                     :field="cell.field" :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
                                     :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema" :ui="cell.uiSchema"
                                     :rule="cell.ruleSchema" :reset="componentReset" @monitorValue="monitorValue" @formError="formError"
-                                    @uploadSpeed="uploadSpeed" @uploadCellEvent="uploadCellEvent"></component>
+                                    @uploadCellEvent="uploadCellEvent"></component>
                             </template>
 
                             <template v-else>
@@ -43,7 +42,7 @@
                                         :field="cell.field" :value.sync="formData[cell.field]" :defValue="formDefData[cell.field]"
                                         :leaderTag="cell.leaderTag" :workerTag="cell.workerTag" :database="cell.dataSchema" :ui="cell.uiSchema"
                                         :rule="cell.ruleSchema" :reset="componentReset" @monitorValue="monitorValue" @formError="formError"
-                                        @uploadSpeed="uploadSpeed" @uploadCellEvent="uploadCellEvent"></component>
+                                        @uploadCellEvent="uploadCellEvent"></component>
                                 </el-tooltip>
                             </template>
                         </el-form-item>
@@ -276,9 +275,6 @@ export default {
             this.$set(this.formData, field, value);
             this.$set(this.formDefData, field, defValue);
             this.$set(this.formRules, field, rules);
-        },
-        uploadSpeed(uploadInfo) {
-            this.$emit("upload-speed", uploadInfo);
         },
         uploadCellEvent(cell) {
             // this.$message("upload-event", cell);
