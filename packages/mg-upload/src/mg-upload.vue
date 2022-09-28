@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 14:43:29
+ * @LastEditTime: 2022-09-28 15:00:24
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -128,9 +128,10 @@ export default {
     mixins: [MgFormComponent],
     components: {MgUploadList},
     props: {},
-    inject: ["useDownload"],
+    inject: ["useDownload","useUploadCache"],
     data() {
         //这里存放数据
+        const cache = this.useUploadCache();
         const uploadKey = flake.gen();
         const refs = flake.gen();
         const watchValue = {
@@ -152,6 +153,7 @@ export default {
         };
 
         return {
+            cache,
             uploadKey,
             refs,
             watchHandle: Object.freeze([watchValue, watchFloowFileValue]),
@@ -241,6 +243,7 @@ export default {
 
         // 文件上传失败时的钩子	function(err, file, fileList)
         onError(err, file) {
+            console.log(222);
             this.uploadError(file, err);
         },
 
@@ -264,16 +267,9 @@ export default {
 
         onCancel(file) {
             const { uid } = file;
-
-            if (!Cache.has(uid)) return;
-
-            const { tocancel } = Cache.get(uid);
-            try {
-                tocancel.abort();
-            } catch (error) {
-                console.log(error);
-            }
-            Cache.delete(uid);
+            const [state, target] = this.cache.find(uid);
+            
+            state && this.cache.run(target).remove(uid);
         },
 
         // 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。	function(file)
@@ -300,7 +296,7 @@ export default {
         httpRequest(request) {
             const { uid, tocall, tocancel } = this.form.upload.call(request);
             
-            Cache.set(uid, { tocancel });
+            this.cache.setup(uid, { tocancel });
 
             return tocall();
         },
@@ -324,16 +320,7 @@ export default {
     beforeUpdate() {}, //生命周期 - 更新之前
     updated() {}, //生命周期 - 更新之后
     beforeDestroy() {
-        Cache.forEach(({ tocancel }, key) => {
-            try {
-                tocancel.abort();
-            } catch (error) {
-                console.log(error);
-            }
-            Cache.delete(key);
-        });
-        
-        Cache.clear();
+        this.cache.clear();
     }, //生命周期 - 销毁之前
     destroyed() {}, //生命周期 - 销毁完成
     activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发

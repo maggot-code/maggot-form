@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 14:37:26
+ * @LastEditTime: 2022-09-28 15:00:01
  * @Description: mg-form.vue component
 -->
 <template>
@@ -66,6 +66,46 @@ import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
 
 const unusableTipsComponent = ["mg-upload"];
+const uploadCache = new Map();
+function useUploadCache() {
+    function run(target) {
+        const { tocancel } = target;
+        try {
+            tocancel.abort();
+        } catch (error) {
+            console.log(error);
+        }
+        return { remove };
+    }
+    function setup(key, value) {
+        const [state, target] = find(key);
+        state && run(target).remove(key);
+        uploadCache.set(key, value);
+    }
+    function find(key) {
+        const has = uploadCache.has(key);
+        const value = uploadCache.get(key);
+        return [has,has ? value : null];
+    }
+    function remove(key) {
+        uploadCache.delete(key);
+    }
+    function clear() {
+        uploadCache.forEach((target, key) => {
+            run(target).remove(key);
+        });
+        uploadCache.clear();
+    }
+
+    return {
+        run,
+        setup,
+        find,
+        remove,
+        clear
+    }
+}
+
 const download = document.createElement("a");
 function useDownload(file) {
     const { name, type } = file;
@@ -119,7 +159,8 @@ export default {
     provide() {
         return {
             form: this,
-            useDownload
+            useDownload,
+            useUploadCache
         };
     },
     data() {
