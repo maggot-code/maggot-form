@@ -3,7 +3,18 @@
         "componentName": "mg-upload",
         "mold": "default",
         "field": "doc",
-        "value": [],
+        "value": [
+            {
+                "id": 1664352716089,
+                "name": "nyan.gif",
+                "url": "/UpFile/20220928526856nyan.gif"
+            },
+            {
+                "id": 1664352794451,
+                "name": "ASOUL企划.txt",
+                "url": "/UpFile/20220928886876ASOUL企划.txt"
+            }
+        ],
         "leaderTag": {},
         "workerTag": [],
         "dataSchema": {
