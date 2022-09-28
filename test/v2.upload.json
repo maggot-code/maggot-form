@@ -15,6 +15,7 @@
             "tips": "上传文档",
             "multiple": true,
             "limit":3,
+            "download":false,
             "types": [
                 "pdf",
                 "gif",

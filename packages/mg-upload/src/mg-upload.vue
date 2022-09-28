@@ -2,12 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 10:38:02
+ * @LastEditTime: 2022-09-28 14:43:29
  * @Description: mg-upload.vue component
 -->
 <template>
     <el-upload
         class="mg-upload"
+        :key="uploadKey"
         :ref="refs"
         :file-list="fileValue"
         v-bind="options"
@@ -27,6 +28,8 @@
             slot-scope="{file}"
             :key="file.uid"
             :file="file"
+            @on-delete="onDelete"
+            @on-preview="onPreview"
             @on-cancel="onCancel">
         </mg-upload-list>
         <el-button slot="trigger" size="mini" type="primary">选取文件</el-button>
@@ -39,7 +42,7 @@ import MgUploadList from "./mg-upload-list.vue";
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
 import { mb2byte } from "../../mg-form/utils";
 import { flake } from "maggot-utils";
-import { concat, compact, isNil, isString, isBoolean, isNumber } from "lodash";
+import {concat,compact, remove, isNil, isString, isBoolean, isNumber } from "lodash";
 
 const DefaultFileName = "files";
 const DefBlacklist = [
@@ -128,15 +131,16 @@ export default {
     inject: ["useDownload"],
     data() {
         //这里存放数据
+        const uploadKey = flake.gen();
         const refs = flake.gen();
         const watchValue = {
             variable: "value",
             func(newVal) {
-                this.$set(this, "fileValue", setupFileList(newVal))
+                this.$set(this, "followFileValue", setupFileList(newVal))
             }
         };
-        const watchFileValue = {
-            variable: "fileValue",
+        const watchFloowFileValue = {
+            variable: "followFileValue",
             func(newVal) {
                 this.monitorValue({
                     mold: this.mold,
@@ -148,9 +152,11 @@ export default {
         };
 
         return {
+            uploadKey,
             refs,
-            watchHandle: Object.freeze([watchValue, watchFileValue]),
-            fileValue: []
+            watchHandle: Object.freeze([watchValue, watchFloowFileValue]),
+            fileValue: setupFileList(this.value),
+            followFileValue:[]
         };
     },
     //监听属性 类似于data概念
@@ -177,6 +183,10 @@ export default {
 
             return vbind;
         },
+        usableDownload: (vm) => {
+            const { download } = vm.ui
+            return isBoolean(download) ? download : false;
+        },
         fileTips: (vm) => {
             const { tips } = vm.ui;
             const isTips = !isNil(tips) && isString(tips);
@@ -202,11 +212,19 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        onDelete(file) {
+            const list = [...this.followFileValue];
+            remove(list, ({ id }) => id === file.id);
+            
+            this.followFileValue = list;
+            this.fileValue = list;
+            this.uploadKey = flake.gen();
+        },
         // 点击文件列表中已上传的文件时的钩子	function(file)
         onPreview(file) {
             const download = this.useDownload(file.raw);
 
-            this.ui.download && download.toload();
+            this.usableDownload && download.toload();
 
             this.$emit("uploadCellEvent", download);
         },
@@ -217,13 +235,13 @@ export default {
         },
 
         // 文件上传成功时的钩子	function(response, file, fileList)
-        onSuccess(response, file, fileList) {
-            console.log("onSuccess", response, file, fileList);
+        onSuccess(response) {
+            this.$set(this, "followFileValue", concat(setupFileList(this.value), response));
         },
 
         // 文件上传失败时的钩子	function(err, file, fileList)
-        onError(err, file, fileList) {
-            console.log("onError", err, file, fileList);
+        onError(err, file) {
+            this.uploadError(file, err);
         },
 
         // 文件上传时的钩子	function(event, file, fileList)
@@ -280,7 +298,8 @@ export default {
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
         httpRequest(request) {
-            const {uid, tocall, tocancel } = this.form.upload.call(request);
+            const { uid, tocall, tocancel } = this.form.upload.call(request);
+            
             Cache.set(uid, { tocancel });
 
             return tocall();
@@ -293,7 +312,7 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.initValue("fileValue", setupFileList(this.value)).then((val) => {
+        this.initValue("followFileValue", setupFileList(this.value)).then((val) => {
             this.$emit("update:value", val);
             this.mountWatch(this.watchHandle);
         });

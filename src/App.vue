@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 10:36:20
+ * @LastEditTime: 2022-09-28 13:43:11
  * @Description: file content
 -->
 <template>
@@ -55,27 +55,37 @@ function requestCall(request) {
     const body = new FormData();
     body.append("files", file);
 
-    const cancel = new AbortController();
+    const tocancel = new AbortController();
 
     async function tocall() {
-        return requestAxios({
+        const {data} = await requestAxios({
             url: service,
             method: "post",
             data: body,
-            signal: cancel.signal,
+            signal: tocancel.signal,
             onUploadProgress: (progress) => {
                 const { loaded, total } = progress;
                 const percent = (loaded / total) * 100;
                 request.onProgress({ percent });
             }
         });
+
+        return data;
     }
 
     return {
         uid: file.uid,
+        tocancel,
         tocall,
-        tocancel: cancel
     }
+}
+async function requestDown(file) {
+    const fileAddress = "http://192.1.1.5:8080/SWZDH/file";
+    const {url} = file;
+    const address = fileAddress + url;
+
+    const { data } = await axios({ url: address, method: "GET", responseType: 'blob' });
+    return data;
 }
 export default {
     name: "App",
@@ -89,7 +99,8 @@ export default {
                 region: "",
             },
             uploadService: {
-                call: requestCall
+                call: requestCall,
+                down: requestDown,
             },
             rules: {
                 region: [
@@ -179,7 +190,7 @@ export default {
                 onUploadProgress: (progress) => {
                     const { loaded, total } = progress;
                     const percent = (loaded / total) * 100;
-                    request.onProgress({ percent });
+                    request.onProgress(Object.assign(request.file), { percent });
                 }
             });
 
