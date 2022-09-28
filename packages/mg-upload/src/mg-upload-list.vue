@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-09-27 17:00:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 15:55:27
+ * @LastEditTime: 2022-09-28 16:01:48
  * @Description: 
 -->
 <template>
@@ -173,6 +173,7 @@ export default {
     justify-content: space-between;
     width: 100%;
     padding: 0 12px;
+    margin-bottom: 6px;
     box-sizing: border-box;
     &-info{
         display: flex;
