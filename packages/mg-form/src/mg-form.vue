@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 11:01:37
+ * @LastEditTime: 2022-09-29 13:54:02
  * @Description: mg-form.vue component
 -->
 <template>
@@ -302,13 +302,14 @@ export default {
         // 文件上传 提交参数处理
         fileSubmitHandleHook(formData) {
             this.fileField.forEach((field) => {
-                const refs = this.$refs[this.refsName(field)][0];
-                formData[`savefile${field}`] = this.fileSubmitFormat(
-                    formData[field]
-                );
-                formData[`delfile${field}`] = this.fileSubmitFormat(
-                    refs.deleteFile
-                );
+                // const refs = this.$refs[this.refsName(field)][0];
+                // formData[`savefile${field}`] = this.fileSubmitFormat(
+                //     formData[field]
+                // );
+                // formData[`delfile${field}`] = this.fileSubmitFormat(
+                //     refs.deleteFile
+                // );
+                formData[field] = this.fileSubmitFormat(formData[field]);
             });
 
             return formData;

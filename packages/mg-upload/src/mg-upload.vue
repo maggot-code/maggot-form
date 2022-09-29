@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 15:56:22
+ * @LastEditTime: 2022-09-29 14:04:34
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -233,9 +233,7 @@ export default {
         },
 
         // 文件列表移除文件时的钩子	function(file, fileList)
-        onRemove(file, fileList) {
-            console.log("onRemove", file, fileList);
-        },
+        onRemove(file, fileList) {},
 
         // 文件上传成功时的钩子	function(response, file, fileList)
         onSuccess(response) {
@@ -248,15 +246,10 @@ export default {
         },
 
         // 文件上传时的钩子	function(event, file, fileList)
-        onProgress(event, file) {
-            console.log("onProgress", event, file);
-        },
+        onProgress(event, file) {},
 
         // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用	function(file, fileList)
-        onChange(file) {
-            const { status } = file;
-            console.log(status);
-        },
+        onChange(file) {},
 
         // 文件超出个数限制时的钩子	function(files, fileList)
         onExceed(files) {
@@ -287,7 +280,6 @@ export default {
 
         // 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。	function(file, fileList)
         beforeRemove(file, fileList) {
-            console.log("before remove", file);
             // TODO..
             return true;
         },
