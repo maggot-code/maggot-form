@@ -6,7 +6,10 @@
             "textField": "truename",
             "valueField": "userid",
             "attachField":"departmentidname",
-            "isAttach":true
+            "isAttach":true,
+            "lib":{
+                "aa":1
+            }
         },
         "field": "userid",
         "mold": "default",

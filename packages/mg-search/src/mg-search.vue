@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-09-29 14:52:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 17:00:47
+ * @LastEditTime: 2022-09-29 17:10:35
  * @Description: 
 -->
 <template>
@@ -134,7 +134,8 @@ export default {
         },
         async remoteMethod(query) {
             this.searchLoading = true;
-            const config = Object.assign({}, this.config, { query });
+            const extend = { query, field: this.field, valueKey:this.valueKey,labelKey:this.labelKey}
+            const config = Object.assign({}, this.config, extend);
             const data = await this.form.remote.call(config);
             this.searchList = this.setupSearchList(data);
             this.searchLoading = false;

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 16:15:05
+ * @LastEditTime: 2022-09-29 17:12:48
  * @Description: file content
 -->
 <template>
@@ -93,9 +93,10 @@ async function requestDown(file) {
     return data;
 }
 async function requestRemote(config) {
-    const { address, query } = config;
+    const { address,lib, query,labelKey } = config;
     const url = "/kyhxs" + address;
-    const {data} = await requestAxios({ url, method: "POST", params: { truename: query } });
+    const params = Object.assign({}, lib, { [labelKey]: query });
+    const { data } = await requestAxios({ url, method: "POST", params});
     return data;
 }
 
