@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 13:43:11
+ * @LastEditTime: 2022-09-29 16:15:05
  * @Description: file content
 -->
 <template>
@@ -14,6 +14,7 @@
             :job="jobFunction"
             :schema="testSchema"
             :upload="uploadService"
+            :remote="remoteService"
             @form-error="handlerFormError"
             @monitor-value="handleValue">
         </mg-form>
@@ -44,10 +45,14 @@ import axios from "axios";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
 // import TestJsonschema from "../test/test.v2.json";
-import TestJsonschema from "../test/v2.upload";
+// import TestJsonschema from "../test/v2.upload";
+import TestJsonschema from "../test/v2.search";
 
 const requestAxios = axios.create({
-    baseURL:window.location.origin,
+    baseURL: window.location.origin,
+    headers: {
+        token:"b5ed5211-3a44-4374-9062-192b326811cc"
+    }
 });
 function requestCall(request) {
     const {file} = request;
@@ -87,6 +92,13 @@ async function requestDown(file) {
     const { data } = await axios({ url: address, method: "GET", responseType: 'blob' });
     return data;
 }
+async function requestRemote(config) {
+    const { address, query } = config;
+    const url = "/kyhxs" + address;
+    const {data} = await requestAxios({ url, method: "POST", params: { truename: query } });
+    return data;
+}
+
 export default {
     name: "App",
     mixins: [],
@@ -101,6 +113,9 @@ export default {
             uploadService: {
                 call: requestCall,
                 down: requestDown,
+            },
+            remoteService: {
+                call: requestRemote
             },
             rules: {
                 region: [

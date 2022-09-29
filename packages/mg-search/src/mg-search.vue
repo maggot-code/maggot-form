@@ -1,14 +1,19 @@
 <!--
+ * @FilePath: \maggot-form\packages\mg-search\src\mg-search.vue
  * @Author: maggot-code
- * @Date: 2021-03-04 16:53:45
+ * @Date: 2022-09-29 14:52:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 17:00:42
- * @Description: mg-select.vue component
+ * @LastEditTime: 2022-09-29 17:00:47
+ * @Description: 
 -->
 <template>
-    <!-- @change="handleChange" -->
-    <el-select class="mg-select" v-model="selectValue" v-bind="options">
-        <template v-for="item in selectList">
+    <el-select
+        class='mg-search'
+        v-model="searchValue"
+        v-bind="options"
+        :loading="searchLoading"
+        :remote-method="remoteMethod">
+        <template v-for="item in searchList" >
             <el-option
                 :key="item.value"
                 :label="item.label"
@@ -22,35 +27,38 @@
 
 <script>
 import MgFormComponent from "../../mg-form/mixins/mg-form-component";
-import { isArray, isNil, isBoolean,isString } from "lodash";
+import { isArray, isBoolean, isNil, isString } from "lodash";
+
 export default {
-    name: "mg-select",
+    name: 'mg-search',
     trigger: "change",
     mixins: [MgFormComponent],
     components: {},
     props: {},
     data() {
-        //这里存放数据
         const valueWatch = {
             variable: "value",
             func(newVal) {
-                this.$set(this, "selectValue", newVal);
+                this.$set(this, "searchValue", newVal);
             },
-        }
-        const selectValueWatch = {
-            variable: "selectValue",
+        };
+        const searchValueWatch = {
+            variable: "searchValue",
             func(newVal) {
                 this.monitorValue({
                     mold: this.mold,
                     field: this.field,
                     value: newVal,
-                    handle: "select",
+                    handle: "search",
                 });
             },
         }
+        //这里存放数据
         return {
-            selectValue: "",
-            watchHandle: Object.freeze([valueWatch, selectValueWatch]),
+            searchValue: this.value,
+            searchList:[],
+            searchLoading:true,
+            watchHandle: Object.freeze([valueWatch, searchValueWatch]),
         };
     },
     //监听属性 类似于data概念
@@ -62,12 +70,22 @@ export default {
             const baseLabel = label || "内容";
             const basePlaceholder = placeholder || `请输入${baseLabel}`;
 
-            return Object.assign({}, ui, {
+            const vbind = Object.assign({}, ui, {
                 placeholder: basePlaceholder,
                 clearable: vm.setDefault(clearable, true),
+                remote: true,
+                filterable: true,
                 "popper-append-to-body": true,
                 "default-first-option": true,
+                "reserve-keyword": true,
+                "loading-text": `获取${baseLabel}中..`,
+                "no-match-text": "未找到匹配信息",
+                "no-data-text": "未找到信息",
+
+                "value-key": "value",
             });
+
+            return vbind;
         },
         valueKey: (vm) => {
             const { database } = vm;
@@ -86,9 +104,13 @@ export default {
             const { isAttach } = database;
             return isBoolean(isAttach) ? isAttach : false;
         },
-        selectList: (vm) => {
-            const { enums } = vm.database;
-            return vm.setupSelectList(enums);
+        config: (vm) => {
+            const { database } = vm;
+            const { api, lib } = database;
+            return {
+                address: isNil(api) ? "" : api,
+                lib:isNil(lib) ? {} : lib
+            };
         },
     },
     //监控data中的数据变化
@@ -110,15 +132,22 @@ export default {
                 handle: "change",
             });
         },
-        setupSelectList(data) {
-            if (!isArray(data)) return [];
-
-            return data.map(this.setupSelectItem);
+        async remoteMethod(query) {
+            this.searchLoading = true;
+            const config = Object.assign({}, this.config, { query });
+            const data = await this.form.remote.call(config);
+            this.searchList = this.setupSearchList(data);
+            this.searchLoading = false;
         },
-        setupSelectItem(item) {
+        setupSearchList(data) {
+            if (!isArray(data)) return this.searchList;
+
+            return data.map(this.setupSearchItem);
+        },
+        setupSearchItem(item) {
             const {
                 [this.labelKey]: label,
-                [this.attachKey]: baseAttach
+                [this.attachKey]:baseAttach
             } = item;
             const state = this.useAttach && isString(baseAttach);
             const attachLabel = state ? `${label}(${baseAttach})` : label;
@@ -128,7 +157,8 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.initValue("selectValue", this.value).then((val) => {
+        this.remoteMethod();
+        this.initValue("searchValue", this.value).then((val) => {
             this.$emit("update:value", val);
             this.mountWatch(this.watchHandle);
         });
@@ -145,5 +175,5 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-@import "./mg-select.scss";
+@import "./mg-search.scss";
 </style>

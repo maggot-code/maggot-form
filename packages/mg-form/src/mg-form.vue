@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 13:54:02
+ * @LastEditTime: 2022-09-29 15:14:47
  * @Description: mg-form.vue component
 -->
 <template>
@@ -152,6 +152,10 @@ export default {
         upload: {
             type: Object,
             default:()=>({})
+        },
+        remote: {
+            type: Object,
+            default: () => ({}),
         }
     },
     provide() {

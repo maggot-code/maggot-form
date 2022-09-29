@@ -1,0 +1,106 @@
+[
+    {
+        "componentName": "mg-search",
+        "dataSchema": {
+            "api": "/SystemManage/SM_Users/GetListForCombobox",
+            "textField": "truename",
+            "valueField": "userid",
+            "attachField":"departmentidname",
+            "isAttach":true
+        },
+        "field": "userid",
+        "mold": "default",
+        "ruleSchema": [],
+        "uiSchema": {
+            "col": 24,
+            "label": "作者姓名",
+            "multiple": true,
+            "collapseTags":false
+        },
+        "value": ["37796643"]
+    },
+    {
+        "componentName": "mg-select",
+        "mold": "default",
+        "field": "sheng",
+        "value": "",
+        "leaderTag": {},
+        "workerTag": [],
+        "dataSchema": {
+            "lib": {},
+            "enums": [
+                {
+                    "eid": "1000",
+                    "label": "河北省",
+                    "value": "1000",
+                    "hh":"11"
+                },
+                {
+                    "eid": "1001",
+                    "label": "河南省",
+                    "value": "1001",
+                    "hh": "12"
+                },
+                {
+                    "eid": "1002",
+                    "label": "东北省",
+                    "value": "1002"
+                }
+            ],
+            "valueField": "eid",
+            "textField": "label",
+            "attachField": "hh",
+            "isAttach": true
+        },
+        "uiSchema": {
+            "col": 24,
+            "label": "省市区选择",
+            "placeholder": "请选择省份"
+        },
+        "ruleSchema": [
+            {
+                "message": "项目类型为必填，请填写。",
+                "required": true
+            }
+        ]
+    },
+    {
+        "componentName": "mg-select",
+        "dataSchema": {
+            "api": "/SystemManage/SM_CodeItem/GetCode.do",
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "临床研究",
+                    "pptr": "BG"
+                },
+                {
+                    "code": "02",
+                    "description": "基础研究",
+                    "pptr": "BG"
+                }
+            ],
+            "lib": {
+                "codeid": "BG"
+            },
+            "textField": "description",
+            "valueField": "code"
+        },
+        "field": "projtype",
+        "leaderTag": {},
+        "mold": "default",
+        "ruleSchema": [
+            {
+                "message": "研究类别为必填，请填写。",
+                "required": true
+            }
+        ],
+        "uiSchema": {
+            "col": 24,
+            "clearable": true,
+            "label": "研究类别"
+        },
+        "value": "",
+        "workerTag": []
+    }
+]

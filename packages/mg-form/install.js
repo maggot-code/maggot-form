@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:51:53
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 18:30:18
+ * @LastEditTime: 2022-09-29 14:54:06
  * @Description: unify install form components
  */
 import MgInput from '../mg-input';
@@ -13,6 +13,7 @@ import MgUpload from '../mg-upload';
 import MgTime from '../mg-time';
 import MgAutocomplete from '../mg-autocomplete';
 import MgCascader from '../mg-cascader';
+import MgSearch from "../mg-search";
 
 const components = [
     MgInput,
@@ -22,7 +23,8 @@ const components = [
     MgUpload,
     MgTime,
     MgAutocomplete,
-    MgCascader
+    MgCascader,
+    MgSearch,
 ];
 
 const FormCellComponents = {};
