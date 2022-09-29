@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 16:32:23
+ * @LastEditTime: 2022-09-29 11:01:37
  * @Description: mg-form.vue component
 -->
 <template>
@@ -238,11 +238,11 @@ export default {
             handler(newVal) {
                 const { struct, data, rules, tag } = this.handleSchema(newVal);
 
-                this.$set(this, "formDefCellSchema", cloneDeep(struct));
-                this.$set(this, "formRules", cloneDeep(rules));
-                this.$set(this, "formCellSchema", cloneDeep(struct));
                 this.$set(this, "formDefData", cloneDeep(data));
                 this.$set(this, "formData", cloneDeep(data));
+                this.$set(this, "formDefCellSchema", cloneDeep(struct));
+                this.$set(this, "formCellSchema", cloneDeep(struct));
+                this.$set(this, "formRules", cloneDeep(rules));
 
                 this.$nextTick(this.clearValidate);
 
@@ -373,7 +373,7 @@ export default {
                 data[field] = value;
                 struct[field] = cell;
                 rules[field] = this.setRuleItem(componentName, ruleSchema);
-                tag[field] = { leaderTag, workerTag, lib };
+                tag[field] = { leaderTag: leaderTag ?? {}, workerTag: workerTag??[], lib };
             });
 
             return { struct, data, rules, tag };

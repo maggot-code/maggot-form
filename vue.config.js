@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 22:58:26
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-28 10:22:04
+ * @LastEditTime: 2022-09-29 10:54:54
  * @Description: file content
  */
 // const BundleAnalyzerPlugin =require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -59,6 +59,7 @@ module.exports = {
         // } else {
         //     pluginList.push(new BundleAnalyzerPlugin());
         // }
+
         if (process.env.NODE_ENV === "development") {
             config.devtool = "source-map";
         }
