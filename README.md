@@ -72,6 +72,8 @@
 | ------------- | ------------------------ | ----------------- | ---------- |
 | `valueField`  | 数值标识                 | `String`          | `id`       |
 | `textField`   | 标签标识                 | `String`          | `text`     |
+| `attachField` | 附加描述标识             | `String`          | `attach`   |
+| `isAttach`    | 是否显示附加描述         | `Boolean`         | `false`    |
 | `enums`       | 选项集合                 | `Array`           | `[]`       |
 | `lib`         | 额外数据                 | `Object`          | `{}`       |
 | `childrenKey` | 下级节点标识             | `String`          | `children` |
@@ -381,6 +383,23 @@
 ---
 
 ### mg-search
+
+> `value 和 defValue`的类型可以是`String 或者 Array<String>`，默认值都是`""`
+>
+> 在`uiSchema.multiple = true`的情况下`value 和 defValue`的类型都是`Array<String>`
+>
+> 在`uiSchema.multiple = false`的情况下`value  和 defValue`的类型都是`String`
+>
+> **如果类型不对的话，搜索列表和搜素框中的数据是没法儿对应起来**
+
+#### `uiSchema`
+
+| 属性            | 说明                                      | 类型      | 默认值  |
+| --------------- | ----------------------------------------- | --------- | ------- |
+| `multiple`      | 是否允许多选                              | `Boolean` | `false` |
+| `disabled`      | 是否被禁用                                | `Boolean` | `false` |
+| `collapseTags`  | 多选时是否仅显示选中数量                  | `Boolean` | `false` |
+| `multipleLimit` | 多选时用户最多可选择数量，`0`表示不做限制 | `Number`  | `0`     |
 
 ---
 
