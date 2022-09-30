@@ -89,14 +89,15 @@
             },
             "step": "3",
             "valueField": "id",
-            "textField": "text"
+            "textField": "text",
+            "attachField": "state",
+            "isAttach": true
         },
         "field": "company",
         "uiSchema": {
-            "col": 12,
-            "clearable": true,
+            "col": 24,
             "label": "承担单位",
-            "checkStrictly": true
+            "clearable": true
         },
         "ruleSchema": [
             {
@@ -106,6 +107,6 @@
         ],
         "mold": "default",
         "componentName": "mg-cascader",
-        "value": "001003"
+        "value": ""
     }
 ]

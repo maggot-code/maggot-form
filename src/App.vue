@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-30 09:20:56
+ * @LastEditTime: 2022-09-30 14:33:18
  * @Description: file content
 -->
 <template>
@@ -45,9 +45,11 @@ import axios from "axios";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
 // import TestJsonschema from "../test/test.v2.json";
-// import TestJsonschema from "../test/v2.upload";
-// import TestJsonschema from "../test/v2.search";
-import TestJsonschema from "../test/v2.cascader";
+// import TestJsonschema from "../test/v2.upload.json";
+// import TestJsonschema from "../test/v2.search.json";
+// import TestJsonschema from "../test/v2.cascader.json";
+// import TestJsonschema from "../test/v3.cascader.json";
+import TestJsonschema from "../test/v2.select.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
@@ -93,12 +95,115 @@ async function requestDown(file) {
     const { data } = await axios({ url: address, method: "GET", responseType: 'blob' });
     return data;
 }
-async function requestRemote(config) {
+async function requestSearch(config) {
     const { address,lib, query,labelKey } = config;
     const url = "/kyhxs" + address;
     const params = Object.assign({}, lib, { [labelKey]: query });
     const { data } = await requestAxios({ url, method: "POST", params});
     return data;
+}
+async function requestEnums(config) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve([
+                {
+                    "code": "2000",
+                    "description": "2000",
+                    "pptr": "FQ"
+                },
+                {
+                    "code": "2001",
+                    "description": "2001",
+                    "pptr": "FQ"
+                }
+            ]);
+        }, 1200);
+    })
+    // return new Promise((resolve) => {
+    //     setTimeout(() => {
+    //         resolve([
+    //             {
+    //                 "id": "001",
+    //                 "text": "北京市呼吸疾病研究所",
+    //                 "state": "open",
+    //                 "checked": false,
+    //                 "attributes": {
+    //                     "CodeId": "UM"
+    //                 },
+    //                 "children": [
+    //                     {
+    //                         "id": "001001",
+    //                         "text": "医学研究中心",
+    //                         "state": "open",
+    //                         "checked": false,
+    //                         "attributes": {
+    //                             "CodeId": "UM"
+    //                         },
+    //                         "children": null,
+    //                         "open": false,
+    //                         "iconCls": null,
+    //                         "pid": null
+    //                     },
+    //                     {
+    //                         "id": "001002",
+    //                         "text": "呼吸与危重症医学科",
+    //                         "state": "open",
+    //                         "checked": false,
+    //                         "attributes": {
+    //                             "CodeId": "UM"
+    //                         },
+    //                         "children": null,
+    //                         "open": false,
+    //                         "iconCls": null,
+    //                         "pid": null
+    //                     },
+    //                     {
+    //                         "id": "001003",
+    //                         "text": "感染科",
+    //                         "state": "open",
+    //                         "checked": false,
+    //                         "attributes": {
+    //                             "CodeId": "UM"
+    //                         },
+    //                         "children": null,
+    //                         "open": false,
+    //                         "iconCls": null,
+    //                         "pid": null
+    //                     },
+    //                     {
+    //                         "id": "001007",
+    //                         "text": "测试科",
+    //                         "state": "open",
+    //                         "checked": false,
+    //                         "attributes": {
+    //                             "CodeId": "UM"
+    //                         },
+    //                         "children": null,
+    //                         "open": false,
+    //                         "iconCls": null,
+    //                         "pid": null
+    //                     },
+    //                     {
+    //                         "id": "001008",
+    //                         "text": "科研处",
+    //                         "state": "open",
+    //                         "checked": false,
+    //                         "attributes": {
+    //                             "CodeId": "UM"
+    //                         },
+    //                         "children": null,
+    //                         "open": false,
+    //                         "iconCls": null,
+    //                         "pid": null
+    //                     }
+    //                 ],
+    //                 "open": false,
+    //                 "iconCls": null,
+    //                 "pid": null
+    //             }
+    //         ])
+    //     }, 1200);
+    // });
 }
 
 export default {
@@ -117,7 +222,8 @@ export default {
                 down: requestDown,
             },
             remoteService: {
-                call: requestRemote
+                search: requestSearch,
+                enums: requestEnums
             },
             rules: {
                 region: [

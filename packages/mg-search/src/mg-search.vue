@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-09-29 14:52:34
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 17:10:35
+ * @LastEditTime: 2022-09-30 14:06:45
  * @Description: 
 -->
 <template>
@@ -109,7 +109,10 @@ export default {
             const { api, lib } = database;
             return {
                 address: isNil(api) ? "" : api,
-                lib:isNil(lib) ? {} : lib
+                lib: isNil(lib) ? {} : lib,
+                field: vm.field,
+                valueKey: vm.valueKey,
+                labelKey: vm.labelKey
             };
         },
     },
@@ -134,9 +137,8 @@ export default {
         },
         async remoteMethod(query) {
             this.searchLoading = true;
-            const extend = { query, field: this.field, valueKey:this.valueKey,labelKey:this.labelKey}
-            const config = Object.assign({}, this.config, extend);
-            const data = await this.form.remote.call(config);
+            const config = Object.assign({}, this.config, { query });
+            const data = await this.form.remote.search(config);
             this.searchList = this.setupSearchList(data);
             this.searchLoading = false;
         },

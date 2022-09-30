@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 15:14:47
+ * @LastEditTime: 2022-09-30 13:26:49
  * @Description: mg-form.vue component
 -->
 <template>
@@ -331,12 +331,11 @@ export default {
             return fileList;
         },
         monitorValue(params) {
+            const clearValidateGather = ["cascader","select","radio"];
             const { field, value, defValue, handle } = params;
             this.$emit("monitor-value", params);
 
-            if (handle === "select" || handle === "radio") {
-                this.clearValidateField(field);
-            }
+            if (clearValidateGather.includes(handle)) this.clearValidateField(field);
 
             const tag = this.getTag(field);
             if (!tag) {

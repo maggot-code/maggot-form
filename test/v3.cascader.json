@@ -1,0 +1,33 @@
+[
+    {
+        "dataSchema": {
+            "enums": [],
+            "childrenKey": "children",
+            "lib": {
+                "codeid": "UM",
+                "parentid": "0"
+            },
+            "step": "3",
+            "valueField": "id",
+            "textField": "text",
+            "attachField": "state",
+            "isAttach": true,
+            "api": "/api/v1/getlist11"
+        },
+        "field": "company",
+        "uiSchema": {
+            "col": 24,
+            "label": "承担单位",
+            "clearable": true
+        },
+        "ruleSchema": [
+            {
+                "message": "承担单位为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": "001002"
+    }
+]

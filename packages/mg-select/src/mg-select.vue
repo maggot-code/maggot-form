@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 17:00:42
+ * @LastEditTime: 2022-09-30 14:33:01
  * @Description: mg-select.vue component
 -->
 <template>
@@ -39,7 +39,9 @@ export default {
         }
         const selectValueWatch = {
             variable: "selectValue",
-            func(newVal) {
+            func(newVal, oldVal) {
+                if (newVal.toString() === oldVal.toString()) return;
+                
                 this.monitorValue({
                     mold: this.mold,
                     field: this.field,
@@ -50,6 +52,7 @@ export default {
         }
         return {
             selectValue: "",
+            selectList:[],
             watchHandle: Object.freeze([valueWatch, selectValueWatch]),
         };
     },
@@ -86,10 +89,22 @@ export default {
             const { isAttach } = database;
             return isBoolean(isAttach) ? isAttach : false;
         },
-        selectList: (vm) => {
-            const { enums } = vm.database;
-            return vm.setupSelectList(enums);
+        useApi: (vm) => {
+            const { database } = vm;
+            const { api } = database;
+            return isString(api);
         },
+        config: (vm) => {
+            const { database } = vm;
+            const { api, lib } = database;
+            return {
+                address: isNil(api) ? "" : api,
+                lib: isNil(lib) ? {} : lib,
+                field: vm.field,
+                valueKey: vm.valueKey,
+                labelKey: vm.labelKey
+            }
+        }
     },
     //监控data中的数据变化
     watch: {},
@@ -127,7 +142,14 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {
+    async created() {
+        if (this.useApi) {
+            const data = await this.form.remote.enums(this.config);
+            this.selectList = this.setupSelectList(data);
+        } else {
+            this.selectList = this.setupSelectList(this.database.enums);
+        }
+
         this.initValue("selectValue", this.value).then((val) => {
             this.$emit("update:value", val);
             this.mountWatch(this.watchHandle);
