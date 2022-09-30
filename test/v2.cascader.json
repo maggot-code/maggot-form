@@ -1,0 +1,111 @@
+[
+    {
+        "dataSchema": {
+            "enums": [
+                {
+                    "id": "001",
+                    "text": "北京市呼吸疾病研究所",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": [
+                        {
+                            "id": "001001",
+                            "text": "医学研究中心",
+                            "state": "open",
+                            "checked": false,
+                            "attributes": {
+                                "CodeId": "UM"
+                            },
+                            "children": null,
+                            "open": false,
+                            "iconCls": null,
+                            "pid": null
+                        },
+                        {
+                            "id": "001002",
+                            "text": "呼吸与危重症医学科",
+                            "state": "open",
+                            "checked": false,
+                            "attributes": {
+                                "CodeId": "UM"
+                            },
+                            "children": null,
+                            "open": false,
+                            "iconCls": null,
+                            "pid": null
+                        },
+                        {
+                            "id": "001003",
+                            "text": "感染科",
+                            "state": "open",
+                            "checked": false,
+                            "attributes": {
+                                "CodeId": "UM"
+                            },
+                            "children": null,
+                            "open": false,
+                            "iconCls": null,
+                            "pid": null
+                        },
+                        {
+                            "id": "001007",
+                            "text": "测试科",
+                            "state": "open",
+                            "checked": false,
+                            "attributes": {
+                                "CodeId": "UM"
+                            },
+                            "children": null,
+                            "open": false,
+                            "iconCls": null,
+                            "pid": null
+                        },
+                        {
+                            "id": "001008",
+                            "text": "科研处",
+                            "state": "open",
+                            "checked": false,
+                            "attributes": {
+                                "CodeId": "UM"
+                            },
+                            "children": null,
+                            "open": false,
+                            "iconCls": null,
+                            "pid": null
+                        }
+                    ],
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
+                }
+            ],
+            "childrenKey": "children",
+            "lib": {
+                "codeid": "UM",
+                "parentid": "0"
+            },
+            "step": "3",
+            "valueField": "id",
+            "textField": "text"
+        },
+        "field": "company",
+        "uiSchema": {
+            "col": 12,
+            "clearable": true,
+            "label": "承担单位",
+            "checkStrictly": true
+        },
+        "ruleSchema": [
+            {
+                "message": "承担单位为必填，请填写。",
+                "required": true
+            }
+        ],
+        "mold": "default",
+        "componentName": "mg-cascader",
+        "value": "001003"
+    }
+]

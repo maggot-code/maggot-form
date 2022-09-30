@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 17:12:48
+ * @LastEditTime: 2022-09-30 09:20:56
  * @Description: file content
 -->
 <template>
@@ -46,7 +46,8 @@ import axios from "axios";
 
 // import TestJsonschema from "../test/test.v2.json";
 // import TestJsonschema from "../test/v2.upload";
-import TestJsonschema from "../test/v2.search";
+// import TestJsonschema from "../test/v2.search";
+import TestJsonschema from "../test/v2.cascader";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
