@@ -2,32 +2,88 @@
     {
         "componentName": "mg-select",
         "dataSchema": {
-            "api": "/SystemManage/SM_CodeItem/GetCode.do?codeid=FQ",
             "enums": [
                 {
-                    "code": "2000",
-                    "description": "2000",
-                    "pptr": "FQ"
+                    "id": "001001",
+                    "text": "医学研究中心",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": null,
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
                 },
                 {
-                    "code": "2001",
-                    "description": "2001",
-                    "pptr": "FQ"
+                    "id": "001002",
+                    "text": "呼吸与危重症医学科",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": null,
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
+                },
+                {
+                    "id": "001003",
+                    "text": "感染科",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": null,
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
+                },
+                {
+                    "id": "001007",
+                    "text": "测试科",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": null,
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
+                },
+                {
+                    "id": "001008",
+                    "text": "科研处",
+                    "state": "open",
+                    "checked": false,
+                    "attributes": {
+                        "CodeId": "UM"
+                    },
+                    "children": null,
+                    "open": false,
+                    "iconCls": null,
+                    "pid": null
                 }
             ],
             "lib": {
                 "codeid": "FQ"
             },
-            "textField": "description",
-            "valueField": "code"
+            "valueField": "id",
+            "textField": "text",
+            "attachField": "state",
+            "isAttach": true
         },
-        "field": "searchkeytimeyear",
+        "field": "company",
         "mold": "default",
         "uiSchema": {
-            "multiple": false,
+            "multiple": true,
             "placeholder": "年度查询"
         },
         "ruleSchema": [],
-        "value": "2001"
+        "value": ["001008"]
     }
 ]

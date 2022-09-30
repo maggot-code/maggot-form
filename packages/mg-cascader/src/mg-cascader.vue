@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-30 14:31:11
+ * @LastEditTime: 2022-09-30 14:47:02
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -88,10 +88,19 @@ export default {
         },
         // 外部value变更，映射给内部cascaderValue，字符串转数组
         formatValue() {
+            if (this.options.props.multiple) {
+                console.log(this.value);
+                return this.value.map(item => serializeValue(item, this.valueStep));
+            }
+
             return serializeValue(this.value, this.valueStep);
         },
         // 内部cascaderValue变更，映射给外部value，数组转字符串
         formatCascaderValue() {
+            if (this.options.props.multiple) {
+                return this.cascaderValue.map(item => desSerializeValue(item, this.defValue));
+            }
+
             return desSerializeValue(this.cascaderValue, this.defValue);
         },
         options: (vm) => {
@@ -110,7 +119,7 @@ export default {
             const props = {
                 expandTrigger: vm.setDefault(expandTrigger,"hover"),
                 multiple: vm.setDefault(multiple, false),
-                checkStrictly: vm.setDefault(checkStrictly, true),
+                checkStrictly: vm.setDefault(checkStrictly, false),
                 value: vm.valueKey,
                 label: vm.labelKey,
                 children: vm.childrenKey,
