@@ -380,6 +380,27 @@
 
 ### mg-cascade
 
+> `value 和 defValue`的类型可以是`String 或者 Array<String>`，默认值都是`""`
+>
+> 在`uiSchema.multiple = true`的情况下`value 和 defValue`的类型都是`Array<String>`
+>
+> 在`uiSchema.multiple = false`的情况下`value 和 defValue`的类型都是`String`
+>
+> **如果类型不对的话，下拉列表和下拉框中的数据是没法儿对应起来的**
+
+#### `uiSchema`
+
+| 属性            | 说明                                                         | 类型            | 默认值  |
+| --------------- | ------------------------------------------------------------ | --------------- | ------- |
+| `disabled`      | 是否被禁用                                                   | `Boolean`       | `false` |
+| `clearable`     | 是否可以被清空                                               | `Boolean`       | `true`  |
+| `showAllLevels` | 输入框中是否显示选中值的完整路径                             | `Boolean`       | `true`  |
+| `collapseTags`  | 多选模式下是否折叠`Tag`                                      | `Boolean`       | `false` |
+| `separator`     | 选项分隔符                                                   | `String`        | `/`     |
+| `expandTrigger` | 菜单展开的触发方式                                           | `click / hover` | `hover` |
+| `multiple`      | 是否允许多选                                                 | `Boolean`       | `false` |
+| `checkStrictly` | 父亲节点是否需要关联（即无法随意选择任意一级，只能通过父节点找到最后一级子节点选中） | `Boolean`       | `true`  |
+
 ---
 
 ### mg-search

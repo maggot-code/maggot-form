@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-30 14:47:02
+ * @LastEditTime: 2022-09-30 14:57:45
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -110,6 +110,7 @@ export default {
                 placeholder,
                 expandTrigger,
                 multiple,
+                clearable,
                 checkStrictly
             } = ui;
 
@@ -130,7 +131,8 @@ export default {
             const vbind = {
                 props,
                 placeholder: basePlaceholder,
-                filterable:false,
+                filterable: false,
+                clearable: vm.setDefault(clearable,true),
                 "popper-append-to-body": true,
                 "default-first-option": true,
             }
