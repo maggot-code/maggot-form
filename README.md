@@ -94,6 +94,7 @@
 * `上传 -> mg-upload` [说明](###mg-upload)
 * `级联 -> mg-cascade` [说明](###mg-cascade)
 * `搜索 -> mg-search` [说明](###mg-search)
+* `开关 -> mg-switch`[说明](###mg-switch)
 
 -----
 
@@ -423,4 +424,28 @@
 | `multipleLimit` | 多选时用户最多可选择数量，`0`表示不做限制 | `Number`  | `0`     |
 
 ---
+
+### mg-switch
+
+#### `uiSchema`
+
+| 属性            | 说明                 | 类型      | 默认值    |
+| --------------- | -------------------- | --------- | --------- |
+| `disabled`      | 是否禁用             | `Boolean` | `false`   |
+| `width`         | 开关的宽度（像素）   | `Number`  | `40`      |
+| `activeText`    | 开关打开时的文字描述 | `String`  | `''`      |
+| `inactiveText`  | 开关关闭时的文字描述 | `String`  | `''`      |
+| `activeColor`   | 开关打开时的背景色   | `String`  | `#409EFF` |
+| `inactiveColor` | 开关关闭时的背景色   | `String`  | `#C0CCDA` |
+
+
+#### `dataSchema`
+
+> 如果类型和数值无法匹配或校验不通过的话则对应数值会使用该类型的默认值
+
+| 属性            | 说明         | 类型                                | 默认值                   |
+| --------------- | ------------ | ----------------------------------- | ------------------------ |
+| `valueType`     | 描述值的类型 | `String<Boolean / String / Number>` | `'Boolean'`              |
+| `activeValue`   | 选中状态的值 | `Boolean / String / Number`         | `true / 'usable' / 1`    |
+| `inactiveValue` | 未选中的值   | `Boolean / String / Number`         | `false / 'unusable' / 0` |
 
