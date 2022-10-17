@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-27 15:50:21
+ * @LastEditTime: 2022-10-17 17:09:55
  * @Description: file content
  */
 import Vue from 'vue';
@@ -26,6 +26,7 @@ import {
     Option,
     OptionGroup,
     DatePicker,
+    Switch,
     Select,
     Cascader,
     Upload,
@@ -38,8 +39,8 @@ import {
     // Navigation 导航
     // Others 其他
     Divider,
-    Tooltip
-} from 'element-ui';
+    Tooltip,
+} from "element-ui";
 
 // Basic 基本
 Vue.use(Row);
@@ -60,6 +61,7 @@ Vue.use(InputNumber);
 Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(DatePicker);
+Vue.use(Switch);
 Vue.use(Select);
 Vue.use(Cascader);
 Vue.use(Upload);

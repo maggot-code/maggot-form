@@ -1,0 +1,13 @@
+[
+    {
+        "componentName":"mg-switch",
+        "field":"usedisabled",
+        "mold":"default",
+        "dataSchema":{},
+        "uiSchema":{
+            "label":"是否禁用",
+            "activeColor":"#409EFF",
+            "inactiveColor":"#C0CCDA"
+        }
+    }
+]
