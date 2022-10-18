@@ -18,7 +18,7 @@
         "leaderTag": {},
         "workerTag": [],
         "dataSchema": {
-            "lib": {}
+            "lib": {"a":1}
         },
         "uiSchema": {
             "col": 24,

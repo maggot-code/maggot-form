@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-10-18 09:21:39
+ * @LastEditTime: 2022-10-18 13:18:23
  * @Description: file content
 -->
 <template>
@@ -45,13 +45,13 @@ import axios from "axios";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
 // import TestJsonschema from "../test/test.v2.json";
-// import TestJsonschema from "../test/v2.upload.json";
+import TestJsonschema from "../test/v2.upload.json";
 // import TestJsonschema from "../test/v2.search.json";
 // import TestJsonschema from "../test/v2.cascader.json";
 // import TestJsonschema from "../test/v3.cascader.json";
 // import TestJsonschema from "../test/v2.select.json";
 // import TestJsonschema from "../test/v1.switch.json";
-import TestJsonschema from "../test/v1.slider.json";
+// import TestJsonschema from "../test/v1.slider.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
@@ -60,6 +60,7 @@ const requestAxios = axios.create({
     }
 });
 function requestCall(request) {
+    console.log(request);
     const {file} = request;
     const service = "/SWZDH/Common/UpFile";
     const body = new FormData();

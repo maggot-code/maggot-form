@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-08 10:04:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-29 14:09:08
+ * @LastEditTime: 2022-10-18 13:20:59
  * @Description: mg-upload.vue component
 -->
 <template>
@@ -286,6 +286,7 @@ export default {
         
         // 覆盖默认的上传行为，可以自定义上传的实现	function
         httpRequest(request) {
+            request.data = this.database?.lib ?? {};
             const { uid, tocall, tocancel } = this.form.upload.call(request);
             
             this.cache.setup(uid, { tocancel });
