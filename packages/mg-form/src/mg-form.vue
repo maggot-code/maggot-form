@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-30 13:26:49
+ * @LastEditTime: 2022-10-18 10:05:42
  * @Description: mg-form.vue component
 -->
 <template>
@@ -64,6 +64,16 @@ import { mergeSchema } from "../utils";
 import { cloneDeep, isNil, isString, isArray } from "lodash";
 import { flake } from "maggot-utils";
 
+const formSchemaDefault = {
+    inline: false,
+    disabled: false,
+    showMessage: true,
+    labelWidth: "120px",
+    labelPosition: "right",
+    gutter: 12,
+};
+const clearValidateGather = ["cascader", "select", "radio", "switch", "slider"];
+const notVerification = ["mg-upload", "mg-switch", "mg-slider"];
 const unusableTipsComponent = ["mg-upload"];
 function useUploadCache(cache) {
     function run(target) {
@@ -173,14 +183,6 @@ export default {
             // medium | small | mini
             // formSize: "medium",
             // [inline, disabled, labelWidth,labelPosition,gutter ]
-            formSchema: {
-                inline: false,
-                disabled: false,
-                showMessage: true,
-                labelWidth: "120px",
-                labelPosition: "right",
-                gutter: 12,
-            },
             formDefCellSchema: {},
             formCellSchema: {},
             formDefData: {},
@@ -210,7 +212,7 @@ export default {
         // 表单属性选项
         options: (vm) => {
             const { formSchema } = vm.schema;
-            const vbind = mergeSchema(vm.formSchema, formSchema);
+            const vbind = mergeSchema(formSchemaDefault, formSchema);
 
             return vbind;
         },
@@ -331,16 +333,13 @@ export default {
             return fileList;
         },
         monitorValue(params) {
-            const clearValidateGather = ["cascader","select","radio"];
             const { field, value, defValue, handle } = params;
             this.$emit("monitor-value", params);
 
             if (clearValidateGather.includes(handle)) this.clearValidateField(field);
 
             const tag = this.getTag(field);
-            if (!tag) {
-                return false;
-            }
+            if (!tag) return;
 
             const { leaderTag, lib } = tag;
             this.leaderRun(field, leaderTag, lib, value, defValue, params);
@@ -383,9 +382,7 @@ export default {
             return { struct, data, rules, tag };
         },
         setRuleItem(componentName, ruleSchema) {
-            if (isNil(ruleSchema)) {
-                return {};
-            }
+            if (isNil(ruleSchema)) return [];
 
             return ruleSchema.map((item) => {
                 const { required, trigger } = item;
@@ -393,26 +390,13 @@ export default {
                     ? FormCellRules[componentName]
                     : trigger;
 
-                if (componentName === "mg-upload") {
-                    return Object.assign({}, item, {
-                        required: !isNil(required),
-                    });
-                }
+                if (notVerification.includes(componentName)) return Object.assign({}, item, {
+                    required: !isNil(required),
+                });
 
                 return Object.assign({}, item, {
                     trigger: baseTrigger,
                 });
-            });
-        },
-        removeUploadRule(componentName, ruleSchema) {
-            if (componentName !== "mg-upload") {
-                return ruleSchema;
-            }
-
-            return ruleSchema.filter((item) => {
-                const { required } = item;
-
-                return !isNil(required);
             });
         },
         /**

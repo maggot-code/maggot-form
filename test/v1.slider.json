@@ -1,0 +1,28 @@
+[
+    {
+        "componentName": "mg-slider",
+        "field": "col",
+        "mold": "default",
+        "dataSchema": {
+            "marks":{}
+        },
+        "uiSchema": {
+            "label": "栅格布局",
+            "min":0,
+            "max":100,
+            "disabled":false,
+            "step":1,
+            "showInput":true,
+            "showInputControls":true,
+            "showStops":false,
+            "showTooltip":true
+        },
+        "ruleSchema":[
+            {
+                "required":true,
+                "message":"错误"
+            }
+        ],
+        "value":100
+    }
+]

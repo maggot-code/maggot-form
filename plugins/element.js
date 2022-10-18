@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-10-17 17:09:55
+ * @LastEditTime: 2022-10-18 09:22:28
  * @Description: file content
  */
 import Vue from 'vue';
@@ -28,6 +28,7 @@ import {
     DatePicker,
     Switch,
     Select,
+    Slider,
     Cascader,
     Upload,
     Form,
@@ -63,6 +64,7 @@ Vue.use(OptionGroup);
 Vue.use(DatePicker);
 Vue.use(Switch);
 Vue.use(Select);
+Vue.use(Slider);
 Vue.use(Cascader);
 Vue.use(Upload);
 Vue.use(Form);

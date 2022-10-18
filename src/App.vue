@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-10-17 17:08:50
+ * @LastEditTime: 2022-10-18 09:21:39
  * @Description: file content
 -->
 <template>
@@ -50,7 +50,8 @@ import axios from "axios";
 // import TestJsonschema from "../test/v2.cascader.json";
 // import TestJsonschema from "../test/v3.cascader.json";
 // import TestJsonschema from "../test/v2.select.json";
-import TestJsonschema from "../test/v1.switch.json";
+// import TestJsonschema from "../test/v1.switch.json";
+import TestJsonschema from "../test/v1.slider.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
