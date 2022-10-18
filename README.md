@@ -95,6 +95,7 @@
 * `级联 -> mg-cascade` [说明](###mg-cascade)
 * `搜索 -> mg-search` [说明](###mg-search)
 * `开关 -> mg-switch`[说明](###mg-switch)
+* `滑块 -> mg-slider`[说明](###mg-slider)
 
 -----
 
@@ -449,3 +450,19 @@
 | `activeValue`   | 选中状态的值 | `Boolean / String / Number`         | `true / 'usable' / 1`    |
 | `inactiveValue` | 未选中的值   | `Boolean / String / Number`         | `false / 'unusable' / 0` |
 
+---
+
+### mg-slider
+
+#### `uiSchema`
+
+| 属性                | 说明               | 类型      | 默认值  |
+| ------------------- | ------------------ | --------- | ------- |
+| `min`               | 最小值             | `Number`  | `0`     |
+| `max`               | 最大值             | `Number`  | `100`   |
+| `disabled`          | 是否禁用           | `Boolean` | `false` |
+| `step`              | 步长               | `Number`  | `1`     |
+| `showInput`         | 是否显示输入框     | `Boolean` | `false` |
+| `showInputControls` | 是否显示输入框控件 | `Boolean` | `true`  |
+| `showStops`         | 是否显示间隔断点   | `Boolean` | `false` |
+| `showTooltip`       | 是否显示提示       | `Boolean` | `true`  |
