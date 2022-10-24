@@ -380,7 +380,7 @@
 | `speed`      | 是否显示上传文件进度百分比（单位：%）                      | `Boolean`       | `true`  |
 ---
 
-### mg-cascade
+### mg-cascader
 
 > `value 和 defValue`的类型可以是`String 或者 Array<String>`，默认值都是`""`
 >
