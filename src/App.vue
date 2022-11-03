@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-10-20 17:59:04
+ * @LastEditTime: 2022-11-03 17:41:43
  * @Description: file content
 -->
 <template>
@@ -48,8 +48,9 @@ import axios from "axios";
 // import TestJsonschema from "../test/v2.upload.json";
 // import TestJsonschema from "../test/v2.search.json";
 // import TestJsonschema from "../test/v2.cascader.json";
-import TestJsonschema from "../test/v3.cascader.json";
+// import TestJsonschema from "../test/v3.cascader.json";
 // import TestJsonschema from "../test/v2.select.json";
+import TestJsonschema from "../test/v3.select.json";
 // import TestJsonschema from "../test/v1.switch.json";
 // import TestJsonschema from "../test/v1.slider.json";
 
@@ -193,6 +194,40 @@ async function requestEnums(config) {
     });
 }
 
+function setupUser(item) {
+    const { value } = item;
+    const data = {
+        11: [
+            {
+                "id": 111,
+                "text": "张总要舒服的",
+                "state": "开启"
+            },
+            {
+                "id": 112,
+                "text": "傻大姐",
+                "state": "开启"
+            }
+        ],
+        22: [
+            {
+                "id": 221,
+                "text": "爱斯达克",
+                "state": "开启"
+            },
+            {
+                "id": 222,
+                "text": "家里可i",
+                "state": "开启"
+            }
+        ]
+    };
+
+    return new Promise((resolve) => {
+        resolve(data[value]);
+    });
+}
+
 export default {
     name: "App",
     mixins: [],
@@ -228,7 +263,9 @@ export default {
                 },
                 cellSchema: [],
             },
-            jobFunction: {},
+            jobFunction: {
+                request:setupUser
+            },
 
             formRefName: "apply",
             formButtonGroup: {

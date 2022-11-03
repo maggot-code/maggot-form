@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-30 14:33:01
+ * @LastEditTime: 2022-11-03 17:10:12
  * @Description: mg-select.vue component
 -->
 <template>
@@ -50,14 +50,24 @@ export default {
                 });
             },
         }
+        const enumsWatch = {
+            variable: "enums",
+            func(newVal) {
+                this.$set(this, "selectList", this.setupSelectList(newVal));
+            },
+        }
         return {
             selectValue: "",
             selectList:[],
-            watchHandle: Object.freeze([valueWatch, selectValueWatch]),
+            watchHandle: Object.freeze([valueWatch, selectValueWatch, enumsWatch]),
         };
     },
     //监听属性 类似于data概念
     computed: {
+        enums: (vm) => {
+            const { database} = vm;
+            return database.enums;
+        },
         options: (vm) => {
             const { ui } = vm;
             const { label, placeholder, clearable } = ui;

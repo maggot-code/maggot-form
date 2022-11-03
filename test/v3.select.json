@@ -1,0 +1,59 @@
+[
+    {
+        "componentName": "mg-select",
+        "dataSchema": {
+            "enums": [
+                {
+                    "id":11,
+                    "text":"十一",
+                    "state":"开启"
+                },
+                {
+                    "id": 22,
+                    "text": "二十二",
+                    "state": "关闭"
+                }
+            ],
+            "lib": {
+                "codeid": "FQ"
+            },
+            "valueField": "id",
+            "textField": "text",
+            "attachField": "state",
+            "isAttach": true
+        },
+        "field": "company",
+        "mold": "default",
+        "uiSchema": {
+            "placeholder": "阀门开发"
+        },
+        "ruleSchema": [],
+        "value": "",
+        "leaderTag": {
+            "request.setUser":{
+                "controller":"dataSchema.enums"
+            }
+        }
+    },
+    {
+        "componentName": "mg-select",
+        "dataSchema": {
+            "enums": [],
+            "lib": {
+                "codeid": "FQ"
+            },
+            "valueField": "id",
+            "textField": "text",
+            "attachField": "state",
+            "isAttach": true
+        },
+        "field": "user",
+        "mold": "default",
+        "uiSchema": {
+            "placeholder": "管理人"
+        },
+        "workerTag": ["request.setUser"],
+        "ruleSchema": [],
+        "value": ""
+    }
+]
