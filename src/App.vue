@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-03 17:41:43
+ * @LastEditTime: 2022-11-04 16:15:46
  * @Description: file content
 -->
 <template>
@@ -25,6 +25,8 @@
 
 <script>
 import axios from "axios";
+import CascaderData from "../test/cascader.data.json";
+
 // import TestFormWorker from "../test/test-form-worker";
 // import TestJsonschema from "../test/test-select";
 // import TestJsonschema from "../test/test-select-copy";
@@ -48,9 +50,9 @@ import axios from "axios";
 // import TestJsonschema from "../test/v2.upload.json";
 // import TestJsonschema from "../test/v2.search.json";
 // import TestJsonschema from "../test/v2.cascader.json";
-// import TestJsonschema from "../test/v3.cascader.json";
+import TestJsonschema from "../test/v3.cascader.json";
 // import TestJsonschema from "../test/v2.select.json";
-import TestJsonschema from "../test/v3.select.json";
+// import TestJsonschema from "../test/v3.select.json";
 // import TestJsonschema from "../test/v1.switch.json";
 // import TestJsonschema from "../test/v1.slider.json";
 
@@ -109,87 +111,7 @@ async function requestSearch(config) {
 async function requestEnums(config) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve([
-                {
-                    "id": "001",
-                    "text": "北京市呼吸疾病研究所",
-                    "state": "open",
-                    "checked": false,
-                    "attributes": {
-                        "CodeId": "UM"
-                    },
-                    "children": [
-                        {
-                            "id": "001001",
-                            "text": "医学研究中心",
-                            "state": "open",
-                            "checked": false,
-                            "attributes": {
-                                "CodeId": "UM"
-                            },
-                            "children": null,
-                            "open": false,
-                            "iconCls": null,
-                            "pid": null
-                        },
-                        {
-                            "id": "001002",
-                            "text": "呼吸与危重症医学科",
-                            "state": "open",
-                            "checked": false,
-                            "attributes": {
-                                "CodeId": "UM"
-                            },
-                            "children": null,
-                            "open": false,
-                            "iconCls": null,
-                            "pid": null
-                        },
-                        {
-                            "id": "001003",
-                            "text": "感染科",
-                            "state": "open",
-                            "checked": false,
-                            "attributes": {
-                                "CodeId": "UM"
-                            },
-                            "children": null,
-                            "open": false,
-                            "iconCls": null,
-                            "pid": null
-                        },
-                        {
-                            "id": "001007",
-                            "text": "测试科",
-                            "state": "open",
-                            "checked": false,
-                            "attributes": {
-                                "CodeId": "UM"
-                            },
-                            "children": null,
-                            "open": false,
-                            "iconCls": null,
-                            "pid": null
-                        },
-                        {
-                            "id": "001008",
-                            "text": "科研处",
-                            "state": "open",
-                            "checked": false,
-                            "attributes": {
-                                "CodeId": "UM"
-                            },
-                            "children": null,
-                            "open": false,
-                            "iconCls": null,
-                            "pid": null
-                        }
-                    ],
-                    "open": false,
-                    "iconCls": null,
-                    "pid": null
-                }
-            ])
+            resolve(CascaderData)
         }, 1200);
     });
 }

@@ -1,0 +1,432 @@
+[
+    {
+        "id": "001",
+        "text": "XXXXXXXXX公司",
+        "state": "open",
+        "checked": false,
+        "attributes": {
+            "CodeId": "UM"
+        },
+        "children": [
+            {
+                "id": "001001",
+                "text": "办公室(党委办公室/董事会办公室)",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001002",
+                "text": "战略规划与经营管理部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001003",
+                "text": "项目管理部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001004",
+                "text": "科技质量与信息化部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001005",
+                "text": "人力资源部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001006",
+                "text": "财务部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001007",
+                "text": "产业开发与国际合作部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001008",
+                "text": "党群工作部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001009",
+                "text": "检监督(巡察办公室)",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001010",
+                "text": "保密部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001011",
+                "text": "审计/法务部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001012",
+                "text": "核燃料部(物流部)",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001013",
+                "text": "专项部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001015",
+                "text": "进口部",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001050",
+                "text": "采购中心",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001022",
+                "text": "******工程研究院",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001020",
+                "text": "******究设计院有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001036",
+                "text": "******业有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001027",
+                "text": "******浓缩有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001059",
+                "text": "******浓缩有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001024",
+                "text": "******燃料元件有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001033",
+                "text": "******燃料元件有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001025",
+                "text": "******械有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001026",
+                "text": "******材料科技有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001028",
+                "text": "******州有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001030",
+                "text": "******服务局",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001031",
+                "text": "******服务局",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001021",
+                "text": "******业有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001055",
+                "text": "******工业有限公司华东客户服务中心",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001044",
+                "text": "******工业广州有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001060",
+                "text": "******业股份有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            },
+            {
+                "id": "001061",
+                "text": "******）资源有限公司",
+                "state": "open",
+                "checked": false,
+                "attributes": {
+                    "CodeId": "UM"
+                },
+                "children": null,
+                "open": false,
+                "iconCls": null,
+                "pid": null
+            }
+        ],
+        "open": false,
+        "iconCls": null,
+        "pid": null
+    }
+]
