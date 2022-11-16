@@ -29,7 +29,7 @@
             "textField": "label"
         },
         "uiSchema": {
-            "col": 7,
+            "col": 12,
             "label": "省市区选择",
             "placeholder": "请选择省份"
         },

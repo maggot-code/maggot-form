@@ -97,7 +97,8 @@
         "uiSchema": {
             "col": 24,
             "label": "承担单位",
-            "clearable": true
+            "clearable": true,
+            "checkStrictly":false
         },
         "ruleSchema": [
             {

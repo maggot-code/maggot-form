@@ -1,13 +1,12 @@
 [
     {
         "componentName": "mg-time",
-        "mold": "datetime",
+        "mold": "month",
         "field": "dateFixed",
-        "value": "2022-04-18 13:01:45",
+        "value": "1998-04-18 13:01:45",
         "dataSchema": {},
         "uiSchema": {
-            "label": "请选择日期",
-            "format": "yyyy-MM-dd HH:mm:ss"
+            "label": "请选择日期"
         },
         "ruleSchema": [
             {

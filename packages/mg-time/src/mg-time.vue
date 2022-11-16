@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 11:29:36
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-08 20:29:22
+ * @LastEditTime: 2022-11-16 15:51:01
  * @Description: mg-time.vue component
 -->
 <template>
-    <el-date-picker class="mg-time" v-model="timeValue" v-bind="options"></el-date-picker>
+    <el-date-picker style="width: 100%;" class="mg-time" v-model="timeValue" v-bind="options"></el-date-picker>
 </template>
 
 <script>
@@ -20,7 +20,7 @@ import MgTimeMonth from "../mixins/mg-time-month";
 // import MgTimeMonthrange from "../mixins/mg-time-monthrange";
 import MgTimeYear from "../mixins/mg-time-year";
 
-import { isEqual, isNil, isString, isArray, cloneDeep } from "lodash";
+import { isEqual, isString, isArray } from "lodash";
 import { default as dateFormat } from 'date-fns/format';
 
 export default {
@@ -43,7 +43,7 @@ export default {
         //这里存放数据
         return {
             timeValue: "",
-            watchHandle: [
+            watchHandle: Object.freeze([
                 {
                     variable: "value",
                     func(newVal, oldVal) {
@@ -63,7 +63,7 @@ export default {
                         });
                     },
                 },
-            ],
+            ]),
             handleMoldOptions: {
                 date: this.moldDate,
                 // dates: this.moldDates,
@@ -73,7 +73,7 @@ export default {
                 month: this.moldMonth,
                 // monthrange: this.moldMonthrange,
                 year: this.moldYear,
-            },
+            }
         };
     },
     //监听属性 类似于data概念
@@ -88,7 +88,8 @@ export default {
                 align: "center",
                 editable: false,
                 clearable: true,
-                "value-format": vbind.format,
+                "format": vbind.format,
+                "value-format": "yyyy-MM-dd HH:mm:ss",
                 "range-separator": "至",
                 "validate-event": false,
             });
@@ -110,13 +111,12 @@ export default {
             return value.map((val) => this.changeDate(val));
         },
         changeDate(dateValue) {
-            const { format } = this.options;
             if (this.isDateObject(dateValue)) {
-                return dateFormat(new Date(dateValue), format);
+                return dateFormat(new Date(dateValue), "yyyy-MM-dd HH:mm:ss");
             } else {
                 const date = new Date(dateValue);
                 return this.isDateObject(date)
-                    ? dateFormat(date, format)
+                    ? dateFormat(date, "yyyy-MM-dd HH:mm:ss")
                     : "";
             }
         },

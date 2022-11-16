@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-17 13:18:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 16:08:32
+ * @LastEditTime: 2022-11-16 15:29:03
  * @Description: mg time daterange mold
  */
 import { mergeSchema } from '../../mg-form/utils';
@@ -34,7 +34,7 @@ export default {
             const vbind = mergeSchema(defaultBind, uiSchema);
 
             return vbind;
-        },
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },

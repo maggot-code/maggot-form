@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-23 16:31:51
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-04 16:18:58
+ * @LastEditTime: 2022-11-16 15:35:14
  * @Description: mg-cascader.vue
 -->
 <template>
@@ -64,11 +64,11 @@ export default {
             variable: "cascaderValue",
             func(newVal, oldVal) {
                 if (newVal.toString() === oldVal.toString()) return;
-                
                 this.monitorValue({
                     mold: this.mold,
                     field: this.field,
                     value: this.formatCascaderValue,
+                    cutValue: newVal,
                     handle: "cascader",
                 });
             },
@@ -89,7 +89,6 @@ export default {
         // 外部value变更，映射给内部cascaderValue，字符串转数组
         formatValue() {
             if (this.options.props.multiple) {
-                console.log(this.value);
                 return this.value.map(item => serializeValue(item, this.valueStep));
             }
 
