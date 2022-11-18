@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:32:19
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 15:45:23
+ * @LastEditTime: 2022-11-18 09:47:35
  * @Description: mg input float mold
  */
 import { mergeSchema } from "../../mg-form/utils";
@@ -13,7 +13,7 @@ const defaultBind = {
     "precision": 2,
     "controls-position": "right",
     "step-strictly": true,
-    "controls": true
+    "controls": false
 }
 
 export default {

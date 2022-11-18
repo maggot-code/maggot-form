@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 15:52:29
+ * @LastEditTime: 2022-11-18 09:45:24
  * @Description: file content
 -->
 <template>
@@ -37,7 +37,7 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
 // import TestJsonschema from "../test/test-time";
-// import TestJsonschema from "../test/test-input";
+import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
@@ -46,7 +46,7 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/test-ceshi-v1.json";
 // import TestJsonschema from "../test/test-ceshi-v2.json";
 
-import TestJsonschema from "../test/test.v2.json";
+// import TestJsonschema from "../test/test.v2.json";
 // import TestJsonschema from "../test/v2.upload.json";
 // import TestJsonschema from "../test/v2.search.json";
 // import TestJsonschema from "../test/v2.cascader.json";

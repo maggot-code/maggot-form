@@ -12,7 +12,7 @@ const defaultBind = {
     "step": 1,
     "controls-position": "right",
     "step-strictly": false,
-    "controls": true
+    "controls": false
 }
 
 export default {

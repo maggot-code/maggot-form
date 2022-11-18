@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:32:10
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-04 15:38:21
+ * @LastEditTime: 2022-11-18 09:47:38
  * @Description: mg input integer mold
  */
 import { mergeSchema, inputMinus } from "../../mg-form/utils";
@@ -12,7 +12,7 @@ const defaultBind = {
     "step": 1,
     "controls-position": "right",
     "step-strictly": true,
-    "controls": true
+    "controls": false
 }
 
 export default {
