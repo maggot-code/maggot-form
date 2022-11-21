@@ -1,0 +1,78 @@
+[
+    {
+        "field": "keytime",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请选择年份"
+        },
+        "mold": "year",
+        "componentName": "mg-time",
+        "value": ""
+    },
+    {
+        "field": "proname",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请输入重大项目名称"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "islead",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "是否是专项牵头单位"
+        },
+        "dataSchema": {
+            "lib": {
+                "codeid": "FD"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCodeListNew.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "field": "topicname",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请输入专题名称"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "istopiclead",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "是否是专题牵头单位"
+        },
+        "dataSchema": {
+            "lib": {
+                "codeid": "FD"
+            },
+            "api": "/SystemManage/SM_CodeItem/GetCodeListNew.do",
+            "valueField": "code",
+            "textField": "description"
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "field": "circle",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请填写研究周期(年)"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    }
+]

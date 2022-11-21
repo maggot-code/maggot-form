@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-18 09:45:24
+ * @LastEditTime: 2022-11-21 12:22:04
  * @Description: file content
 -->
 <template>
@@ -37,7 +37,7 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/am_writings";
 // import TestJsonschema from "../test/test-table-seach";
 // import TestJsonschema from "../test/test-time";
-import TestJsonschema from "../test/test-input";
+// import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/test-v1";
 // import TestJsonschema from "../test/test-autocomplete.json";
 // import TestJsonschema from "../test/test-cascader.json";
@@ -55,6 +55,7 @@ import TestJsonschema from "../test/test-input";
 // import TestJsonschema from "../test/v3.select.json";
 // import TestJsonschema from "../test/v1.switch.json";
 // import TestJsonschema from "../test/v1.slider.json";
+import TestJsonschema from "../test/v1.inline.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
@@ -181,7 +182,8 @@ export default {
 
             testSchema: {
                 formSchema: {
-                    labelWidth: "160px",
+                    inline:true,
+                    labelWidth: "auto",
                 },
                 cellSchema: [],
             },
