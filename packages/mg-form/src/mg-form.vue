@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-21 18:46:01
+ * @LastEditTime: 2022-11-21 19:22:40
  * @Description: mg-form.vue component
 -->
 <template>
@@ -13,11 +13,54 @@
             <template v-for="cell in formCellSchema">
                 <el-form-item v-if="checkIsComponents(cell.componentName)" :key="cell.field"
                     v-bind="setFormItem(cell.field, cell.uiSchema)">
-                    <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName" :token="token"
-                        :mold="cell.mold" :field="cell.field" :value.sync="formData[cell.field]"
-                        :defValue="formDefData[cell.field]" :leaderTag="cell.leaderTag" :workerTag="cell.workerTag"
-                        :database="cell.dataSchema" :ui="cell.uiSchema" :rule="cell.ruleSchema" :reset="componentReset"
-                        @monitorValue="monitorValue" @formError="formError" @uploadCellEvent="uploadCellEvent"></component>
+                    <template v-if="useTips(cell.uiSchema,cell.componentName)">
+                        <component
+                            :is="cell.componentName"
+                            :ref="refsName(cell.field)"
+                            :proName="proName"
+                            :token="token"
+                            :mold="cell.mold"
+                            :field="cell.field"
+                            :value.sync="formData[cell.field]"
+                            :defValue="formDefData[cell.field]"
+                            :leaderTag="cell.leaderTag"
+                            :workerTag="cell.workerTag"
+                            :database="cell.dataSchema"
+                            :ui="cell.uiSchema"
+                            :rule="cell.ruleSchema"
+                            :reset="componentReset"
+                            @monitorValue="monitorValue"
+                            @formError="formError"
+                            @uploadCellEvent="uploadCellEvent"
+                        ></component>
+                    </template>
+
+                    <template v-else>
+                        <el-tooltip
+                            :content="handleTips(cell.uiSchema)"
+                            placement="bottom"
+                        >
+                            <component
+                                :is="cell.componentName"
+                                :ref="refsName(cell.field)"
+                                :proName="proName"
+                                :token="token"
+                                :mold="cell.mold"
+                                :field="cell.field"
+                                :value.sync="formData[cell.field]"
+                                :defValue="formDefData[cell.field]"
+                                :leaderTag="cell.leaderTag"
+                                :workerTag="cell.workerTag"
+                                :database="cell.dataSchema"
+                                :ui="cell.uiSchema"
+                                :rule="cell.ruleSchema"
+                                :reset="componentReset"
+                                @monitorValue="monitorValue"
+                                @formError="formError"
+                                @uploadCellEvent="uploadCellEvent"
+                            ></component>
+                        </el-tooltip>
+                    </template>
                 </el-form-item>
             </template>
         </template>
