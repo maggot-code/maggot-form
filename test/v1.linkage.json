@@ -1,0 +1,77 @@
+[
+    {
+        "field": "sttype",
+        "dataSchema": {
+            "lib": {
+                "codeid": "KL",
+                "pptr": "KL",
+                "source": "/SystemManage/SM_CodeItem/GetCodeListNew.do"
+            },
+            "enums":[
+                {
+                    "code": "01",
+                    "description": "核设施退役",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "02",
+                    "description": "放射性物质运输",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "03",
+                    "description": "放射性废物处理处置",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "04",
+                    "description": "辐射防护",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "05",
+                    "description": "核设施运行维护",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "06",
+                    "description": "新兴环保",
+                    "pptr": "KL"
+                }
+            ],
+            "valueField": "code",
+            "textField": "description"
+        },
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请选择统计类型"
+        },
+        "leaderTag": {
+            "request.sttype": {
+                "controller": "dataSchema.enums"
+            }
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "field": "otherlevel",
+        "dataSchema": {
+            "enums":[],
+            "valueField": "code",
+            "textField": "description"
+        },
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请选择统计级别",
+            "tips": "请优先确定统计类型"
+        },
+        "workerTag": [
+            "request.sttype"
+        ],
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    }
+]

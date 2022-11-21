@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-10-18 10:05:42
+ * @LastEditTime: 2022-11-21 18:46:01
  * @Description: mg-form.vue component
 -->
 <template>
@@ -333,7 +333,7 @@ export default {
             return fileList;
         },
         monitorValue(params) {
-            const { field, value, defValue, handle } = params;
+            const { field, handle } = params;
             this.$emit("monitor-value", params);
 
             if (clearValidateGather.includes(handle)) this.clearValidateField(field);
@@ -341,8 +341,7 @@ export default {
             const tag = this.getTag(field);
             if (!tag) return;
 
-            const { leaderTag, lib } = tag;
-            this.leaderRun(field, leaderTag, lib, value, defValue, params);
+            this.leaderRun(Object.assign({}, params, tag));
         },
         // 拼接 refs name
         refsName(field) {

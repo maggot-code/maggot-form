@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-21 12:22:04
+ * @LastEditTime: 2022-11-21 18:59:35
  * @Description: file content
 -->
 <template>
@@ -55,7 +55,8 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/v3.select.json";
 // import TestJsonschema from "../test/v1.switch.json";
 // import TestJsonschema from "../test/v1.slider.json";
-import TestJsonschema from "../test/v1.inline.json";
+// import TestJsonschema from "../test/v1.inline.json";
+import TestJsonschema from "../test/v1.linkage.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
@@ -150,6 +151,29 @@ function setupUser(item) {
         resolve(data[value]);
     });
 }
+function request({lib}) {
+    const { source,codeid } = lib;
+    // 请求
+    console.log(`请求 ${source}?codeid=${codeid}`);
+
+    return Promise.resolve([
+        {
+            "code": "11",
+            "description": "AAA",
+            "pptr": `${codeid}`
+        },
+        {
+            "code": "12",
+            "description": "BBB",
+            "pptr": `${codeid}`
+        },
+        {
+            "code": "13",
+            "description": "CCC",
+            "pptr": `${codeid}`
+        },
+    ]);
+}
 
 export default {
     name: "App",
@@ -188,7 +212,8 @@ export default {
                 cellSchema: [],
             },
             jobFunction: {
-                request:setupUser
+                // request:setupUser
+                request: request
             },
 
             formRefName: "apply",

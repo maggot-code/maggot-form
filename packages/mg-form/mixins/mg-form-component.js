@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 13:25:06
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-26 13:57:00
+ * @LastEditTime: 2022-11-21 18:42:07
  * @Description: mg form mixins component package
  */
 export default {
@@ -71,7 +71,7 @@ export default {
             const { value } = params;
 
             this.$emit("update:value", value);
-            this.$emit('monitorValue', { ...params, defValue: this.defValue });
+            this.$emit('monitorValue', { ...params,database:this.database, defValue: this.defValue });
         },
         formThrowError(componentName, error) {
             this.$emit('formError', {

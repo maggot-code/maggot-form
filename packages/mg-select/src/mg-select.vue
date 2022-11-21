@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 16:53:45
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-03 17:10:12
+ * @LastEditTime: 2022-11-21 18:42:51
  * @Description: mg-select.vue component
 -->
 <template>
@@ -40,7 +40,7 @@ export default {
         const selectValueWatch = {
             variable: "selectValue",
             func(newVal, oldVal) {
-                if (newVal.toString() === oldVal.toString()) return;
+                if (newVal?.toString() === oldVal?.toString()) return;
                 
                 this.monitorValue({
                     mold: this.mold,

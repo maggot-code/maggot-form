@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-03-05 15:53:28
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-10 01:26:32
+ * @LastEditTime: 2022-11-21 18:56:36
  * @Description: mg form mixins tag map package
  */
-import { forIn, set, cloneDeep } from 'lodash';
+import { forIn, set, cloneDeep,isFunction } from 'lodash';
 export default {
     name: "mg-form-tag-map",
     mixins: [],
@@ -28,18 +28,31 @@ export default {
     watch: {},
     //方法集合
     methods: {
-        leaderRun(field, leader, lib, value, defValue, params) {
-            forIn(leader, (target, name) => {
+        leaderRun(props) {
+            const { leaderTag, defValue } = props;
+            
+            forIn(leaderTag, (target, name) => {
                 const { controller, workerMan } = target;
                 const handlerName = this.splitLeaderName(name);
                 const handleFunc = this.job[handlerName];
-                handleFunc && handleFunc({ ...lib, field, value, defValue, target: params }).then(res => {
-                    workerMan.forEach(worker => this.assignWorker(worker, controller, res));
-                }).catch(error => {
+
+                if (!isFunction(handleFunc)) return;
+
+                handleFunc(props).then((res) => {
+                    workerMan.forEach((worker) =>
+                        this.assignWorker(worker, controller, res)
+                    );
+                }).catch((error) => {
                     console.log(error);
-                    workerMan.forEach(worker => this.assignWorker(worker, controller, defValue));
-                })
-            })
+                    workerMan.forEach((worker) =>
+                        this.assignWorker(
+                            worker,
+                            controller,
+                            defValue
+                        )
+                    );
+                });
+            });
         },
         assignWorker(worker, path, result) {
             // set(this.formCellSchema[worker], path, result);
@@ -109,7 +122,9 @@ export default {
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
-    beforeDestroy() { }, //生命周期 - 销毁之前
+    beforeDestroy() {
+        this.formTagMap.clear();
+    }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
