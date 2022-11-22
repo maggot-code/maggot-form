@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-21 19:22:40
+ * @LastEditTime: 2022-11-22 14:33:45
  * @Description: mg-form.vue component
 -->
 <template>
@@ -335,7 +335,8 @@ export default {
         formOutput() {
             return {
                 validate: this.$refs[this.ruleForm].validate,
-                data: this.fileSubmitHandleHook(cloneDeep(this.formData)),
+                // data: this.fileSubmitHandleHook(cloneDeep(this.formData)),
+                data: cloneDeep(this.formData),
             };
         },
         clearValidateField(field) {
