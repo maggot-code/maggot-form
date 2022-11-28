@@ -59,7 +59,7 @@
         "value": ""
     },
     {
-        "field": "otherlevel",
+        "field": "sttypeother",
         "dataSchema": {
             "enums": [],
             "valueField": "code",
