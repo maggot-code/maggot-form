@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:46:46
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-22 14:33:45
+ * @LastEditTime: 2022-11-28 14:40:23
  * @Description: mg-form.vue component
 -->
 <template>
@@ -11,7 +11,7 @@
         <!-- inline form -->
         <template v-if="options.inline">
             <template v-for="cell in formCellSchema">
-                <el-form-item v-if="checkIsComponents(cell.componentName)" :key="cell.field"
+                <el-form-item v-if="checkIsComponents(cell.componentName) && checkIsHidden(cell)" :key="cell.field"
                     v-bind="setFormItem(cell.field, cell.uiSchema)">
                     <template v-if="useTips(cell.uiSchema,cell.componentName)">
                         <component
@@ -69,7 +69,7 @@
         <template v-else>
             <el-row :gutter="options.gutter">
                 <template v-for="cell in formCellSchema">
-                    <el-col v-if="checkIsComponents(cell.componentName)" :span="setColSpan(cell.uiSchema)">
+                    <el-col v-if="checkIsComponents(cell.componentName)&&checkIsHidden(cell)" :span="setColSpan(cell.uiSchema)">
                         <el-form-item :key="cell.field" v-bind="setFormItem(cell.field, cell.uiSchema)">
                             <template v-if="useTips(cell.uiSchema, cell.componentName)">
                                 <component :is="cell.componentName" :ref="refsName(cell.field)" :proName="proName" :token="token" :mold="cell.mold"
@@ -104,7 +104,7 @@
 import MgFormTagMap from "../mixins/mg-form-tag-map";
 import { FormCellComponents, FormCellRules } from "../install";
 import { mergeSchema } from "../utils";
-import { cloneDeep, isNil, isString, isArray } from "lodash";
+import { cloneDeep, isNil, isString, isArray, isBoolean } from "lodash";
 import { flake } from "maggot-utils";
 
 const formSchemaDefault = {
@@ -449,6 +449,10 @@ export default {
          */
         checkIsComponents(componentName) {
             return this.componentLists.indexOf(componentName) >= 0;
+        },
+        checkIsHidden(cell) {
+            const toHidden = cell?.uiSchema?.hidden;
+            return isBoolean(toHidden) ? toHidden : true;
         },
         /**
          * @description: 设置栅格布局的数值

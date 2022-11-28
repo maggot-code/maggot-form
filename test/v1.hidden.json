@@ -1,0 +1,90 @@
+[
+    {
+        "field": "sttype",
+        "dataSchema": {
+            "lib": {
+                "toHidden": "00"
+            },
+            "enums": [
+                {
+                    "code": "01",
+                    "description": "核设施退役",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "02",
+                    "description": "放射性物质运输",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "03",
+                    "description": "放射性废物处理处置",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "04",
+                    "description": "辐射防护",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "05",
+                    "description": "核设施运行维护",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "06",
+                    "description": "新兴环保",
+                    "pptr": "KL"
+                },
+                {
+                    "code": "00",
+                    "description": "其他",
+                    "pptr": "KL"
+                }
+            ],
+            "valueField": "code",
+            "textField": "description"
+        },
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请选择统计类型"
+        },
+        "leaderTag": {
+            "hiddenOrShow.sttype": {
+                "controller": "uiSchema.hidden"
+            }
+        },
+        "mold": "default",
+        "componentName": "mg-select",
+        "value": ""
+    },
+    {
+        "field": "otherlevel",
+        "dataSchema": {
+            "enums": [],
+            "valueField": "code",
+            "textField": "description"
+        },
+        "uiSchema": {
+            "hidden":false,
+            "clearable": true,
+            "placeholder": "请选择统计级别"
+        },
+        "workerTag": [
+            "hiddenOrShow.sttype"
+        ],
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    },
+    {
+        "field": "remark",
+        "uiSchema": {
+            "clearable": true,
+            "placeholder": "请填写备注"
+        },
+        "mold": "text",
+        "componentName": "mg-input",
+        "value": ""
+    }
+]

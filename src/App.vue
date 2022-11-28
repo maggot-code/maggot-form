@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-21 18:59:35
+ * @LastEditTime: 2022-11-28 14:42:23
  * @Description: file content
 -->
 <template>
@@ -56,7 +56,8 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/v1.switch.json";
 // import TestJsonschema from "../test/v1.slider.json";
 // import TestJsonschema from "../test/v1.inline.json";
-import TestJsonschema from "../test/v1.linkage.json";
+// import TestJsonschema from "../test/v1.linkage.json";
+import TestJsonschema from "../test/v1.hidden.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
@@ -174,6 +175,9 @@ function request({lib}) {
         },
     ]);
 }
+function hiddenOrShow({lib, value}) {
+    return Promise.resolve(lib.toHidden == value);
+}
 
 export default {
     name: "App",
@@ -206,14 +210,16 @@ export default {
 
             testSchema: {
                 formSchema: {
-                    inline:true,
-                    labelWidth: "auto",
+                    // inline:true,
+                    // labelWidth: "auto",
+                    labelWidth: "160px",
                 },
                 cellSchema: [],
             },
             jobFunction: {
                 // request:setupUser
-                request: request
+                request: request,
+                hiddenOrShow: hiddenOrShow
             },
 
             formRefName: "apply",
