@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-28 14:42:23
+ * @LastEditTime: 2022-12-06 17:57:00
  * @Description: file content
 -->
 <template>
@@ -48,7 +48,7 @@ import CascaderData from "../test/cascader.data.json";
 
 // import TestJsonschema from "../test/test.v2.json";
 // import TestJsonschema from "../test/v2.upload.json";
-// import TestJsonschema from "../test/v2.search.json";
+import TestJsonschema from "../test/v2.search.json";
 // import TestJsonschema from "../test/v2.cascader.json";
 // import TestJsonschema from "../test/v3.cascader.json";
 // import TestJsonschema from "../test/v2.select.json";
@@ -57,7 +57,7 @@ import CascaderData from "../test/cascader.data.json";
 // import TestJsonschema from "../test/v1.slider.json";
 // import TestJsonschema from "../test/v1.inline.json";
 // import TestJsonschema from "../test/v1.linkage.json";
-import TestJsonschema from "../test/v1.hidden.json";
+// import TestJsonschema from "../test/v1.hidden.json";
 
 const requestAxios = axios.create({
     baseURL: window.location.origin,
